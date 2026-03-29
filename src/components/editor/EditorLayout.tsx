@@ -3,7 +3,7 @@
 import { startTransition, useDeferredValue, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, LayoutTemplate, PenSquare, SlidersHorizontal } from "lucide-react";
+import { ArrowLeft, LayoutTemplate, PenSquare, Save, SlidersHorizontal, RotateCcw, Trash2 } from "lucide-react";
 import { BuildBar } from "@/components/editor/BuildBar";
 import { ConfigPanel } from "@/components/editor/ConfigPanel";
 import { ManualComposerPanel } from "@/components/editor/ManualComposerPanel";
@@ -150,6 +150,7 @@ export function EditorLayout({
 }) {
   const router = useRouter();
   const [draft, setDraft] = useState<EditorDraft>(() => createInitialDraft(schema));
+  const storageKey = `wedgen:draft:${meta.id}`;
   const draftRef = useRef(draft);
   const [editorMode, setEditorMode] = useState<"manual" | "structured">("manual");
   const [previewHtml, setPreviewHtml] = useState("");
@@ -161,11 +162,44 @@ export function EditorLayout({
   const [buildMode, setBuildMode] = useState<BuildMode>("optimized");
   const [buildPending, setBuildPending] = useState(false);
   const [buildMessage, setBuildMessage] = useState<string | null>(null);
+  const [saveMessage, setSaveMessage] = useState<string | null>(null);
   const deferredDraft = useDeferredValue(draft);
 
   useEffect(() => {
     draftRef.current = draft;
   }, [draft]);
+
+  useEffect(() => {
+    const raw = window.localStorage.getItem(storageKey);
+    if (!raw) {
+      return;
+    }
+
+    try {
+      const savedDraft = JSON.parse(raw) as EditorDraft;
+      setDraft((current) => ({
+        ...current,
+        ...savedDraft,
+        files: current.files,
+      }));
+      setSaveMessage("임시 저장본을 불러왔습니다.");
+    } catch {
+      window.localStorage.removeItem(storageKey);
+    }
+  }, [storageKey]);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      const serializableDraft = {
+        ...draft,
+        files: {},
+      };
+      window.localStorage.setItem(storageKey, JSON.stringify(serializableDraft));
+      setSaveMessage("브라우저에 임시 저장되었습니다.");
+    }, 700);
+
+    return () => window.clearTimeout(timer);
+  }, [draft, storageKey]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -340,6 +374,60 @@ export function EditorLayout({
               </select>
             </div>
           </label>
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                const serializableDraft = {
+                  ...draftRef.current,
+                  files: {},
+                };
+                window.localStorage.setItem(storageKey, JSON.stringify(serializableDraft));
+                setSaveMessage("임시 저장했습니다.");
+              }}
+              className="inline-flex items-center gap-2 rounded-full border border-black/5 bg-[#fff7f0] px-3 py-2 text-[12px] text-[#6b5346]"
+            >
+              <Save className="h-3.5 w-3.5" />
+              저장
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                const raw = window.localStorage.getItem(storageKey);
+                if (!raw) return;
+                try {
+                  const savedDraft = JSON.parse(raw) as EditorDraft;
+                  setDraft((current) => ({
+                    ...current,
+                    ...savedDraft,
+                    files: current.files,
+                  }));
+                  setSaveMessage("저장본을 복원했습니다.");
+                } catch {
+                  setSaveMessage("복원할 저장본이 없습니다.");
+                }
+              }}
+              className="inline-flex items-center gap-2 rounded-full border border-black/5 bg-[#fff7f0] px-3 py-2 text-[12px] text-[#6b5346]"
+            >
+              <RotateCcw className="h-3.5 w-3.5" />
+              복원
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                window.localStorage.removeItem(storageKey);
+                setDraft(createInitialDraft(schema));
+                setSaveMessage("초기 상태로 되돌렸습니다.");
+              }}
+              className="inline-flex items-center gap-2 rounded-full border border-black/5 bg-[#fff7f0] px-3 py-2 text-[12px] text-[#6b5346]"
+            >
+              <Trash2 className="h-3.5 w-3.5" />
+              초기화
+            </button>
+          </div>
+          {saveMessage ? (
+            <p className="text-[12px] leading-5 text-muted-foreground">{saveMessage}</p>
+          ) : null}
         </div>
       </div>
 
