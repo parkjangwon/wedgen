@@ -4,7 +4,7 @@ import { scanTemplates } from "@/lib/template-scanner";
 
 export default async function Home() {
   const templates = await scanTemplates(path.resolve(process.cwd(), "templates"));
-  const defaultTemplate = templates.find((template) => template.id === "elegant-classic")
+  const defaultTemplate = templates.find((template) => template.id === "blank-canvas")
     ?? templates[0];
 
   if (!defaultTemplate) {

@@ -3,7 +3,7 @@
 import { startTransition, useDeferredValue, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, LayoutTemplate, PenSquare, Save, SlidersHorizontal, RotateCcw, Trash2 } from "lucide-react";
+import { ArrowLeft, LayoutTemplate, PenSquare, SlidersHorizontal } from "lucide-react";
 import { BuildBar } from "@/components/editor/BuildBar";
 import { ConfigPanel } from "@/components/editor/ConfigPanel";
 import { ManualComposerPanel } from "@/components/editor/ManualComposerPanel";
@@ -15,6 +15,7 @@ import {
 } from "@/components/editor/preview-utils";
 import {
   appendFiles,
+  dataUrlToFile,
   fileToDataUrl,
   filesToDataUrls,
   moveItem,
@@ -83,6 +84,7 @@ const sampleValues: Record<string, unknown> = {
 function createInitialDraft(schema: TemplateSchema): EditorDraft {
   const data = {} as WedgenConfigData;
   const style = {} as WedgenConfigStyle;
+  const sampleSource = schema.id === "blank-canvas" ? {} : sampleValues;
 
   for (const [tabName, fields] of Object.entries(schema.fields)) {
     const isStyleTab = tabName === "스타일";
@@ -93,19 +95,19 @@ function createInitialDraft(schema: TemplateSchema): EditorDraft {
       }
 
       if (field.type === "select") {
-        data[fieldKey] = sampleValues[fieldKey] ?? field.options?.[0]?.value ?? "";
+        data[fieldKey] = sampleSource[fieldKey] ?? field.options?.[0]?.value ?? "";
       } else if (field.type === "select[]") {
-        data[fieldKey] = Array.isArray(sampleValues[fieldKey])
-          ? sampleValues[fieldKey]
+        data[fieldKey] = Array.isArray(sampleSource[fieldKey])
+          ? sampleSource[fieldKey]
           : [];
       } else if (field.type === "latlng") {
         data[fieldKey] =
-          (sampleValues[fieldKey] as { lat: string; lng: string } | undefined) ?? {
+          (sampleSource[fieldKey] as { lat: string; lng: string } | undefined) ?? {
             lat: "",
             lng: "",
           };
       } else {
-        data[fieldKey] = sampleValues[fieldKey] ?? "";
+        data[fieldKey] = sampleSource[fieldKey] ?? "";
       }
     }
   }
@@ -139,6 +141,29 @@ function revokeAsset(asset: string | string[] | undefined) {
   }
 }
 
+async function restoreFilesFromAssets(
+  assets: Record<string, string | string[] | undefined>,
+) {
+  const restoredEntries: Array<[string, File | File[]]> = [];
+
+  for (const [key, value] of Object.entries(assets)) {
+    if (Array.isArray(value)) {
+      const files = await Promise.all(
+        value.map((dataUrl, index) => dataUrlToFile(dataUrl, `${key}-${index + 1}`)),
+      );
+      restoredEntries.push([key, files]);
+      continue;
+    }
+
+    if (typeof value === "string" && value.startsWith("data:")) {
+      const file = await dataUrlToFile(value, key);
+      restoredEntries.push([key, file]);
+    }
+  }
+
+  return Object.fromEntries(restoredEntries) as Record<string, File | File[]>;
+}
+
 export function EditorLayout({
   meta,
   schema,
@@ -170,22 +195,26 @@ export function EditorLayout({
   }, [draft]);
 
   useEffect(() => {
-    const raw = window.localStorage.getItem(storageKey);
-    if (!raw) {
-      return;
-    }
+    void (async () => {
+      const raw = window.localStorage.getItem(storageKey);
+      if (!raw) {
+        return;
+      }
 
-    try {
-      const savedDraft = JSON.parse(raw) as EditorDraft;
-      setDraft((current) => ({
-        ...current,
-        ...savedDraft,
-        files: current.files,
-      }));
-      setSaveMessage("임시 저장본을 불러왔습니다.");
-    } catch {
-      window.localStorage.removeItem(storageKey);
-    }
+      try {
+        const savedDraft = JSON.parse(raw) as EditorDraft;
+        const restoredFiles = await restoreFilesFromAssets(savedDraft.assets ?? {});
+
+        setDraft((current) => ({
+          ...current,
+          ...savedDraft,
+          files: restoredFiles,
+        }));
+        setSaveMessage("임시 저장본을 불러왔습니다.");
+      } catch {
+        window.localStorage.removeItem(storageKey);
+      }
+    })();
   }, [storageKey]);
 
   useEffect(() => {
@@ -359,8 +388,8 @@ export function EditorLayout({
             <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/70">
               템플릿 불러오기
             </span>
-            <div className="flex items-center gap-2 rounded-[1rem] border border-black/5 bg-[#fffaf5] px-3 py-2">
-              <LayoutTemplate className="h-4 w-4 text-[#7b655b]" />
+          <div className="flex items-center gap-2 rounded-[1rem] border border-black/5 bg-[#fffaf5] px-3 py-2">
+            <LayoutTemplate className="h-4 w-4 text-[#7b655b]" />
               <select
                 value={meta.id}
                 className="h-9 flex-1 bg-transparent text-[13px] text-foreground outline-none"
@@ -374,60 +403,7 @@ export function EditorLayout({
               </select>
             </div>
           </label>
-          <div className="flex flex-wrap items-center gap-2">
-            <button
-              type="button"
-              onClick={() => {
-                const serializableDraft = {
-                  ...draftRef.current,
-                  files: {},
-                };
-                window.localStorage.setItem(storageKey, JSON.stringify(serializableDraft));
-                setSaveMessage("임시 저장했습니다.");
-              }}
-              className="inline-flex items-center gap-2 rounded-full border border-black/5 bg-[#fff7f0] px-3 py-2 text-[12px] text-[#6b5346]"
-            >
-              <Save className="h-3.5 w-3.5" />
-              저장
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                const raw = window.localStorage.getItem(storageKey);
-                if (!raw) return;
-                try {
-                  const savedDraft = JSON.parse(raw) as EditorDraft;
-                  setDraft((current) => ({
-                    ...current,
-                    ...savedDraft,
-                    files: current.files,
-                  }));
-                  setSaveMessage("저장본을 복원했습니다.");
-                } catch {
-                  setSaveMessage("복원할 저장본이 없습니다.");
-                }
-              }}
-              className="inline-flex items-center gap-2 rounded-full border border-black/5 bg-[#fff7f0] px-3 py-2 text-[12px] text-[#6b5346]"
-            >
-              <RotateCcw className="h-3.5 w-3.5" />
-              복원
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                window.localStorage.removeItem(storageKey);
-                setDraft(createInitialDraft(schema));
-                setSaveMessage("초기 상태로 되돌렸습니다.");
-              }}
-              className="inline-flex items-center gap-2 rounded-full border border-black/5 bg-[#fff7f0] px-3 py-2 text-[12px] text-[#6b5346]"
-            >
-              <Trash2 className="h-3.5 w-3.5" />
-              초기화
-            </button>
-          </div>
-          {saveMessage ? (
-            <p className="text-[12px] leading-5 text-muted-foreground">{saveMessage}</p>
-          ) : null}
+          {saveMessage ? <p className="text-[12px] leading-5 text-muted-foreground">{saveMessage}</p> : null}
         </div>
       </div>
 
@@ -615,8 +591,42 @@ export function EditorLayout({
             buildMode={buildMode}
             onBuildModeChange={setBuildMode}
             onGenerate={generateZip}
+            onSave={() => {
+              const serializableDraft = {
+                ...draftRef.current,
+                files: {},
+              };
+              window.localStorage.setItem(storageKey, JSON.stringify(serializableDraft));
+              setSaveMessage("임시 저장했습니다.");
+            }}
+            onRestore={async () => {
+              const raw = window.localStorage.getItem(storageKey);
+              if (!raw) {
+                setSaveMessage("복원할 저장본이 없습니다.");
+                return;
+              }
+              try {
+                const savedDraft = JSON.parse(raw) as EditorDraft;
+                const restoredFiles = await restoreFilesFromAssets(savedDraft.assets ?? {});
+
+                setDraft((current) => ({
+                  ...current,
+                  ...savedDraft,
+                  files: restoredFiles,
+                }));
+                setSaveMessage("저장본을 복원했습니다.");
+              } catch {
+                setSaveMessage("복원할 저장본이 없습니다.");
+              }
+            }}
+            onReset={() => {
+              window.localStorage.removeItem(storageKey);
+              setDraft(createInitialDraft(schema));
+              setSaveMessage("초기 상태로 되돌렸습니다.");
+            }}
             pending={buildPending}
             message={buildMessage}
+            storageStatus={saveMessage}
           />
           <div className="rounded-[1.9rem] border border-black/5 bg-white/64 p-4 shadow-[0_28px_80px_rgba(92,55,38,0.08)] backdrop-blur lg:p-6">
             <PreviewFrame

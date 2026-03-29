@@ -9,14 +9,22 @@ export function BuildBar({
   buildMode,
   onBuildModeChange,
   onGenerate,
+  onSave,
+  onRestore,
+  onReset,
   pending,
   message,
+  storageStatus,
 }: {
   buildMode: BuildMode;
   onBuildModeChange: (value: BuildMode) => void;
   onGenerate: () => void;
+  onSave: () => void;
+  onRestore: () => void;
+  onReset: () => void;
   pending: boolean;
   message: string | null;
+  storageStatus: string | null;
 }) {
   return (
     <div className="grid gap-4 rounded-[1.6rem] border border-black/5 bg-[#161516] p-4 text-white shadow-[0_22px_60px_rgba(15,12,10,0.25)] xl:grid-cols-[minmax(0,1fr)_auto] xl:items-center">
@@ -72,6 +80,32 @@ export function BuildBar({
             </span>
           </Label>
         </RadioGroup>
+        <div className="flex flex-wrap gap-2">
+          <Button
+            type="button"
+            variant="outline"
+            className="h-9 rounded-full border-white/10 bg-white/[0.04] px-4 text-white hover:bg-white/10 hover:text-white"
+            onClick={onSave}
+          >
+            저장
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            className="h-9 rounded-full border-white/10 bg-white/[0.04] px-4 text-white hover:bg-white/10 hover:text-white"
+            onClick={onRestore}
+          >
+            복원
+          </Button>
+          <Button
+            type="button"
+            variant="ghost"
+            className="h-9 rounded-full px-4 text-white/70 hover:bg-white/10 hover:text-white"
+            onClick={onReset}
+          >
+            초기화
+          </Button>
+        </div>
       </div>
       <div className="flex flex-col items-start gap-2 xl:items-end">
         <Button
@@ -84,6 +118,7 @@ export function BuildBar({
           {pending ? "ZIP 생성 중..." : "ZIP 생성"}
         </Button>
         {message ? <p className="text-[12px] text-white/60">{message}</p> : null}
+        {storageStatus ? <p className="text-[12px] text-white/42">{storageStatus}</p> : null}
       </div>
     </div>
   );

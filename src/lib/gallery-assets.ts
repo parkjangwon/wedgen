@@ -51,3 +51,10 @@ export async function fileToDataUrl(file: File): Promise<string> {
 export async function filesToDataUrls(files: File[]): Promise<string[]> {
   return Promise.all(files.map((file) => fileToDataUrl(file)));
 }
+
+export async function dataUrlToFile(dataUrl: string, fallbackName: string): Promise<File> {
+  const response = await fetch(dataUrl);
+  const blob = await response.blob();
+  const extension = blob.type.split("/")[1] || "bin";
+  return new File([blob], `${fallbackName}.${extension}`, { type: blob.type });
+}
