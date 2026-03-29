@@ -1,0 +1,92 @@
+{
+  "id": "elegant-classic",
+  "name": "Elegant Classic",
+  "description": "클래식한 세로 스크롤 청첩장",
+  "version": "1.0.0",
+  "thumbnail": "thumbnail.svg",
+  "interaction": "scroll",
+  "sections": {
+    "available": ["hero", "greeting", "gallery", "info", "guestbook", "rsvp"],
+    "defaultOrder": ["hero", "greeting", "gallery", "info", "guestbook", "rsvp"],
+    "required": ["hero", "info"]
+  },
+  "fields": {
+    "기본 정보": {
+      "groomName": { "type": "text", "label": "신랑 이름", "required": true, "placeholder": "김민수" },
+      "brideName": { "type": "text", "label": "신부 이름", "required": true, "placeholder": "이수진" },
+      "weddingDate": { "type": "datetime", "label": "예식 일시", "required": true },
+      "greeting": { "type": "textarea", "label": "인사말", "maxLength": 500, "placeholder": "서로 다른 계절을 걷던 두 사람이 하나의 시간으로 만납니다." },
+      "heroImage": { "type": "image", "label": "대표 사진", "accept": ["jpg", "png", "webp"], "maxSize": "10MB" },
+      "couplePhoto": { "type": "image", "label": "커플 사진 (선택)", "accept": ["jpg", "png", "webp"], "maxSize": "10MB" }
+    },
+    "갤러리": {
+      "photos": { "type": "image[]", "label": "갤러리 사진", "min": 0, "max": 20, "description": "최대 20장, 각 10MB 이하" }
+    },
+    "예식 정보": {
+      "venue": { "type": "text", "label": "예식장 이름", "placeholder": "그랜드볼룸" },
+      "address": { "type": "text", "label": "주소", "placeholder": "서울 강남구 테헤란로 1" },
+      "mapType": {
+        "type": "select",
+        "label": "지도 유형",
+        "options": [
+          { "value": "kakao", "label": "카카오맵" },
+          { "value": "naver", "label": "네이버지도" },
+          { "value": "none", "label": "지도 없음" }
+        ]
+      },
+      "mapCoords": { "type": "latlng", "label": "좌표" },
+      "transport": { "type": "textarea", "label": "교통 안내" },
+      "parking": { "type": "text", "label": "주차 안내" }
+    },
+    "방명록 & RSVP": {
+      "guestbookUrl": { "type": "url", "label": "방명록 GAS URL", "validate": "ping", "description": "구글 앱 스크립트 웹 앱 URL" },
+      "rsvpUrl": { "type": "url", "label": "RSVP GAS URL", "validate": "ping" },
+      "rsvpFields": {
+        "type": "select[]",
+        "label": "RSVP 수집 항목",
+        "options": [
+          { "value": "name", "label": "이름" },
+          { "value": "attending", "label": "참석 여부" },
+          { "value": "guests", "label": "동행 인원" },
+          { "value": "meal", "label": "식사 여부" },
+          { "value": "message", "label": "한마디" }
+        ]
+      }
+    },
+    "스타일": {
+      "colorScheme": { "type": "select", "label": "색상 테마", "optionsFrom": "style.colorSchemes" },
+      "fontPair": { "type": "select", "label": "폰트 조합", "optionsFrom": "style.fonts" },
+      "animation": {
+        "type": "select",
+        "label": "애니메이션 스타일",
+        "options": [
+          { "value": "fade", "label": "페이드 인" },
+          { "value": "slide", "label": "슬라이드 업" },
+          { "value": "none", "label": "없음" }
+        ]
+      },
+      "bgMusic": { "type": "file", "label": "배경음악 (선택)", "accept": ["mp3", "ogg"], "maxSize": "5MB" }
+    }
+  },
+  "style": {
+    "colorSchemes": [
+      { "value": "warm-blush", "label": "웜 블러시", "primary": "#b97a56", "bg": "#f7f0e6" },
+      { "value": "classic-navy", "label": "클래식 네이비", "primary": "#1d3557", "bg": "#f1f5f9" },
+      { "value": "sage-green", "label": "세이지 그린", "primary": "#5d7052", "bg": "#f7f4ea" }
+    ],
+    "fonts": [
+      { "value": "pretendard-nanum", "label": "프리텐다드 + 나눔명조" },
+      { "value": "wanted-serif", "label": "원티드산스 + 세리프" },
+      { "value": "noto-serif", "label": "Noto Serif KR" }
+    ],
+    "animations": [
+      { "value": "fade", "label": "페이드 인" },
+      { "value": "slide", "label": "슬라이드 업" },
+      { "value": "none", "label": "없음" }
+    ]
+  },
+  "i18n": {
+    "defaultLocale": "ko",
+    "supported": ["ko"]
+  }
+}

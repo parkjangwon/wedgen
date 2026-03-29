@@ -1,0 +1,90 @@
+{
+  "id": "modern-minimal",
+  "name": "Modern Minimal",
+  "description": "절제된 타이포와 페이지 전환 감성의 미니멀 청첩장",
+  "version": "1.0.0",
+  "thumbnail": "thumbnail.svg",
+  "interaction": "page",
+  "sections": {
+    "available": ["hero", "greeting", "gallery", "info", "guestbook", "rsvp"],
+    "defaultOrder": ["hero", "greeting", "gallery", "info", "rsvp", "guestbook"],
+    "required": ["hero", "info"]
+  },
+  "fields": {
+    "기본 정보": {
+      "groomName": { "type": "text", "label": "신랑 이름", "required": true },
+      "brideName": { "type": "text", "label": "신부 이름", "required": true },
+      "weddingDate": { "type": "datetime", "label": "예식 일시", "required": true },
+      "greeting": { "type": "textarea", "label": "인사말", "maxLength": 500 },
+      "heroImage": { "type": "image", "label": "대표 사진", "accept": ["jpg", "png", "webp"], "maxSize": "10MB" },
+      "couplePhoto": { "type": "image", "label": "커플 사진 (선택)", "accept": ["jpg", "png", "webp"], "maxSize": "10MB" }
+    },
+    "갤러리": {
+      "photos": { "type": "image[]", "label": "갤러리 사진", "min": 0, "max": 20 }
+    },
+    "예식 정보": {
+      "venue": { "type": "text", "label": "예식장 이름" },
+      "address": { "type": "text", "label": "주소" },
+      "mapType": {
+        "type": "select",
+        "label": "지도 유형",
+        "options": [
+          { "value": "kakao", "label": "카카오맵" },
+          { "value": "naver", "label": "네이버지도" },
+          { "value": "none", "label": "지도 없음" }
+        ]
+      },
+      "mapCoords": { "type": "latlng", "label": "좌표" },
+      "transport": { "type": "textarea", "label": "교통 안내" },
+      "parking": { "type": "text", "label": "주차 안내" }
+    },
+    "방명록 & RSVP": {
+      "guestbookUrl": { "type": "url", "label": "방명록 GAS URL", "validate": "ping" },
+      "rsvpUrl": { "type": "url", "label": "RSVP GAS URL", "validate": "ping" },
+      "rsvpFields": {
+        "type": "select[]",
+        "label": "RSVP 수집 항목",
+        "options": [
+          { "value": "name", "label": "이름" },
+          { "value": "attending", "label": "참석 여부" },
+          { "value": "guests", "label": "동행 인원" },
+          { "value": "meal", "label": "식사 여부" },
+          { "value": "message", "label": "한마디" }
+        ]
+      }
+    },
+    "스타일": {
+      "colorScheme": { "type": "select", "label": "색상 테마", "optionsFrom": "style.colorSchemes" },
+      "fontPair": { "type": "select", "label": "폰트 조합", "optionsFrom": "style.fonts" },
+      "animation": {
+        "type": "select",
+        "label": "애니메이션 스타일",
+        "options": [
+          { "value": "slide", "label": "슬라이드 업" },
+          { "value": "fade", "label": "페이드 인" },
+          { "value": "none", "label": "없음" }
+        ]
+      },
+      "bgMusic": { "type": "file", "label": "배경음악 (선택)", "accept": ["mp3", "ogg"], "maxSize": "5MB" }
+    }
+  },
+  "style": {
+    "colorSchemes": [
+      { "value": "graphite", "label": "그래파이트", "primary": "#111111", "bg": "#f6f6f3" },
+      { "value": "silver-mist", "label": "실버 미스트", "primary": "#545454", "bg": "#f1f1ef" }
+    ],
+    "fonts": [
+      { "value": "wanted-serif", "label": "원티드산스 + 세리프" },
+      { "value": "pretendard-nanum", "label": "프리텐다드 + 나눔명조" }
+    ],
+    "animations": [
+      { "value": "slide", "label": "슬라이드 업" },
+      { "value": "fade", "label": "페이드 인" },
+      { "value": "none", "label": "없음" }
+    ]
+  },
+  "i18n": {
+    "defaultLocale": "ko",
+    "supported": ["ko"]
+  }
+}
