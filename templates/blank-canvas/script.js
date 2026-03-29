@@ -119,6 +119,11 @@
   document.documentElement.style.setProperty("--wedgen-primary", scheme.primary);
   document.documentElement.style.setProperty("--wedgen-bg", scheme.bg);
   document.body.dataset.animation = style.animation || "fade";
+  const px = (value) => String(value).match(/px$/) ? String(value) : `${value}px`;
+  if (data.heroTitleSize) document.documentElement.style.setProperty("--wedgen-hero-title-size", px(data.heroTitleSize));
+  if (data.heroMetaSize) document.documentElement.style.setProperty("--wedgen-hero-meta-size", px(data.heroMetaSize));
+  if (data.sectionTitleSize) document.documentElement.style.setProperty("--wedgen-section-title-size", px(data.sectionTitleSize));
+  if (data.bodyCopySize) document.documentElement.style.setProperty("--wedgen-body-copy-size", px(data.bodyCopySize));
   applyFontPreset(style.fontPreset || fallbackConfig.style.fontPreset);
 
   const orderedSections = [

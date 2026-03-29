@@ -36,6 +36,16 @@ type EditorDraft = WedgenDraftInput & {
   files: Record<string, File | File[] | undefined>;
 };
 
+function createDraftSnapshot(draft: EditorDraft) {
+  return JSON.stringify({
+    locale: draft.locale,
+    sectionOrder: draft.sectionOrder,
+    data: draft.data,
+    style: draft.style,
+    assets: draft.assets,
+  });
+}
+
 const sampleValues: Record<string, unknown> = {
   groomName: "김민수",
   brideName: "이수진",
@@ -205,12 +215,15 @@ export function EditorLayout({
   const [buildPending, setBuildPending] = useState(false);
   const [buildMessage, setBuildMessage] = useState<string | null>(null);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
+  const [lastStableSnapshot, setLastStableSnapshot] = useState("");
   const deferredDraft = useDeferredValue(draft);
   const isDirty = serializeDraft(draft) !== serializeDraft(initialDraft);
 
   useEffect(() => {
     draftRef.current = draft;
   }, [draft]);
+
+  const currentSnapshot = createDraftSnapshot(draft);
 
   useEffect(() => {
     setDraft(createInitialDraft(meta.id, schema));
@@ -232,6 +245,12 @@ export function EditorLayout({
           ...savedDraft,
           files: restoredFiles,
         }));
+        setLastStableSnapshot(
+          createDraftSnapshot({
+            ...(savedDraft as EditorDraft),
+            files: restoredFiles,
+          }),
+        );
         setSaveMessage("임시 저장본을 불러왔습니다.");
       } catch {
         window.localStorage.removeItem(autosaveKey);
@@ -251,6 +270,18 @@ export function EditorLayout({
 
     return () => window.clearTimeout(timer);
   }, [draft, autosaveKey]);
+
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      if (currentSnapshot !== lastStableSnapshot) {
+        event.preventDefault();
+        event.returnValue = "";
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, [currentSnapshot, lastStableSnapshot]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -643,6 +674,7 @@ export function EditorLayout({
                 files: {},
               };
               window.localStorage.setItem(slotStorageKey, JSON.stringify(serializableDraft));
+              setLastStableSnapshot(createDraftSnapshot(draftRef.current));
               setSaveMessage(`슬롯 ${storageSlot}에 저장했습니다.`);
             }}
             onRestore={async () => {
@@ -662,6 +694,12 @@ export function EditorLayout({
                   ...savedDraft,
                   files: restoredFiles,
                 }));
+                setLastStableSnapshot(
+                  createDraftSnapshot({
+                    ...(savedDraft as EditorDraft),
+                    files: restoredFiles,
+                  }),
+                );
                 setSaveMessage(`슬롯 ${storageSlot} 또는 자동 저장본을 복원했습니다.`);
               } catch {
                 setSaveMessage("복원할 저장본이 없습니다.");
@@ -670,7 +708,9 @@ export function EditorLayout({
             onReset={() => {
               window.localStorage.removeItem(slotStorageKey);
               window.localStorage.removeItem(autosaveKey);
-              setDraft(createInitialDraft(meta.id, schema));
+              const resetDraft = createInitialDraft(meta.id, schema);
+              setDraft(resetDraft);
+              setLastStableSnapshot(createDraftSnapshot(resetDraft));
               setSaveMessage("초기 상태로 되돌렸습니다.");
             }}
             pending={buildPending}
