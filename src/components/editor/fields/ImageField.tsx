@@ -1,7 +1,7 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 
-import { Input } from "@/components/ui/input";
+import { UploadSurface } from "./UploadSurface";
 import type { FieldDefinition } from "@/types";
 import { FieldShell } from "./FieldShell";
 
@@ -18,17 +18,24 @@ export function ImageField({
 }) {
   return (
     <FieldShell fieldKey={fieldKey} field={field}>
-      <Input
-        id={fieldKey}
-        type="file"
-        accept={(field.accept ?? []).map((ext) => `.${ext}`).join(",")}
-        onChange={(event) => onChange(event.target.files?.[0])}
-      />
+      <label className="block cursor-pointer">
+        <input
+          id={fieldKey}
+          type="file"
+          className="sr-only"
+          accept={(field.accept ?? []).map((ext) => `.${ext}`).join(",")}
+          onChange={(event) => onChange(event.target.files?.[0])}
+        />
+        <UploadSurface
+          title="대표 이미지 업로드"
+          subtitle="클릭해서 사진을 선택하세요. 큰 세로 비율 사진이 가장 잘 어울립니다."
+        />
+      </label>
       {previewUrl ? (
         <img
           src={previewUrl}
           alt={`${field.label} 미리보기`}
-          className="mt-3 aspect-[4/5] w-full rounded-2xl object-cover"
+          className="mt-3 aspect-[4/5] w-full rounded-[1.1rem] object-cover shadow-[0_12px_30px_rgba(88,47,33,0.12)]"
         />
       ) : null}
     </FieldShell>

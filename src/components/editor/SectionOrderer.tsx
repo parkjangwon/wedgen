@@ -58,7 +58,7 @@ export function SectionOrderer({
               current.splice(to, 0, dragged);
               onChange(current);
             }}
-            className="flex items-center justify-between rounded-[1rem] border border-black/5 bg-[#fffaf5] px-3 py-3 text-[13px]"
+            className="flex items-center justify-between rounded-[1rem] border border-black/5 bg-[#fffaf5] px-3 py-3 text-[13px] shadow-[0_8px_20px_rgba(88,47,33,0.04)]"
           >
             <div className="flex items-center gap-3">
               <GripVertical className="h-4 w-4 text-muted-foreground" />

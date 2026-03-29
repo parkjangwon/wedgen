@@ -12,7 +12,7 @@ export function FieldShell({
   children: ReactNode;
 }) {
   return (
-    <div className="space-y-3 rounded-[1.15rem] border border-black/5 bg-white/76 p-3.5 shadow-[0_10px_24px_rgba(88,47,33,0.04)]">
+    <div className="space-y-3 rounded-[1.15rem] border border-black/5 bg-white/88 p-3.5 shadow-[0_12px_28px_rgba(88,47,33,0.05)] ring-1 ring-white/70">
       <div className="space-y-1.5">
         <Label htmlFor={fieldKey} className="text-[13px] font-medium leading-none text-foreground">
           {field.label}

@@ -3,9 +3,9 @@
 
 import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import type { FieldDefinition } from "@/types";
 import { FieldShell } from "./FieldShell";
+import { UploadSurface } from "./UploadSurface";
 
 export function ImageArrayField({
   fieldKey,
@@ -24,17 +24,24 @@ export function ImageArrayField({
 }) {
   return (
     <FieldShell fieldKey={fieldKey} field={field}>
-      <Input
-        id={fieldKey}
-        type="file"
-        multiple
-        accept={(field.accept ?? ["jpg", "png", "webp"]).map((ext) => `.${ext}`).join(",")}
-        onChange={(event) => {
-          const files = Array.from(event.target.files ?? []);
-          onAdd(files);
-          event.currentTarget.value = "";
-        }}
-      />
+      <label className="block cursor-pointer">
+        <input
+          id={fieldKey}
+          type="file"
+          multiple
+          className="sr-only"
+          accept={(field.accept ?? ["jpg", "png", "webp"]).map((ext) => `.${ext}`).join(",")}
+          onChange={(event) => {
+            const files = Array.from(event.target.files ?? []);
+            onAdd(files);
+            event.currentTarget.value = "";
+          }}
+        />
+        <UploadSurface
+          title={previewUrls.length ? "갤러리 사진 더 추가하기" : "갤러리 사진 업로드"}
+          subtitle="여러 장을 한 번에 추가하고, 아래 카드에서 순서를 바꾸거나 삭제할 수 있습니다."
+        />
+      </label>
       {previewUrls.length ? (
         <div className="mt-3 grid grid-cols-2 gap-3 xl:grid-cols-3">
           {previewUrls.map((url, index) => (
@@ -48,7 +55,7 @@ export function ImageArrayField({
                 className="aspect-square w-full object-cover"
               />
               <div className="grid gap-2 border-t border-black/5 px-2.5 py-2.5">
-                <span className="text-[11px] text-muted-foreground">사진 {index + 1}</span>
+                <span className="text-[11px] font-medium text-muted-foreground">사진 {index + 1}</span>
                 <div className="flex flex-wrap items-center gap-1.5">
                   <Button
                     type="button"
