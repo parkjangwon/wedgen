@@ -1,0 +1,408 @@
+:root {
+  --bg: #fafafa;
+  --bg-card: #ffffff;
+  --text: #1a1a1a;
+  --text-light: #666;
+  --text-muted: #999;
+  --accent: #d4a574;
+  --border: #e5e5e5;
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Noto Sans KR', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.invitation { max-width: 480px; margin: 0 auto; }
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 30px;
+  background: var(--bg);
+}
+
+.hero-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+.hero-content { text-align: center; margin-bottom: 50px; }
+
+.hero-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  color: var(--text-muted);
+  margin-bottom: 25px;
+}
+
+.hero-names {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 400;
+  margin-bottom: 30px;
+}
+
+.hero-names .name { display: block; }
+.hero-names .ampersand {
+  font-size: 1.2rem;
+  color: var(--accent);
+  margin: 10px 0;
+}
+
+.hero-line {
+  width: 40px;
+  height: 1px;
+  background: var(--accent);
+  margin: 0 auto 25px;
+}
+
+.hero-date {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.2em;
+  margin-bottom: 8px;
+}
+
+.hero-venue {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+}
+
+.hero-image {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+}
+
+.hero-image img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+}
+
+section {
+  padding: 80px 30px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 40px;
+  color: var(--text-muted);
+}
+
+.greeting {
+  background: var(--bg-card);
+}
+
+.greeting-inner {
+  max-width: 340px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.greeting-text {
+  font-size: 0.95rem;
+  line-height: 2;
+  color: var(--text-light);
+  margin-bottom: 50px;
+}
+
+.families {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+
+.family .label {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.family .name {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  margin-bottom: 5px;
+}
+
+.family .parents {
+  font-size: 0.85rem;
+  color: var(--text-light);
+}
+
+.divider {
+  width: 30px;
+  height: 1px;
+  background: var(--accent);
+  margin: 0 auto;
+}
+
+.schedule {
+  background: linear-gradient(180deg, #f5f5f5 0%, var(--bg) 100%);
+}
+
+.schedule-inner { max-width: 360px; margin: 0 auto; }
+
+.schedule-box {
+  background: var(--bg-card);
+  padding: 40px;
+  border: 1px solid var(--border);
+  margin-bottom: 40px;
+}
+
+.date {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.date .month,
+.date .day {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 400;
+}
+
+.date .year {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  letter-spacing: 0.2em;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-top: 30px;
+  border-top: 1px solid var(--border);
+}
+
+.details .item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.details .label {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+}
+
+.details .value {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+}
+
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+.countdown-item {
+  text-align: center;
+}
+
+.countdown-item .number {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 400;
+  display: block;
+}
+
+.countdown-item .unit {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+}
+
+.gallery {
+  background: var(--bg-card);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.gallery-grid img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.gallery-grid img:first-child {
+  grid-column: 1 / -1;
+  aspect-ratio: 16/10;
+}
+
+.location {
+  background: var(--bg);
+}
+
+.location-card {
+  max-width: 360px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 40px;
+  border: 1px solid var(--border);
+}
+
+.location-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.location-card .address {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 25px;
+}
+
+.location-card .transport {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 25px;
+}
+
+.map-btns {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.btn {
+  padding: 12px 25px;
+  border: 1px solid var(--text);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-decoration: none;
+  color: var(--text);
+  transition: all 0.2s;
+}
+
+.btn:hover {
+  background: var(--text);
+  color: white;
+}
+
+.account {
+  background: linear-gradient(180deg, var(--bg) 0%, #f5f5f5 100%);
+}
+
+.account-note {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 40px;
+}
+
+.accounts {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+.account-item {
+  background: var(--bg-card);
+  padding: 30px;
+  border: 1px solid var(--border);
+  text-align: center;
+}
+
+.account-item .bank {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.account-item .number {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 5px;
+}
+
+.account-item .holder {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 20px;
+}
+
+.copy {
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 8px 20px;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.copy:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+.footer {
+  background: var(--text);
+  color: white;
+  padding: 60px 30px;
+  text-align: center;
+}
+
+.footer .thanks {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  letter-spacing: 0.3em;
+  margin-bottom: 15px;
+  opacity: 0.8;
+}
+
+.footer .names {
+  font-size: 1.1rem;
+  opacity: 0.6;
+}
+
+@media (max-width: 360px) {
+  .hero-names { font-size: 1.8rem; }
+  .countdown-item .number { font-size: 2rem; }
+}

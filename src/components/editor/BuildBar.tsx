@@ -47,7 +47,7 @@ export function BuildBar({
             </h3>
           </div>
           <span className="rounded-full border border-white/10 bg-white/6 px-3 py-1 text-[11px] text-white/68">
-            정적 ZIP 출력
+            청첩장 출력
           </span>
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -147,7 +147,7 @@ export function BuildBar({
           disabled={pending}
           onClick={onGenerate}
         >
-          {pending ? "ZIP 생성 중..." : "ZIP 생성"}
+          {pending ? "청첩장 생성 중..." : "청첩장 생성"}
         </Button>
         {message ? <p className="text-[12px] text-white/60">{message}</p> : null}
         {storageStatus ? <p className="text-[12px] text-white/42">{storageStatus}</p> : null}

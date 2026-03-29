@@ -1,0 +1,94 @@
+{
+  "id": "premium-spring-romance",
+  "name": "프리미엄 스프링 로맨스",
+  "description": "봄날의 벚꽃을 담은 로맨틱한 디자인. 부드럽게 떨어지는 꽃잎 애니메이션과 핑크 톤의 따뜻한 색감으로 봄 웨딩에 완벽한 청첩장입니다.",
+  "version": "1.0.0",
+  "thumbnail": "thumbnail.svg",
+  "interaction": "scroll",
+  "sections": {
+    "available": ["hero", "greeting", "family", "gallery", "schedule", "location", "account", "guestbook", "ending"],
+    "defaultOrder": ["hero", "greeting", "family", "gallery", "schedule", "location", "account", "guestbook", "ending"],
+    "required": ["hero"]
+  },
+  "fields": {
+    "기본 정보": {
+      "groomName": { "type": "text", "label": "신랑 이름", "required": true, "placeholder": "김민수" },
+      "brideName": { "type": "text", "label": "신부 이름", "required": true, "placeholder": "이수진" },
+      "weddingDate": { "type": "datetime", "label": "예식 일시", "required": true }
+    },
+    "첫 화면": {
+      "heroEyebrow": { "type": "text", "label": "상단 문구", "placeholder": "Spring Wedding" },
+      "heroTagline": { "type": "textarea", "label": "태그라인", "placeholder": "벚꽃이 만개한 그날, 우리의 사랑도 꽃피었습니다." }
+    },
+    "인사말": {
+      "greetingTitle": { "type": "text", "label": "제목", "placeholder": "봄날의 초대" },
+      "greeting": { "type": "textarea", "label": "인사말", "placeholder": "만개한 벚꽃 아래서 새로운 봄을 시작합니다..." }
+    },
+    "혼주": {
+      "groomFather": { "type": "text", "label": "신랑 아버지", "placeholder": "김건호" },
+      "groomMother": { "type": "text", "label": "신랑 어머니", "placeholder": "이미자" },
+      "brideFather": { "type": "text", "label": "신부 아버지", "placeholder": "이주명" },
+      "brideMother": { "type": "text", "label": "신부 어머니", "placeholder": "유수지" },
+      "familyNote": { "type": "textarea", "label": "추가 문구", "placeholder": "두 가정이 하나 되는 봄날에 함께해 주세요." }
+    },
+    "갤러리": {
+      "photos": { "type": "image[]", "label": "사진", "maxSize": "5MB" }
+    },
+    "일정/장소": {
+      "venue": { "type": "text", "label": "예식장", "placeholder": "그랜드볼룸" },
+      "hallDetail": { "type": "text", "label": "홀 정보", "placeholder": "3층 그랜드홀" },
+      "address": { "type": "text", "label": "주소", "placeholder": "서울 강남구 테헤란로 1" },
+      "venuePhone": { "type": "text", "label": "연락처", "placeholder": "02-1234-5678" },
+      "transport": { "type": "textarea", "label": "교통편", "placeholder": "2호선 역삼역 4번 출구 도보 5분" },
+      "parking": { "type": "text", "label": "주차", "placeholder": "지하주차장 2시간 묘" },
+      "mapType": { "type": "select", "label": "지도", "options": [{ "value": "kakao", "label": "카카오맵" }, { "value": "naver", "label": "네이버지도" }, { "value": "google", "label": "구글맵" }] },
+      "mapCoords": { "type": "latlng", "label": "좌표" }
+    },
+    "계좌": {
+      "accountTitle": { "type": "text", "label": "제목", "placeholder": "마음 전하실 곳" },
+      "accountIntro": { "type": "textarea", "label": "안내 문구", "placeholder": "꽃보다 아름다운 마음 감사히 받겠습니다." },
+      "groomAccount": { "type": "text", "label": "신랑 계좌" },
+      "groomFamilyAccount": { "type": "text", "label": "신랑측 부모 계좌" },
+      "brideAccount": { "type": "text", "label": "신부 계좌" },
+      "brideFamilyAccount": { "type": "text", "label": "신부측 부모 계좌" }
+    },
+    "방명록": {
+      "guestbookTitle": { "type": "text", "label": "제목", "placeholder": "봄날의 축복" },
+      "guestbookLead": { "type": "textarea", "label": "안내 문구", "placeholder": "벚꽃처럼 아름다운 축하의 말씀을 남겨주세요." },
+      "guestbookUrl": { "type": "url", "label": "방명록 URL", "validate": "ping" },
+      "rsvpUrl": { "type": "url", "label": "RSVP URL", "validate": "ping" }
+    },
+    "마무리": {
+      "endingTitle": { "type": "text", "label": "제목", "placeholder": "봄날, 우리의 시작" },
+      "endingQuote": { "type": "textarea", "label": "문구", "placeholder": "꽃이 피고 지는 그 시간 속에서도 영원한 사랑을 약속합니다." }
+    },
+    "스타일": {
+      "colorScheme": { "type": "select", "label": "컬러", "options": [{ "value": "cherry-blossom", "label": "벚꽃 핑크" }, { "value": "soft-pink", "label": "소프트 핑크" }, { "value": "warm-coral", "label": "웜 코랄" }] },
+      "headingFont": { "type": "select", "label": "제목 폰트", "options": [{ "value": "playfair", "label": "Playfair Display" }, { "value": "cormorant", "label": "Cormorant Garamond" }, { "value": "noto-serif", "label": "Noto Serif KR" }] },
+      "bodyFont": { "type": "select", "label": "본문 폰트", "options": [{ "value": "noto-sans", "label": "Noto Sans KR" }, { "value": "pretendard", "label": "Pretendard" }] },
+      "animation": { "type": "select", "label": "애니메이션", "options": [{ "value": "petals", "label": "꽃잎 효과" }, { "value": "fade", "label": "페이드 인" }, { "value": "slide", "label": "슬라이드 업" }] }
+    }
+  },
+  "style": {
+    "colorSchemes": [
+      { "value": "cherry-blossom", "label": "벚꽃 핑크", "primary": "#e8a5b0", "bg": "#fff5f7" },
+      { "value": "soft-pink", "label": "소프트 핑크", "primary": "#f4b8c4", "bg": "#fdf6f8" },
+      { "value": "warm-coral", "label": "웜 코랄", "primary": "#e89a8e", "bg": "#fff8f6" }
+    ],
+    "headingFonts": [
+      { "value": "playfair", "label": "Playfair Display", "provider": "google", "importUrl": "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap", "family": "Playfair Display, serif" },
+      { "value": "cormorant", "label": "Cormorant Garamond", "provider": "google", "importUrl": "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap", "family": "Cormorant Garamond, serif" },
+      { "value": "noto-serif", "label": "Noto Serif KR", "provider": "google", "importUrl": "https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600&display=swap", "family": "Noto Serif KR, serif" }
+    ],
+    "bodyFonts": [
+      { "value": "noto-sans", "label": "Noto Sans KR", "provider": "google", "importUrl": "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&display=swap", "family": "Noto Sans KR, sans-serif" },
+      { "value": "pretendard", "label": "Pretendard", "provider": "google", "importUrl": "https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css", "family": "Pretendard, -apple-system, sans-serif" }
+    ],
+    "animations": [
+      { "value": "petals", "label": "꽃잎 효과" },
+      { "value": "fade", "label": "페이드 인" },
+      { "value": "slide", "label": "슬라이드 업" }
+    ]
+  },
+  "i18n": { "defaultLocale": "ko", "supported": ["ko"] }
+}

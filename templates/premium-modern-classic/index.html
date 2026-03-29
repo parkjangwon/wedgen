@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wedding Invitation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="invitation">
+    <section class="hero">
+      <div class="hero-accent"></div>
+      <div class="hero-content">
+        <p class="hero-label">THE WEDDING OF</p>
+        <h1 class="hero-names">
+          <span class="name">MIN SU</span>
+          <span class="ampersand">&</span>
+          <span class="name">SU JIN</span>
+        </h1>
+        <div class="hero-line"></div>
+        <p class="hero-date">MAY 15, 2026</p>
+        <p class="hero-venue">GRAND BALLROOM</p>
+      </div>
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80" alt="메인 사진">
+      </div>
+    </section>
+
+    <section class="greeting">
+      <div class="greeting-inner">
+        <h2 class="section-title">Invitation</h2>
+        <p class="greeting-text">
+          두 사람이 사랑으로 만나<br>
+          평생을 함께하려 합니다.<br><br>
+          귀한 걸음으로<br>
+          축복해 주시면<br>
+          감사하겠습니다.
+        </p>
+        <div class="families">
+          <div class="family">
+            <span class="label">GROOM</span>
+            <p class="name">김민수</p>
+            <p class="parents">김건호 · 이미자의 아들</p>
+          </div>
+          <div class="divider"></div>
+          <div class="family">
+            <span class="label">BRIDE</span>
+            <p class="name">이수진</p>
+            <p class="parents">이주명 · 유수지의 딸</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="schedule">
+      <div class="schedule-inner">
+        <h2 class="section-title">Schedule</h2>
+        <div class="schedule-box">
+          <div class="date">
+            <span class="month">05</span>
+            <span class="day">15</span>
+            <span class="year">2026</span>
+          </div>
+          <div class="details">
+            <div class="item">
+              <span class="label">TIME</span>
+              <span class="value">2:00 PM</span>
+            </div>
+            <div class="item">
+              <span class="label">VENUE</span>
+              <span class="value">Grand Ballroom 3F</span>
+            </div>
+          </div>
+        </div>
+        <div class="countdown">
+          <div class="countdown-item">
+            <span class="number" id="days">00</span>
+            <span class="unit">DAYS</span>
+          </div>
+          <div class="countdown-item">
+            <span class="number" id="hours">00</span>
+            <span class="unit">HOURS</span>
+          </div>
+          <div class="countdown-item">
+            <span class="number" id="minutes">00</span>
+            <span class="unit">MINS</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery">
+      <h2 class="section-title">Gallery</h2>
+      <div class="gallery-grid">
+        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600&q=80" alt="1">
+        <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=600&q=80" alt="2">
+        <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=600&q=80" alt="3">
+        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600&q=80" alt="4">
+      </div>
+    </section>
+
+    <section class="location">
+      <h2 class="section-title">Location</h2>
+      <div class="location-card">
+        <h3>GRAND BALLROOM</h3>
+        <p class="address">서울시 강남구 테헤란로 1, 3F</p>
+        <div class="transport">
+          <p>지하철 2호선 역삼역 4번 출구 도보 5분</p>
+          <p>주차장 2시간 묣 이용 가능</p>
+        </div>
+        <div class="map-container" data-map></div>
+      </div>
+    </section>
+
+    <section class="account">
+      <h2 class="section-title">Account</h2>
+      <p class="account-note">참석이 어려우신 분들을 위해 계좌번호를 안내드립니다.</p>
+      <div class="accounts">
+        <div class="account-item">
+          <span class="bank">SHINHAN</span>
+          <p class="number">110-123-456789</p>
+          <p class="holder">김민수</p>
+          <button type="button" class="copy" data-account="110123456789">COPY</button>
+        </div>
+        <div class="account-item">
+          <span class="bank">KB</span>
+          <p class="number">123-45-6789012</p>
+          <p class="holder">이수진</p>
+          <button type="button" class="copy" data-account="123456789012">COPY</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p class="thanks">THANK YOU</p>
+      <p class="names">Min Su & Su Jin</p>
+    </footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

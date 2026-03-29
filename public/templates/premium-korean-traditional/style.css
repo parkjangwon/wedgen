@@ -1,0 +1,523 @@
+:root {
+  --bg: #faf8f5;
+  --bg-paper: #fffefb;
+  --text: #2c241b;
+  --text-light: #5a4d3d;
+  --text-muted: #8b7d6b;
+  --accent: #c9a86c;
+  --border: #d4c4b0;
+  --font-serif: 'Noto Serif KR', serif;
+  --font-traditional: 'Gowun Batang', serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-serif);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+}
+
+.invitation {
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--bg-paper);
+  position: relative;
+}
+
+.traditional-pattern {
+  height: 8px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--accent) 0px,
+    var(--accent) 20px,
+    transparent 20px,
+    transparent 25px
+  );
+  opacity: 0.3;
+}
+
+.hero {
+  padding: 60px 30px;
+  text-align: center;
+  position: relative;
+}
+
+.hero-inner {
+  position: relative;
+  padding: 40px 20px;
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(255,255,255,0.5) 0%, transparent 100%);
+}
+
+.decoration {
+  font-size: 1.5rem;
+  color: var(--accent);
+  opacity: 0.6;
+}
+
+.top-decoration { margin-bottom: 20px; }
+.bottom-decoration { margin-top: 20px; }
+
+.hero .subtitle {
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  color: var(--text-muted);
+  margin-bottom: 25px;
+}
+
+.hero .names {
+  font-family: var(--font-traditional);
+  font-size: 2.2rem;
+  font-weight: 400;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.hero .names .divider {
+  font-size: 1rem;
+  color: var(--accent);
+  opacity: 0.5;
+}
+
+.date-info {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  line-height: 1.9;
+}
+
+.date-info .date {
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 5px;
+}
+
+.main-photo {
+  padding: 0 30px 60px;
+}
+
+.photo-frame {
+  position: relative;
+  padding: 15px;
+  background: white;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.photo-frame img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  display: block;
+}
+
+.invitation-text {
+  padding: 60px 30px;
+  background: linear-gradient(180deg, transparent 0%, rgba(201,168,108,0.05) 50%, transparent 100%);
+}
+
+.text-inner {
+  max-width: 320px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.ornament {
+  font-size: 1.2rem;
+  color: var(--accent);
+  opacity: 0.4;
+  margin: 20px 0;
+}
+
+.poem {
+  font-family: var(--font-traditional);
+  font-size: 1rem;
+  line-height: 2.4;
+  color: var(--text-light);
+}
+
+.poem .space {
+  margin-top: 20px;
+}
+
+.families {
+  padding: 60px 30px;
+  background: white;
+}
+
+.families-inner {
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+.family {
+  text-align: center;
+  padding: 30px 0;
+}
+
+.family .relation {
+  margin-bottom: 15px;
+}
+
+.family .relation .label {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.family .relation .name {
+  font-family: var(--font-traditional);
+  font-size: 1.5rem;
+}
+
+.family .parents {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.family .parents strong {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.family .parents .dot {
+  margin: 0 10px;
+  color: var(--accent);
+}
+
+.families-divider {
+  text-align: center;
+  font-size: 1.5rem;
+  opacity: 0.4;
+  padding: 10px 0;
+}
+
+.schedule {
+  padding: 60px 30px;
+}
+
+.schedule-inner {
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-family: var(--font-traditional);
+  font-size: 1.3rem;
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: var(--accent);
+  margin: 15px auto 0;
+}
+
+.schedule-box {
+  background: white;
+  padding: 40px 30px;
+  border: 1px solid var(--border);
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.lunar-date {
+  margin-bottom: 20px;
+}
+
+.lunar-date .label {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 5px;
+}
+
+.lunar-date .date {
+  font-size: 0.95rem;
+  color: var(--text-light);
+}
+
+.divider-line {
+  width: 40px;
+  height: 1px;
+  background: var(--border);
+  margin: 20px auto;
+}
+
+.solar-date {
+  margin-bottom: 25px;
+}
+
+.date-row {
+  font-family: var(--font-traditional);
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+
+.date-row .year { font-size: 1rem; margin-right: 5px; }
+.date-row .month { font-size: 1.3rem; }
+.date-row .day { font-size: 1.6rem; font-weight: 600; }
+
+.detail-row {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.detail-row .weekday { margin-right: 15px; }
+
+.venue-info {
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.venue-info .name {
+  font-family: var(--font-traditional);
+  font-size: 1.2rem;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.venue-info .floor {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.countdown {
+  text-align: center;
+}
+
+.countdown-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 15px;
+}
+
+.countdown-display {
+  font-family: var(--font-traditional);
+  font-size: 1.3rem;
+}
+
+.countdown-display span {
+  margin: 0 5px;
+}
+
+.countdown-display .unit {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.gallery {
+  padding: 60px 30px;
+  background: white;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.gallery-grid img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.gallery-grid img:first-child {
+  grid-column: 1 / -1;
+  aspect-ratio: 16/10;
+}
+
+.location {
+  padding: 60px 30px;
+}
+
+.location-content {
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+.venue-card {
+  background: white;
+  padding: 35px;
+  border: 1px solid var(--border);
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.venue-card h3 {
+  font-family: var(--font-traditional);
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+}
+
+.venue-card .address {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  margin-bottom: 5px;
+}
+
+.venue-card .floor {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.transport {
+  margin-bottom: 30px;
+}
+
+.transport-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--border);
+}
+
+.transport-item:last-child {
+  border-bottom: none;
+}
+
+.transport-item .icon {
+  font-size: 1.2rem;
+  width: 30px;
+  text-align: center;
+}
+
+.transport-item .text {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.map-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.map-btn {
+  flex: 1;
+  padding: 14px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.map-btn.naver {
+  background: #03c75a;
+  color: white;
+}
+
+.map-btn.kakao {
+  background: #fee500;
+  color: #191919;
+}
+
+.account {
+  padding: 60px 30px;
+  background: linear-gradient(180deg, var(--bg) 0%, rgba(201,168,108,0.05) 100%);
+}
+
+.account-message {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 35px;
+  line-height: 1.8;
+}
+
+.accounts {
+  max-width: 340px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.account-item {
+  background: white;
+  padding: 25px;
+  border: 1px solid var(--border);
+}
+
+.bank-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.bank-row .bank {
+  font-size: 0.8rem;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+}
+
+.copy-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 6px 15px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.copy-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+.account-item .number {
+  font-size: 1.2rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 5px;
+}
+
+.account-item .holder {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.footer {
+  padding: 50px 30px;
+  text-align: center;
+  background: var(--text);
+  color: white;
+}
+
+.footer-inner {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.footer .thanks {
+  font-family: var(--font-traditional);
+  font-size: 1rem;
+  margin-bottom: 15px;
+  opacity: 0.9;
+}
+
+.footer .names {
+  font-size: 1.1rem;
+  opacity: 0.7;
+}
+
+@media (max-width: 360px) {
+  .hero .names { font-size: 1.8rem; }
+  .date-row { font-size: 1.1rem; }
+}

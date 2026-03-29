@@ -160,7 +160,7 @@ function inlineAssetsIntoHtml(html: string, css: string, script: string): string
   );
 
   return withCss.replace(
-    /<script\s+src="script\.js"\s+defer><\/script>/,
+    /<script\s+src="script\.js"(?:\s+defer)?\s*><\/script>/,
     `<script>${script}</script>`,
   );
 }

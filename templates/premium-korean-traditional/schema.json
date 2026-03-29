@@ -1,0 +1,95 @@
+{
+  "id": "premium-korean-traditional",
+  "name": "프리미엄 한국 전통",
+  "description": "한지 질감과 Gowun Batang 서체로 구성된 전통 스타일. 음력/양력 표기 지원으로 부모님 세대에도 익숙한 정성 어린 청첩장입니다.",
+  "version": "1.0.0",
+  "thumbnail": "thumbnail.svg",
+  "interaction": "scroll",
+  "sections": {
+    "available": ["hero", "greeting", "family", "gallery", "schedule", "location", "account", "guestbook", "ending"],
+    "defaultOrder": ["hero", "greeting", "family", "gallery", "schedule", "location", "account", "guestbook", "ending"],
+    "required": ["hero"]
+  },
+  "fields": {
+    "기본 정보": {
+      "groomName": { "type": "text", "label": "신랑 이름", "required": true, "placeholder": "김민수" },
+      "brideName": { "type": "text", "label": "신부 이름", "required": true, "placeholder": "이수진" },
+      "weddingDate": { "type": "datetime", "label": "양력 일시", "required": true },
+      "weddingDateLunar": { "type": "text", "label": "음력 일시", "placeholder": "음력 3월 15일" }
+    },
+    "첫 화면": {
+      "heroEyebrow": { "type": "text", "label": "상단 문구", "placeholder": "결혼합니다" },
+      "heroTagline": { "type": "textarea", "label": "태그라인", "placeholder": "두 사람이 하나 되어 평생을 약속합니다." }
+    },
+    "인사말": {
+      "greetingTitle": { "type": "text", "label": "제목", "placeholder": "초대의 말씀" },
+      "greeting": { "type": "textarea", "label": "인사말", "placeholder": "그동안의 품에서 자라 서로를 바라보게 된 두 사람이..." }
+    },
+    "혼주": {
+      "groomFather": { "type": "text", "label": "신랑 아버지", "placeholder": "김건호" },
+      "groomMother": { "type": "text", "label": "신랑 어머니", "placeholder": "이미자" },
+      "brideFather": { "type": "text", "label": "신부 아버지", "placeholder": "이주명" },
+      "brideMother": { "type": "text", "label": "신부 어머니", "placeholder": "유수지" },
+      "familyNote": { "type": "textarea", "label": "추가 문구", "placeholder": "예식에 참석하시어 축하해 주시면 감사하겠습니다." }
+    },
+    "갤러리": {
+      "photos": { "type": "image[]", "label": "사진", "maxSize": "5MB" }
+    },
+    "일정/장소": {
+      "venue": { "type": "text", "label": "예식장", "placeholder": "그랜드볼룸" },
+      "hallDetail": { "type": "text", "label": "홀 정보", "placeholder": "3층 그랜드홀" },
+      "address": { "type": "text", "label": "주소", "placeholder": "서울 강남구 테헤란로 1" },
+      "venuePhone": { "type": "text", "label": "연락처", "placeholder": "02-1234-5678" },
+      "transport": { "type": "textarea", "label": "교통편", "placeholder": "2호선 역삼역 4번 출구 도보 5분" },
+      "parking": { "type": "text", "label": "주차", "placeholder": "지하주차장 2시간 무료" },
+      "mapType": { "type": "select", "label": "지도", "options": [{ "value": "kakao", "label": "카카오맵" }, { "value": "naver", "label": "네이버지도" }, { "value": "google", "label": "구글맵" }] },
+      "mapCoords": { "type": "latlng", "label": "좌표" }
+    },
+    "계좌": {
+      "accountTitle": { "type": "text", "label": "제목", "placeholder": "마음 전하실 곳" },
+      "accountIntro": { "type": "textarea", "label": "안내 문구", "placeholder": "참석이 어려우신 분들을 위해 계좌번호를 남깁니다." },
+      "groomAccount": { "type": "text", "label": "신랑 계좌" },
+      "groomFamilyAccount": { "type": "text", "label": "신랑측 부모 계좌" },
+      "brideAccount": { "type": "text", "label": "신부 계좌" },
+      "brideFamilyAccount": { "type": "text", "label": "신부측 부모 계좌" }
+    },
+    "방명록": {
+      "guestbookTitle": { "type": "text", "label": "제목", "placeholder": "축복의 한마디" },
+      "guestbookLead": { "type": "textarea", "label": "안내 문구", "placeholder": "멀리서 보내주시는 정성 어린 마음 감사히 받겠습니다." },
+      "guestbookUrl": { "type": "url", "label": "방명록 URL", "validate": "ping" },
+      "rsvpUrl": { "type": "url", "label": "RSVP URL", "validate": "ping" }
+    },
+    "마무리": {
+      "endingTitle": { "type": "text", "label": "제목", "placeholder": "감사합니다" },
+      "endingQuote": { "type": "textarea", "label": "문구", "placeholder": "귀한 걸음 하시어 축하해 주시면 더없는 기쁨이 되겠습니다." }
+    },
+    "스타일": {
+      "colorScheme": { "type": "select", "label": "컬러", "options": [{ "value": "hanji-cream", "label": "한지 베이지" }, { "value": "traditional-red", "label": "전통 적색" }, { "value": "ink-black", "label": "먹색" }] },
+      "headingFont": { "type": "select", "label": "제목 폰트", "options": [{ "value": "gowun-batang", "label": "Gowun Batang" }, { "value": "noto-serif", "label": "Noto Serif KR" }, { "value": "cormorant", "label": "Cormorant Garamond" }] },
+      "bodyFont": { "type": "select", "label": "본문 폰트", "options": [{ "value": "gowun-batang", "label": "Gowun Batang" }, { "value": "noto-sans", "label": "Noto Sans KR" }] },
+      "animation": { "type": "select", "label": "애니메이션", "options": [{ "value": "gentle", "label": "부드러운" }, { "value": "fade", "label": "페이드 인" }, { "value": "slide", "label": "슬라이드 업" }] }
+    }
+  },
+  "style": {
+    "colorSchemes": [
+      { "value": "hanji-cream", "label": "한지 베이지", "primary": "#8b7355", "bg": "#f5f0e8" },
+      { "value": "traditional-red", "label": "전통 적색", "primary": "#c45c48", "bg": "#fdf6f3" },
+      { "value": "ink-black", "label": "먹색", "primary": "#2c2c2c", "bg": "#faf9f7" }
+    ],
+    "headingFonts": [
+      { "value": "gowun-batang", "label": "Gowun Batang", "provider": "google", "importUrl": "https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap", "family": "Gowun Batang, serif" },
+      { "value": "noto-serif", "label": "Noto Serif KR", "provider": "google", "importUrl": "https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600&display=swap", "family": "Noto Serif KR, serif" },
+      { "value": "cormorant", "label": "Cormorant Garamond", "provider": "google", "importUrl": "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap", "family": "Cormorant Garamond, serif" }
+    ],
+    "bodyFonts": [
+      { "value": "gowun-batang", "label": "Gowun Batang", "provider": "google", "importUrl": "https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap", "family": "Gowun Batang, serif" },
+      { "value": "noto-sans", "label": "Noto Sans KR", "provider": "google", "importUrl": "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&display=swap", "family": "Noto Sans KR, sans-serif" }
+    ],
+    "animations": [
+      { "value": "gentle", "label": "부드러운" },
+      { "value": "fade", "label": "페이드 인" },
+      { "value": "slide", "label": "슬라이드 업" }
+    ]
+  },
+  "i18n": { "defaultLocale": "ko", "supported": ["ko"] }
+}

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>우리의 결혼식</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+KR:wght@300;400;600&family=Pretendard:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="invitation">
+    <!-- Hero Section -->
+    <section class="hero" data-section="hero">
+      <div class="hero-content">
+        <span class="hero-eyebrow">Wedding Invitation</span>
+        <h1 class="hero-names">
+          <span class="name-groom">민수</span>
+          <span class="name-ampersand">&</span>
+          <span class="name-bride">수진</span>
+        </h1>
+        <p class="hero-date">2026. 05. 15</p>
+        <p class="hero-venue">그랜드볼룸</p>
+      </div>
+      <div class="hero-image-wrapper">
+        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80" alt="메인 사진" class="hero-image">
+      </div>
+    </section>
+
+    <!-- Greeting Section -->
+    <section class="greeting" data-section="greeting">
+      <div class="section-header">
+        <span class="section-label">Invitation</span>
+        <h2 class="section-title">소중한 분들께</h2>
+      </div>
+      <div class="greeting-content">
+        <p class="greeting-text">
+          서로가 마주본 그날부터<br>
+          사랑은 시작되었습니다.<br><br>
+          이제 평생을 함께할<br>
+          소중한 약속을 하려 합니다.<br><br>
+          저희의 첫 걸음에<br>
+          따뜻한 마음으로 함께해 주세요.
+        </p>
+        <div class="family-info">
+          <div class="family-groom">
+            <span class="family-label">신랑측</span>
+            <p><strong>김민수</strong> · 김건호 · 이미자</p>
+          </div>
+          <div class="family-bride">
+            <span class="family-label">신부측</span>
+            <p><strong>이수진</strong> · 이주명 · 유수지</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section class="schedule" data-section="schedule">
+      <div class="section-header">
+        <span class="section-label">Schedule</span>
+        <h2 class="section-title">예식 안내</h2>
+      </div>
+      <div class="schedule-card">
+        <div class="schedule-item">
+          <span class="schedule-label">날짜</span>
+          <span class="schedule-value">2026년 5월 15일 금요일</span>
+        </div>
+        <div class="schedule-item">
+          <span class="schedule-label">시간</span>
+          <span class="schedule-value">오후 2시</span>
+        </div>
+        <div class="schedule-item">
+          <span class="schedule-label">장소</span>
+          <span class="schedule-value">그랜드볼룸 3층 그랜드홀</span>
+        </div>
+      </div>
+      <div class="countdown">
+        <p class="countdown-text">결혼식까지</p>
+        <div class="countdown-timer">
+          <div class="countdown-item">
+            <span class="countdown-number" id="days">00</span>
+            <span class="countdown-unit">일</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-number" id="hours">00</span>
+            <span class="countdown-unit">시간</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-number" id="minutes">00</span>
+            <span class="countdown-unit">분</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" data-section="gallery">
+      <div class="section-header">
+        <span class="section-label">Gallery</span>
+        <h2 class="section-title">우리의 순간</h2>
+      </div>
+      <div class="gallery-grid">
+        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600&q=80" alt="사진 1">
+        <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=600&q=80" alt="사진 2">
+        <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=600&q=80" alt="사진 3">
+        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600&q=80" alt="사진 4">
+      </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="location" data-section="location">
+      <div class="section-header">
+        <span class="section-label">Location</span>
+        <h2 class="section-title">오시는 길</h2>
+      </div>
+      <div class="location-card">
+        <h3 class="location-name">그랜드볼룸</h3>
+        <p class="location-address">서울시 강남구 테헤란로 1<br>3층 그랜드홀</p>
+        <div class="location-info">
+          <div class="info-item">
+            <span class="info-label">지하철</span>
+            <span class="info-value">2호선 역삼역 4번 출구 도보 5분</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">주차</span>
+            <span class="info-value">지하주차장 2시간 묣</span>
+          </div>
+        </div>
+        <div class="map-buttons">
+          <a href="#" class="map-btn naver">네이버 지도</a>
+          <a href="#" class="map-btn kakao">카카오맵</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Account Section -->
+    <section class="account" data-section="account">
+      <div class="section-header">
+        <span class="section-label">Account</span>
+        <h2 class="section-title">마음 전하실 곳</h2>
+      </div>
+      <p class="account-message">
+        참석이 어려우신 분들을 위해<br>
+        계좌번호를 남깁니다.<br>
+        따뜻한 마음만 감사히 받겠습니다.
+      </p>
+      <div class="account-list">
+        <div class="account-item">
+          <span class="account-bank">신한은행</span>
+          <p class="account-number">110-123-456789</p>
+          <p class="account-holder">김민수</p>
+          <button class="copy-btn" data-account="110123456789">복사</button>
+        </div>
+        <div class="account-item">
+          <span class="account-bank">국민은행</span>
+          <p class="account-number">123-45-6789-012</p>
+          <p class="account-holder">이수진</p>
+          <button class="copy-btn" data-account="123456789012">복사</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p class="footer-message">
+        함께해 주셔서 감사합니다
+      </p>
+      <p class="footer-names">민수 & 수진</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

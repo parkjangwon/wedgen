@@ -3,7 +3,7 @@
 import { startTransition, useDeferredValue, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, LayoutTemplate, PenSquare, SlidersHorizontal } from "lucide-react";
+import { LayoutTemplate, PenSquare, SlidersHorizontal } from "lucide-react";
 import { BuildBar } from "@/components/editor/BuildBar";
 import { ConfigPanel } from "@/components/editor/ConfigPanel";
 import { ManualComposerPanel } from "@/components/editor/ManualComposerPanel";
@@ -415,6 +415,7 @@ export function EditorLayout({
     hero: draft.data.groomName && draft.data.brideName && draft.data.weddingDate ? "done" : "draft",
     greeting: draft.data.greeting ? "done" : "draft",
     family: draft.data.groomFather || draft.data.brideFather ? "done" : "empty",
+    timeline: draft.data.timelineEvents ? "done" : "empty",
     gallery:
       Array.isArray(draft.assets?.photos) && draft.assets.photos.length ? "done" : "empty",
     schedule: draft.data.venue && draft.data.weddingDate ? "done" : "draft",
@@ -428,6 +429,7 @@ export function EditorLayout({
     { id: "hero", label: "첫 화면" },
     { id: "greeting", label: "인사말" },
     { id: "family", label: "혼주" },
+    { id: "timeline", label: "타임라인" },
     { id: "gallery", label: "갤러리" },
     { id: "schedule", label: "일정" },
     { id: "location", label: "오시는 길" },
@@ -440,13 +442,6 @@ export function EditorLayout({
     <main className="mx-auto flex w-full max-w-[1780px] flex-1 flex-col gap-5 px-4 py-4 lg:px-6 xl:h-screen xl:overflow-hidden xl:px-8">
       <div className="flex flex-col gap-3 rounded-[1.7rem] border border-white/10 bg-card/80 px-5 py-4 shadow-[0_18px_44px_rgba(0,0,0,0.3)] backdrop-blur lg:flex-row lg:items-end lg:justify-between">
         <div className="space-y-2">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-[13px] text-muted-foreground hover:text-foreground"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            템플릿 갤러리로
-          </Link>
           <div>
             <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/70">
               편집 워크스페이스
