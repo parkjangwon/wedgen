@@ -3,22 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>summer-beach</title>
+    <title>여름 해변</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body data-template="summer-beach" data-layout="summer-beach">
-    <div class="cherry-container">
-      <header class="cherry-hero" data-section="hero"></header>
-      <main class="cherry-content">
-        <section class="cherry-section" data-section="greeting"></section>
-        <section class="cherry-section" data-section="gallery"></section>
-        <section class="cherry-section" data-section="schedule"></section>
-        <section class="cherry-section" data-section="location"></section>
-        <section class="cherry-section" data-section="family"></section>
-        <section class="cherry-section" data-section="account"></section>
-      </main>
-      <footer class="cherry-ending" data-section="ending"></footer>
-    </div>
+  <body data-template="summer-beach" data-layout="summer-beach-wave">
+    <main class="beach-shell">
+      <header class="beach-hero" data-section="hero"></header>
+      <section class="beach-wave" data-section="schedule"></section>
+      <section class="beach-gallery" data-section="gallery"></section>
+      <section class="beach-note" data-section="greeting"></section>
+      <section class="beach-columns">
+        <article class="beach-card" data-section="location"></article>
+        <article class="beach-card" data-section="family"></article>
+      </section>
+      <section class="beach-note" data-section="account"></section>
+      <footer class="beach-ending" data-section="ending"></footer>
+    </main>
     <script src="script.js" defer></script>
   </body>
 </html>

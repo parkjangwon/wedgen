@@ -3,22 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>outdoor-picnic</title>
+    <title>야외 피크닉</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body data-template="outdoor-picnic" data-layout="outdoor-picnic">
-    <div class="cherry-container">
-      <header class="cherry-hero" data-section="hero"></header>
-      <main class="cherry-content">
-        <section class="cherry-section" data-section="greeting"></section>
-        <section class="cherry-section" data-section="gallery"></section>
-        <section class="cherry-section" data-section="schedule"></section>
-        <section class="cherry-section" data-section="location"></section>
-        <section class="cherry-section" data-section="family"></section>
-        <section class="cherry-section" data-section="account"></section>
-      </main>
-      <footer class="cherry-ending" data-section="ending"></footer>
-    </div>
+  <body data-template="outdoor-picnic" data-layout="picnic-board">
+    <main class="picnic-board">
+      <section class="picnic-card hero" data-section="hero"></section>
+      <section class="picnic-card" data-section="greeting"></section>
+      <section class="picnic-card" data-section="schedule"></section>
+      <section class="picnic-card" data-section="gallery"></section>
+      <section class="picnic-card" data-section="family"></section>
+      <section class="picnic-card" data-section="location"></section>
+      <section class="picnic-card" data-section="account"></section>
+      <section class="picnic-card" data-section="guestbook"></section>
+      <footer class="picnic-card ending" data-section="ending"></footer>
+    </main>
     <script src="script.js" defer></script>
   </body>
 </html>

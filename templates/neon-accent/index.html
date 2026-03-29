@@ -3,22 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>neon-accent</title>
+    <title>네온 포인트</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body data-template="neon-accent" data-layout="neon-accent">
-    <div class="cherry-container">
-      <header class="cherry-hero" data-section="hero"></header>
-      <main class="cherry-content">
-        <section class="cherry-section" data-section="greeting"></section>
-        <section class="cherry-section" data-section="gallery"></section>
-        <section class="cherry-section" data-section="schedule"></section>
-        <section class="cherry-section" data-section="location"></section>
-        <section class="cherry-section" data-section="family"></section>
-        <section class="cherry-section" data-section="account"></section>
-      </main>
-      <footer class="cherry-ending" data-section="ending"></footer>
-    </div>
+  <body data-template="neon-accent" data-layout="neon-split">
+    <main class="neon-layers">
+      <section class="neon-panel hero" data-section="hero"></section>
+      <section class="neon-panel" data-section="schedule"></section>
+      <section class="neon-panel" data-section="gallery"></section>
+      <section class="neon-panel" data-section="greeting"></section>
+      <section class="neon-panel" data-section="family"></section>
+      <section class="neon-panel" data-section="location"></section>
+      <section class="neon-panel" data-section="account"></section>
+      <section class="neon-panel" data-section="guestbook"></section>
+      <footer class="neon-panel ending" data-section="ending"></footer>
+    </main>
     <script src="script.js" defer></script>
   </body>
 </html>

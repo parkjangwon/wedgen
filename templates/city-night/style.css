@@ -1,69 +1,31 @@
 :root {
-  --wedgen-primary: #ffb7c5;
-  --wedgen-bg: #fff5f7;
-  --wedgen-paper: rgba(255, 255, 255, 0.9);
-  --wedgen-ink: #4a4a4a;
-  --wedgen-border: rgba(255, 183, 197, 0.3);
-  --wedgen-radius: 24px;
-  --wedgen-shadow: 0 20px 60px rgba(255, 183, 197, 0.2);
-  --wedgen-font-heading: "Noto Serif KR", serif;
-  --wedgen-font-body: "Noto Sans KR", sans-serif;
+  --wedgen-primary: #5fa9ff;
+  --wedgen-bg: #0c1326;
+  --wedgen-surface: #111d36;
+  --wedgen-text: #e9f1ff;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html, body {
-  margin: 0;
-  min-height: 100%;
-  background: linear-gradient(180deg, var(--wedgen-bg) 0%, #ffffff 100%);
-  color: var(--wedgen-ink);
-  font-family: var(--wedgen-font-body);
-}
+* { box-sizing: border-box; }
 
 body {
-  padding: 20px 0 80px;
+  margin: 0;
+  padding: 24px 0 82px;
+  background:
+    linear-gradient(180deg, rgba(95, 169, 255, 0.14), transparent 26%),
+    var(--wedgen-bg);
+  color: var(--wedgen-text);
+  font-family: "IBM Plex Sans KR", "Noto Sans KR", sans-serif;
 }
 
-.cherry-container {
-  width: min(100%, 420px);
-  margin: 0 auto;
+.city-lights { width: min(100%, 430px); margin: 0 auto; display: grid; gap: 14px; }
+
+.city-block {
+  min-height: 225px;
+  border-radius: 16px;
+  border: 1px solid rgba(95, 169, 255, 0.32);
+  background: linear-gradient(165deg, rgba(23, 38, 70, 0.95), rgba(12, 23, 46, 0.98));
+  box-shadow: 0 14px 36px rgba(1, 6, 18, 0.55);
 }
 
-.cherry-hero {
-  min-height: 70vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 40px 24px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 245, 247, 0.9));
-  border-radius: var(--wedgen-radius);
-  margin-bottom: 20px;
-  box-shadow: var(--wedgen-shadow);
-}
-
-.cherry-content {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.cherry-section {
-  background: var(--wedgen-paper);
-  border-radius: var(--wedgen-radius);
-  padding: 28px 24px;
-  box-shadow: var(--wedgen-shadow);
-  border: 1px solid var(--wedgen-border);
-}
-
-.cherry-ending {
-  margin-top: 20px;
-  padding: 40px 24px;
-  text-align: center;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 245, 247, 0.95));
-  border-radius: var(--wedgen-radius);
-  box-shadow: var(--wedgen-shadow);
-}
+.city-block.hero { min-height: 66vh; }
+.city-block.ending { min-height: 200px; }

@@ -1,32 +1,155 @@
 {
   "id": "city-night",
-  "name": "벚꽃 로맨스",
-  "description": "도시의 야경을 배경으로 한 청첩장",
+  "name": "도시 야경",
+  "description": "도시의 밤빛과 딥 블루 톤을 담은 모던 청첩장",
+  "version": "1.0.0",
   "thumbnail": "thumbnail.svg",
-  "interaction": "scroll",
+  "interaction": "parallax",
   "sections": {
-    "available": ["hero", "greeting", "family", "gallery", "schedule", "location", "account", "guestbook", "ending"],
-    "required": ["hero", "schedule", "location"],
-    "defaultOrder": ["hero", "greeting", "gallery", "schedule", "location", "family", "account", "ending"]
+    "available": ["hero", "greeting", "gallery", "info", "guestbook", "rsvp"],
+    "defaultOrder": ["hero", "schedule", "greeting", "gallery", "family", "location", "account", "guestbook", "ending"],
+    "required": ["hero", "info"]
   },
   "fields": {
     "기본 정보": {
       "groomName": { "type": "text", "label": "신랑 이름", "required": true },
       "brideName": { "type": "text", "label": "신부 이름", "required": true },
       "weddingDate": { "type": "datetime", "label": "예식 일시", "required": true },
-      "heroEyebrow": { "type": "text", "label": "소제목" },
-      "heroTagline": { "type": "text", "label": "태그라인" }
+      "greeting": { "type": "textarea", "label": "인사말", "maxLength": 500 },
+      "heroImage": { "type": "image", "label": "대표 사진", "accept": ["jpg", "png", "webp"], "maxSize": "10MB" },
+      "couplePhoto": { "type": "image", "label": "커플 사진 (선택)", "accept": ["jpg", "png", "webp"], "maxSize": "10MB" }
+    },
+    "갤러리": {
+      "photos": { "type": "image[]", "label": "갤러리 사진", "min": 0, "max": 20 }
     },
     "예식 정보": {
-      "venue": { "type": "text", "label": "예식장" },
-      "address": { "type": "text", "label": "주소" }
+      "venue": { "type": "text", "label": "예식장 이름" },
+      "address": { "type": "text", "label": "주소" },
+      "mapType": {
+        "type": "select",
+        "label": "지도 유형",
+        "options": [
+          { "value": "kakao", "label": "카카오맵" },
+          { "value": "naver", "label": "네이버지도" },
+          { "value": "none", "label": "지도 없음" }
+        ]
+      },
+      "mapCoords": { "type": "latlng", "label": "좌표" },
+      "transport": { "type": "textarea", "label": "교통 안내" },
+      "parking": { "type": "text", "label": "주차 안내" }
+    },
+    "방명록 & RSVP": {
+      "guestbookUrl": { "type": "url", "label": "방명록 GAS URL", "validate": "ping" },
+      "rsvpUrl": { "type": "url", "label": "RSVP GAS URL", "validate": "ping" },
+      "rsvpFields": {
+        "type": "select[]",
+        "label": "RSVP 수집 항목",
+        "options": [
+          { "value": "name", "label": "이름" },
+          { "value": "attending", "label": "참석 여부" },
+          { "value": "guests", "label": "동행 인원" },
+          { "value": "meal", "label": "식사 여부" },
+          { "value": "message", "label": "한마디" }
+        ]
+      }
+    },
+    "스타일": {
+      "colorScheme": { "type": "select", "label": "색상 테마", "optionsFrom": "style.colorSchemes" },
+      "fontSourceMode": {
+        "type": "select",
+        "label": "폰트 설정 방식",
+        "options": [
+          { "value": "preset", "label": "추천 조합 사용" },
+          { "value": "custom", "label": "직접 입력" }
+        ]
+      },
+      "headingFont": {
+        "type": "select",
+        "label": "제목 폰트",
+        "optionsFrom": "style.headingFonts",
+        "visibleWhen": { "field": "fontSourceMode", "equals": "preset" }
+      },
+      "bodyFont": {
+        "type": "select",
+        "label": "본문 폰트",
+        "optionsFrom": "style.bodyFonts",
+        "visibleWhen": { "field": "fontSourceMode", "equals": "preset" }
+      },
+      "googleFontUrl": {
+        "type": "url",
+        "label": "구글 폰트 CSS URL",
+        "placeholder": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=Nanum+Myeongjo:wght@400;700&display=swap",
+        "visibleWhen": { "field": "fontSourceMode", "equals": "custom" }
+      },
+      "customHeadingFamily": {
+        "type": "text",
+        "label": "제목 font-family",
+        "placeholder": "\"Nanum Myeongjo\", serif",
+        "visibleWhen": { "field": "fontSourceMode", "equals": "custom" }
+      },
+      "customBodyFamily": {
+        "type": "text",
+        "label": "본문 font-family",
+        "placeholder": "\"IBM Plex Sans KR\", sans-serif",
+        "visibleWhen": { "field": "fontSourceMode", "equals": "custom" }
+      },
+      "animation": {
+        "type": "select",
+        "label": "애니메이션 스타일",
+        "options": [
+          { "value": "slide", "label": "슬라이드 업" },
+          { "value": "fade", "label": "페이드 인" },
+          { "value": "none", "label": "없음" }
+        ]
+      },
+      "bgMusic": { "type": "file", "label": "배경음악 (선택)", "accept": ["mp3", "ogg"], "maxSize": "5MB" }
     }
   },
   "style": {
-    "colorSchemes": [{ "label": "벚꽃 핑크", "value": "cherry-pink" }],
-    "headingFonts": [{ "label": "Noto Serif KR", "value": "noto-serif-kr" }],
-    "bodyFonts": [{ "label": "Noto Sans KR", "value": "noto-sans-kr" }],
-    "animations": [{ "label": "페이드", "value": "fade" }]
+    "colorSchemes": [
+      { "value": "night-blue", "label": "나이트 블루", "primary": "#5fa9ff", "bg": "#0c1326" },
+      { "value": "city-amber", "label": "시티 앰버", "primary": "#f8b85b", "bg": "#141922" }
+    ],
+    "headingFonts": [
+      {
+        "value": "noto-serif-kr",
+        "label": "노토세리프 KR",
+        "provider": "google",
+        "importUrl": "https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&display=swap",
+        "family": "\"Noto Serif KR\", serif"
+      },
+      {
+        "value": "nanum-myeongjo",
+        "label": "나눔명조",
+        "provider": "google",
+        "importUrl": "https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap",
+        "family": "\"Nanum Myeongjo\", serif"
+      }
+    ],
+    "bodyFonts": [
+      {
+        "value": "ibm-plex-sans-kr",
+        "label": "IBM Plex Sans KR",
+        "provider": "google",
+        "importUrl": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap",
+        "family": "\"IBM Plex Sans KR\", sans-serif"
+      },
+      {
+        "value": "noto-sans-kr",
+        "label": "노토산스 KR",
+        "provider": "google",
+        "importUrl": "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap",
+        "family": "\"Noto Sans KR\", sans-serif"
+      }
+    ],
+    "animations": [
+      { "value": "slide", "label": "슬라이드 업" },
+      { "value": "fade", "label": "페이드 인" },
+      { "value": "none", "label": "없음" }
+    ]
   },
-  "i18n": { "defaultLocale": "ko" }
+  "i18n": {
+    "defaultLocale": "ko",
+    "supported": ["ko"]
+  }
 }

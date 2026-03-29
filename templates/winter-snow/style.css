@@ -1,69 +1,20 @@
 :root {
-  --wedgen-primary: #ffb7c5;
-  --wedgen-bg: #fff5f7;
-  --wedgen-paper: rgba(255, 255, 255, 0.9);
-  --wedgen-ink: #4a4a4a;
-  --wedgen-border: rgba(255, 183, 197, 0.3);
-  --wedgen-radius: 24px;
-  --wedgen-shadow: 0 20px 60px rgba(255, 183, 197, 0.2);
-  --wedgen-font-heading: "Noto Serif KR", serif;
-  --wedgen-font-body: "Noto Sans KR", sans-serif;
+  --wedgen-primary: #6b89ab;
+  --wedgen-bg: #f6fbff;
+  --wedgen-card: rgba(255, 255, 255, 0.95);
+  --wedgen-ink: #32485e;
+  --wedgen-border: rgba(107, 137, 171, 0.22);
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: linear-gradient(180deg, #fafdff, #ebf4fb); color: var(--wedgen-ink); font-family: "Noto Sans KR", sans-serif; }
+body { padding: 24px 0 84px; }
 
-html, body {
-  margin: 0;
-  min-height: 100%;
-  background: linear-gradient(180deg, var(--wedgen-bg) 0%, #ffffff 100%);
-  color: var(--wedgen-ink);
-  font-family: var(--wedgen-font-body);
-}
+.snow-shell { width: min(430px, calc(100% - 22px)); margin: 0 auto; display: grid; gap: 12px; }
+.snow-hero, .snow-line, .snow-card, .snow-ending { border: 1px solid var(--wedgen-border); border-radius: 18px; background: var(--wedgen-card); padding: 18px; backdrop-filter: blur(4px); }
+.snow-line { border-style: dashed; }
+.snow-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 
-body {
-  padding: 20px 0 80px;
-}
-
-.cherry-container {
-  width: min(100%, 420px);
-  margin: 0 auto;
-}
-
-.cherry-hero {
-  min-height: 70vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 40px 24px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 245, 247, 0.9));
-  border-radius: var(--wedgen-radius);
-  margin-bottom: 20px;
-  box-shadow: var(--wedgen-shadow);
-}
-
-.cherry-content {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.cherry-section {
-  background: var(--wedgen-paper);
-  border-radius: var(--wedgen-radius);
-  padding: 28px 24px;
-  box-shadow: var(--wedgen-shadow);
-  border: 1px solid var(--wedgen-border);
-}
-
-.cherry-ending {
-  margin-top: 20px;
-  padding: 40px 24px;
-  text-align: center;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 245, 247, 0.95));
-  border-radius: var(--wedgen-radius);
-  box-shadow: var(--wedgen-shadow);
+@media (max-width: 390px) {
+  .snow-grid { grid-template-columns: 1fr; }
 }

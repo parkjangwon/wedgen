@@ -3,22 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>fairy-tale</title>
+    <title>동화 스타일</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body data-template="fairy-tale" data-layout="fairy-tale">
-    <div class="cherry-container">
-      <header class="cherry-hero" data-section="hero"></header>
-      <main class="cherry-content">
-        <section class="cherry-section" data-section="greeting"></section>
-        <section class="cherry-section" data-section="gallery"></section>
-        <section class="cherry-section" data-section="schedule"></section>
-        <section class="cherry-section" data-section="location"></section>
-        <section class="cherry-section" data-section="family"></section>
-        <section class="cherry-section" data-section="account"></section>
-      </main>
-      <footer class="cherry-ending" data-section="ending"></footer>
-    </div>
+  <body data-template="fairy-tale" data-layout="storybook-path">
+    <main class="storybook-path">
+      <section class="story-page hero" data-section="hero"></section>
+      <section class="story-page" data-section="greeting"></section>
+      <section class="story-page" data-section="schedule"></section>
+      <section class="story-page" data-section="family"></section>
+      <section class="story-page" data-section="gallery"></section>
+      <section class="story-page" data-section="location"></section>
+      <section class="story-page" data-section="account"></section>
+      <section class="story-page" data-section="guestbook"></section>
+      <footer class="story-page ending" data-section="ending"></footer>
+    </main>
     <script src="script.js" defer></script>
   </body>
 </html>

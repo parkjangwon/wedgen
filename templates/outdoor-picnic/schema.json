@@ -1,32 +1,155 @@
 {
   "id": "outdoor-picnic",
-  "name": "벚꽃 로맨스",
-  "description": "야외 피크닉 분위기의 캐주얼 청첩장",
+  "name": "야외 피크닉",
+  "description": "햇살과 잔디 톤이 어우러진 피크닉 무드 청첩장",
+  "version": "1.0.0",
   "thumbnail": "thumbnail.svg",
   "interaction": "scroll",
   "sections": {
-    "available": ["hero", "greeting", "family", "gallery", "schedule", "location", "account", "guestbook", "ending"],
-    "required": ["hero", "schedule", "location"],
-    "defaultOrder": ["hero", "greeting", "gallery", "schedule", "location", "family", "account", "ending"]
+    "available": ["hero", "greeting", "gallery", "info", "guestbook", "rsvp"],
+    "defaultOrder": ["hero", "greeting", "schedule", "gallery", "family", "location", "account", "guestbook", "ending"],
+    "required": ["hero", "info"]
   },
   "fields": {
     "기본 정보": {
       "groomName": { "type": "text", "label": "신랑 이름", "required": true },
       "brideName": { "type": "text", "label": "신부 이름", "required": true },
       "weddingDate": { "type": "datetime", "label": "예식 일시", "required": true },
-      "heroEyebrow": { "type": "text", "label": "소제목" },
-      "heroTagline": { "type": "text", "label": "태그라인" }
+      "greeting": { "type": "textarea", "label": "인사말", "maxLength": 500 },
+      "heroImage": { "type": "image", "label": "대표 사진", "accept": ["jpg", "png", "webp"], "maxSize": "10MB" },
+      "couplePhoto": { "type": "image", "label": "커플 사진 (선택)", "accept": ["jpg", "png", "webp"], "maxSize": "10MB" }
+    },
+    "갤러리": {
+      "photos": { "type": "image[]", "label": "갤러리 사진", "min": 0, "max": 20 }
     },
     "예식 정보": {
-      "venue": { "type": "text", "label": "예식장" },
-      "address": { "type": "text", "label": "주소" }
+      "venue": { "type": "text", "label": "예식장 이름" },
+      "address": { "type": "text", "label": "주소" },
+      "mapType": {
+        "type": "select",
+        "label": "지도 유형",
+        "options": [
+          { "value": "kakao", "label": "카카오맵" },
+          { "value": "naver", "label": "네이버지도" },
+          { "value": "none", "label": "지도 없음" }
+        ]
+      },
+      "mapCoords": { "type": "latlng", "label": "좌표" },
+      "transport": { "type": "textarea", "label": "교통 안내" },
+      "parking": { "type": "text", "label": "주차 안내" }
+    },
+    "방명록 & RSVP": {
+      "guestbookUrl": { "type": "url", "label": "방명록 GAS URL", "validate": "ping" },
+      "rsvpUrl": { "type": "url", "label": "RSVP GAS URL", "validate": "ping" },
+      "rsvpFields": {
+        "type": "select[]",
+        "label": "RSVP 수집 항목",
+        "options": [
+          { "value": "name", "label": "이름" },
+          { "value": "attending", "label": "참석 여부" },
+          { "value": "guests", "label": "동행 인원" },
+          { "value": "meal", "label": "식사 여부" },
+          { "value": "message", "label": "한마디" }
+        ]
+      }
+    },
+    "스타일": {
+      "colorScheme": { "type": "select", "label": "색상 테마", "optionsFrom": "style.colorSchemes" },
+      "fontSourceMode": {
+        "type": "select",
+        "label": "폰트 설정 방식",
+        "options": [
+          { "value": "preset", "label": "추천 조합 사용" },
+          { "value": "custom", "label": "직접 입력" }
+        ]
+      },
+      "headingFont": {
+        "type": "select",
+        "label": "제목 폰트",
+        "optionsFrom": "style.headingFonts",
+        "visibleWhen": { "field": "fontSourceMode", "equals": "preset" }
+      },
+      "bodyFont": {
+        "type": "select",
+        "label": "본문 폰트",
+        "optionsFrom": "style.bodyFonts",
+        "visibleWhen": { "field": "fontSourceMode", "equals": "preset" }
+      },
+      "googleFontUrl": {
+        "type": "url",
+        "label": "구글 폰트 CSS URL",
+        "placeholder": "https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700&display=swap",
+        "visibleWhen": { "field": "fontSourceMode", "equals": "custom" }
+      },
+      "customHeadingFamily": {
+        "type": "text",
+        "label": "제목 font-family",
+        "placeholder": "\"Gowun Dodum\", sans-serif",
+        "visibleWhen": { "field": "fontSourceMode", "equals": "custom" }
+      },
+      "customBodyFamily": {
+        "type": "text",
+        "label": "본문 font-family",
+        "placeholder": "\"Noto Sans KR\", sans-serif",
+        "visibleWhen": { "field": "fontSourceMode", "equals": "custom" }
+      },
+      "animation": {
+        "type": "select",
+        "label": "애니메이션 스타일",
+        "options": [
+          { "value": "fade", "label": "페이드 인" },
+          { "value": "slide", "label": "슬라이드 업" },
+          { "value": "none", "label": "없음" }
+        ]
+      },
+      "bgMusic": { "type": "file", "label": "배경음악 (선택)", "accept": ["mp3", "ogg"], "maxSize": "5MB" }
     }
   },
   "style": {
-    "colorSchemes": [{ "label": "벚꽃 핑크", "value": "cherry-pink" }],
-    "headingFonts": [{ "label": "Noto Serif KR", "value": "noto-serif-kr" }],
-    "bodyFonts": [{ "label": "Noto Sans KR", "value": "noto-sans-kr" }],
-    "animations": [{ "label": "페이드", "value": "fade" }]
+    "colorSchemes": [
+      { "value": "grass-field", "label": "그라스 필드", "primary": "#4c7b43", "bg": "#f4f8ea" },
+      { "value": "sunset-picnic", "label": "선셋 피크닉", "primary": "#d68943", "bg": "#fff4e8" }
+    ],
+    "headingFonts": [
+      {
+        "value": "gowun-dodum",
+        "label": "고운돋움",
+        "provider": "google",
+        "importUrl": "https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap",
+        "family": "\"Gowun Dodum\", \"Noto Sans KR\", sans-serif"
+      },
+      {
+        "value": "nanum-gothic",
+        "label": "나눔고딕",
+        "provider": "google",
+        "importUrl": "https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap",
+        "family": "\"Nanum Gothic\", sans-serif"
+      }
+    ],
+    "bodyFonts": [
+      {
+        "value": "noto-sans-kr",
+        "label": "노토산스 KR",
+        "provider": "google",
+        "importUrl": "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap",
+        "family": "\"Noto Sans KR\", sans-serif"
+      },
+      {
+        "value": "gowun-dodum",
+        "label": "고운돋움",
+        "provider": "google",
+        "importUrl": "https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap",
+        "family": "\"Gowun Dodum\", \"Noto Sans KR\", sans-serif"
+      }
+    ],
+    "animations": [
+      { "value": "fade", "label": "페이드 인" },
+      { "value": "slide", "label": "슬라이드 업" },
+      { "value": "none", "label": "없음" }
+    ]
   },
-  "i18n": { "defaultLocale": "ko" }
+  "i18n": {
+    "defaultLocale": "ko",
+    "supported": ["ko"]
+  }
 }

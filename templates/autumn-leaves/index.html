@@ -3,22 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>autumn-leaves</title>
+    <title>단풍 테마</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body data-template="autumn-leaves" data-layout="autumn-leaves">
-    <div class="cherry-container">
-      <header class="cherry-hero" data-section="hero"></header>
-      <main class="cherry-content">
-        <section class="cherry-section" data-section="greeting"></section>
-        <section class="cherry-section" data-section="gallery"></section>
-        <section class="cherry-section" data-section="schedule"></section>
-        <section class="cherry-section" data-section="location"></section>
-        <section class="cherry-section" data-section="family"></section>
-        <section class="cherry-section" data-section="account"></section>
-      </main>
-      <footer class="cherry-ending" data-section="ending"></footer>
-    </div>
+  <body data-template="autumn-leaves" data-layout="autumn-leaves-timeline">
+    <main class="autumn-shell">
+      <header class="autumn-hero" data-section="hero"></header>
+      <section class="autumn-row">
+        <article class="autumn-card" data-section="schedule"></article>
+        <article class="autumn-card" data-section="greeting"></article>
+      </section>
+      <section class="autumn-spot" data-section="location"></section>
+      <section class="autumn-gallery" data-section="gallery"></section>
+      <section class="autumn-row">
+        <article class="autumn-card" data-section="family"></article>
+        <article class="autumn-card" data-section="account"></article>
+      </section>
+      <footer class="autumn-ending" data-section="ending"></footer>
+    </main>
     <script src="script.js" defer></script>
   </body>
 </html>
