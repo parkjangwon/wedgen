@@ -203,7 +203,14 @@ export function EditorLayout({
   const storageKey = `wedgen:draft:${meta.id}`;
   const autosaveKey = `${storageKey}:autosave`;
   const slotStorageKey = `${storageKey}:slot:${storageSlot}`;
+  const slotNamesKey = `${storageKey}:slot-names`;
   const draftRef = useRef(draft);
+  const [slotNames, setSlotNames] = useState<Record<1 | 2 | 3, string>>({
+    1: "예식 초안 A",
+    2: "예식 초안 B",
+    3: "예식 초안 C",
+  });
+  const [pendingTemplateId, setPendingTemplateId] = useState<string | null>(null);
   const [editorMode, setEditorMode] = useState<"manual" | "structured">("manual");
   const [previewHtml, setPreviewHtml] = useState("");
   const [previewLoading, setPreviewLoading] = useState(true);
@@ -224,6 +231,20 @@ export function EditorLayout({
   }, [draft]);
 
   const currentSnapshot = createDraftSnapshot(draft);
+
+  useEffect(() => {
+    const raw = window.localStorage.getItem(slotNamesKey);
+    if (!raw) return;
+    try {
+      setSlotNames((current) => ({ ...current, ...(JSON.parse(raw) as typeof current) }));
+    } catch {
+      window.localStorage.removeItem(slotNamesKey);
+    }
+  }, [slotNamesKey]);
+
+  useEffect(() => {
+    window.localStorage.setItem(slotNamesKey, JSON.stringify(slotNames));
+  }, [slotNames, slotNamesKey]);
 
   useEffect(() => {
     setDraft(createInitialDraft(meta.id, schema));
@@ -452,22 +473,7 @@ export function EditorLayout({
                     router.push(`/editor/${nextTemplate}`);
                     return;
                   }
-
-                  const shouldMove = window.confirm(
-                    "현재 편집 중인 내용이 있습니다. 이동하기 전에 임시 저장해 두었고, 다른 템플릿으로 전환할까요?",
-                  );
-
-                  if (!shouldMove) {
-                    event.currentTarget.value = meta.id;
-                    return;
-                  }
-
-                  const serializableDraft = {
-                    ...draftRef.current,
-                    files: {},
-                  };
-                  window.localStorage.setItem(autosaveKey, JSON.stringify(serializableDraft));
-                  router.push(`/editor/${nextTemplate}`);
+                  setPendingTemplateId(nextTemplate);
                 }}
               >
                 {templates.map((template) => (
@@ -666,7 +672,14 @@ export function EditorLayout({
             buildMode={buildMode}
             onBuildModeChange={setBuildMode}
             storageSlot={storageSlot}
+            storageSlotName={slotNames[storageSlot]}
             onStorageSlotChange={setStorageSlot}
+            onStorageSlotNameChange={(name) =>
+              setSlotNames((current) => ({
+                ...current,
+                [storageSlot]: name,
+              }))
+            }
             onGenerate={generateZip}
             onSave={() => {
               const serializableDraft = {
@@ -734,6 +747,63 @@ export function EditorLayout({
           </div>
         </section>
       </section>
+      {pendingTemplateId ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="w-full max-w-md rounded-[1.4rem] border border-black/10 bg-white p-5 shadow-[0_30px_80px_rgba(0,0,0,0.18)]">
+            <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/70">
+              Draft Protection
+            </p>
+            <h3 className="mt-2 text-xl tracking-[-0.03em] text-foreground">
+              템플릿을 바꾸기 전에 현재 작업을 보호할까요?
+            </h3>
+            <p className="mt-2 text-[13px] leading-6 text-muted-foreground">
+              다른 템플릿으로 이동하기 전에 현재 작업을 자동 저장하거나, 현재 선택한 슬롯에 저장한 뒤 이동할 수 있습니다.
+            </p>
+            <div className="mt-5 grid gap-2">
+              <button
+                type="button"
+                className="rounded-[1rem] bg-primary px-4 py-3 text-sm font-medium text-primary-foreground"
+                onClick={() => {
+                  const serializableDraft = {
+                    ...draftRef.current,
+                    files: {},
+                  };
+                  window.localStorage.setItem(slotStorageKey, JSON.stringify(serializableDraft));
+                  setLastStableSnapshot(createDraftSnapshot(draftRef.current));
+                  const next = pendingTemplateId;
+                  setPendingTemplateId(null);
+                  router.push(`/editor/${next}`);
+                }}
+              >
+                현재 슬롯에 저장하고 이동
+              </button>
+              <button
+                type="button"
+                className="rounded-[1rem] border border-black/5 bg-[#fff7f0] px-4 py-3 text-sm font-medium text-foreground"
+                onClick={() => {
+                  const serializableDraft = {
+                    ...draftRef.current,
+                    files: {},
+                  };
+                  window.localStorage.setItem(autosaveKey, JSON.stringify(serializableDraft));
+                  const next = pendingTemplateId;
+                  setPendingTemplateId(null);
+                  router.push(`/editor/${next}`);
+                }}
+              >
+                자동 저장만 남기고 이동
+              </button>
+              <button
+                type="button"
+                className="rounded-[1rem] border border-black/5 bg-white px-4 py-3 text-sm font-medium text-foreground"
+                onClick={() => setPendingTemplateId(null)}
+              >
+                취소
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </main>
   );
 }

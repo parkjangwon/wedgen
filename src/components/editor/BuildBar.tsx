@@ -9,7 +9,9 @@ export function BuildBar({
   buildMode,
   onBuildModeChange,
   storageSlot,
+  storageSlotName,
   onStorageSlotChange,
+  onStorageSlotNameChange,
   onGenerate,
   onSave,
   onRestore,
@@ -21,7 +23,9 @@ export function BuildBar({
   buildMode: BuildMode;
   onBuildModeChange: (value: BuildMode) => void;
   storageSlot: 1 | 2 | 3;
+  storageSlotName: string;
   onStorageSlotChange: (slot: 1 | 2 | 3) => void;
+  onStorageSlotNameChange: (name: string) => void;
   onGenerate: () => void;
   onSave: () => void;
   onRestore: () => void;
@@ -63,6 +67,12 @@ export function BuildBar({
               슬롯 {slot}
             </button>
           ))}
+          <input
+            value={storageSlotName}
+            onChange={(event) => onStorageSlotNameChange(event.target.value)}
+            placeholder="슬롯 이름"
+            className="h-8 rounded-full border border-white/10 bg-white/[0.04] px-3 text-[11px] text-white placeholder:text-white/32 outline-none"
+          />
         </div>
         <RadioGroup
           value={buildMode}
