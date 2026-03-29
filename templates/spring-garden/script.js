@@ -279,10 +279,10 @@
             <span class="timeline-sub">${safeText(data.venue)} ${data.hallDetail ? `· ${data.hallDetail}` : ""}</span>
           </div>
           <div class="countdown-grid">
-            <div class="countdown-item"><span class="countdown-value">${countdown.days}</span><span class="countdown-label">Days</span></div>
-            <div class="countdown-item"><span class="countdown-value">${String(countdown.hours).padStart(2, "0")}</span><span class="countdown-label">Hour</span></div>
-            <div class="countdown-item"><span class="countdown-value">${String(countdown.minutes).padStart(2, "0")}</span><span class="countdown-label">Min</span></div>
-            <div class="countdown-item"><span class="countdown-value">${String(countdown.seconds).padStart(2, "0")}</span><span class="countdown-label">Sec</span></div>
+            <div class="countdown-item"><span class="countdown-value">${countdown.days}</span><span class="countdown-label">일</span></div>
+            <div class="countdown-item"><span class="countdown-value">${String(countdown.hours).padStart(2, "0")}</span><span class="countdown-label">시간</span></div>
+            <div class="countdown-item"><span class="countdown-value">${String(countdown.minutes).padStart(2, "0")}</span><span class="countdown-label">분</span></div>
+            <div class="countdown-item"><span class="countdown-value">${String(countdown.seconds).padStart(2, "0")}</span><span class="countdown-label">초</span></div>
           </div>
           <p class="section-lead">${safeText(data.countdownLabel, "저희의 결혼식이")} ${countdown.days}일 남았습니다.</p>
         </div>
