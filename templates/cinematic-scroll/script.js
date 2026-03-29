@@ -2,18 +2,62 @@
   const fallbackConfig = {
     template: "cinematic-scroll",
     locale: "ko",
-    sectionOrder: ["hero", "greeting", "gallery", "info", "rsvp", "guestbook"],
+    sectionOrder: [
+      "hero",
+      "greeting",
+      "family",
+      "gallery",
+      "schedule",
+      "location",
+      "account",
+      "guestbook",
+      "ending",
+    ],
     data: {
       groomName: "김민수",
       brideName: "이수진",
       weddingDate: "2026-05-15T14:00:00+09:00",
-      greeting: "서로 다른 계절을 걷던 두 사람이 같은 계절의 이름으로 만나게 되었습니다.\n따뜻한 축복으로 함께해 주세요.",
+      heroEyebrow: "Wedding day",
+      heroTagline: "서로의 계절이 된 두 사람이 평생의 약속을 나눕니다.",
+      greetingTitle: "소중한 분들을 초대합니다",
+      greeting:
+        "저희 두 사람의 작은 만남이 사랑의 결실을 이루어 평생의 첫 장면을 함께하게 되었습니다.\n귀한 걸음으로 축복해 주시면 오래도록 소중히 간직하겠습니다.",
+      groomFather: "김건호",
+      groomMother: "이미자",
+      brideFather: "이주명",
+      brideMother: "유수지",
+      groomContact: "010-1234-5678",
+      brideContact: "010-2345-6789",
+      familyNote: "양가 부모님과 함께 감사한 마음으로 초대의 말씀을 전합니다.",
+      galleryTitle: "우리의 순간",
+      galleryLead: "함께 웃고 머물렀던 장면들을 한 장씩 모았습니다.",
+      scheduleTitle: "예식 일정",
+      scheduleNote: "예식 종료 후 같은 층 연회장에서 식사가 이어집니다.",
+      countdownLabel: "저희의 결혼식이",
       venue: "그랜드볼룸",
+      hallDetail: "3층 그랜드홀",
       address: "서울 강남구 테헤란로 1",
+      venuePhone: "02-1234-5678",
+      navigationNote: "아래 버튼으로 길안내를 바로 시작할 수 있습니다.",
       transport: "2호선 역삼역 4번 출구 도보 5분",
-      parking: "예식장 지하 주차장 2시간 무료",
+      parking: "예식장 지하주차장 2시간 무료",
+      accountTitle: "마음 전하실 곳",
+      accountIntro:
+        "참석이 어려우신 분들을 위해 계좌번호를 함께 남깁니다. 따뜻한 마음만 감사히 받겠습니다.",
+      groomAccount: "신한은행 110-000-000000 김민수",
+      groomFamilyAccount: "하나은행 110-000-000000 김건호",
+      brideAccount: "국민은행 110-000-000000 이수진",
+      brideFamilyAccount: "농협 110-000-000000 유수지",
+      guestbookTitle: "축복의 한마디",
+      guestbookLead: "멀리서 전해주시는 축하도 오래도록 소중히 간직하겠습니다.",
+      guestbookLabel: "방명록 남기기",
+      rsvpLabel: "참석 의사 전달하기",
       guestbookUrl: "",
       rsvpUrl: "",
+      endingTitle: "저희의 첫 장면을 함께해 주세요",
+      endingQuote:
+        "서로의 오늘을 가장 다정한 내일로 이어가겠습니다. 함께해 주시는 마음 오래도록 기억하겠습니다.",
+      mapCoords: { lat: 37.5012, lng: 127.0396 },
     },
     style: {
       colorScheme: "midnight",
@@ -30,7 +74,7 @@
         headingValue: "song-myung",
         bodyValue: "ibm-plex-sans-kr",
       },
-      animation: "slide",
+      animation: "fade",
     },
     assets: {
       heroImage:
@@ -47,39 +91,14 @@
   };
 
   const config = window.__WEDGEN_CONFIG__ || fallbackConfig;
-  const data = config.data || {};
-  const assets = config.assets || {};
-  const style = config.style || {};
+  const data = { ...fallbackConfig.data, ...(config.data || {}) };
+  const assets = { ...fallbackConfig.assets, ...(config.assets || {}) };
+  const style = { ...fallbackConfig.style, ...(config.style || {}) };
 
   const schemeMap = {
     midnight: { primary: "#d4a373", bg: "#121417" },
     moonlight: { primary: "#e7cba9", bg: "#1e242c" },
   };
-
-  const orderedSections = config.sectionOrder || fallbackConfig.sectionOrder;
-  const sectionNodes = new Map(
-    Array.from(document.querySelectorAll("[data-section]")).map((node) => [
-      node.dataset.section,
-      node,
-    ]),
-  );
-
-  const formatter = new Intl.DateTimeFormat("ko-KR", {
-    dateStyle: "full",
-    timeStyle: "short",
-  });
-
-  function safeText(value) {
-    return value == null || value === "" ? "내용을 입력해 주세요." : String(value);
-  }
-
-  function linkButton(url, label) {
-    if (!url) {
-      return `<p class="placeholder-note">${label} URL을 연결하면 실제 제출 폼이 활성화됩니다.</p>`;
-    }
-
-    return `<a class="cta-link" href="${url}" target="_blank" rel="noreferrer">${label}</a>`;
-  }
 
   function applyFontPreset(fontPreset) {
     if (!fontPreset || fontPreset.provider !== "google") {
@@ -105,28 +124,133 @@
   document.body.dataset.animation = style.animation || "fade";
   applyFontPreset(style.fontPreset || fallbackConfig.style.fontPreset);
 
+  const orderedSections = [
+    ...new Set([...(config.sectionOrder || []), ...fallbackConfig.sectionOrder]),
+  ];
+  const sectionNodes = new Map(
+    Array.from(document.querySelectorAll("[data-section]")).map((node) => [
+      node.dataset.section,
+      node,
+    ]),
+  );
+
+  const formatter = new Intl.DateTimeFormat("ko-KR", {
+    dateStyle: "full",
+    timeStyle: "short",
+  });
+
+  function safeText(value, fallback = "내용을 입력해 주세요.") {
+    return value == null || value === "" ? fallback : String(value);
+  }
+
+  function parseAccountLine(line) {
+    if (!line) return null;
+    const parts = String(line).split(" ");
+    const name = parts.at(-1);
+    return {
+      name,
+      bankAndNumber: parts.slice(0, -1).join(" "),
+    };
+  }
+
+  function buildActionButton(url, label) {
+    if (!url) {
+      return `<span class="contact-link">${label}</span>`;
+    }
+
+    return `<a class="contact-link" href="${url}" target="_blank" rel="noreferrer">${label}</a>`;
+  }
+
+  function buildContactButton(phone, label) {
+    if (!phone) return "";
+    return `<a class="contact-link" href="tel:${phone.replaceAll("-", "")}">${label}</a>`;
+  }
+
+  function buildNavLinks() {
+    const coords = data.mapCoords || fallbackConfig.data.mapCoords;
+    if (!coords || !coords.lat || !coords.lng) {
+      return "";
+    }
+
+    const venueName = encodeURIComponent(data.venue || "예식장");
+    const address = encodeURIComponent(data.address || "");
+    return `
+      <div class="nav-links">
+        <a class="nav-link" href="https://map.naver.com/v5/search/${address}" target="_blank" rel="noreferrer">네이버지도</a>
+        <a class="nav-link" href="https://map.kakao.com/link/to/${venueName},${coords.lat},${coords.lng}" target="_blank" rel="noreferrer">카카오맵</a>
+        <a class="nav-link" href="https://www.google.com/maps/search/?api=1&query=${coords.lat},${coords.lng}" target="_blank" rel="noreferrer">Google Maps</a>
+      </div>
+    `;
+  }
+
+  function calculateCountdown(dateValue) {
+    const diff = new Date(dateValue).getTime() - Date.now();
+    const totalSeconds = Math.max(0, Math.floor(diff / 1000));
+    const days = Math.floor(totalSeconds / 86400);
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    return { days, hours, minutes, seconds };
+  }
+
+  const eventDate = new Date(data.weddingDate || fallbackConfig.data.weddingDate);
+  const countdown = calculateCountdown(eventDate);
+
   const renderers = {
     hero(node) {
       node.innerHTML = `
-        <p class="eyebrow">모바일 청첩장</p>
+        <p class="eyebrow">${safeText(data.heroEyebrow, "Wedding day")}</p>
         <h1 class="headline">${safeText(data.groomName)} <span style="color: var(--wedgen-primary)">&amp;</span> ${safeText(data.brideName)}</h1>
-        <p class="subline">${formatter.format(new Date(data.weddingDate || fallbackConfig.data.weddingDate))}</p>
+        <p class="subline">${safeText(data.heroTagline)}</p>
+        <div class="hero-meta">
+          <p class="hero-meta-line">${formatter.format(eventDate)}</p>
+          <p class="hero-meta-line">${safeText(data.venue)} ${data.hallDetail ? `· ${data.hallDetail}` : ""}</p>
+        </div>
         ${assets.heroImage ? `<img class="hero-image" src="${assets.heroImage}" alt="대표 사진" />` : ""}
       `;
     },
     greeting(node) {
       node.innerHTML = `
-        <p class="eyebrow">초대의 글</p>
-        <div class="divider"></div>
+        <div class="section-header">
+          <p class="section-kicker">Invitation</p>
+          <h2 class="section-title">${safeText(data.greetingTitle, "소중한 분들을 초대합니다")}</h2>
+        </div>
         <p class="copy">${safeText(data.greeting)}</p>
         ${assets.couplePhoto ? `<img class="portrait-image" src="${assets.couplePhoto}" alt="커플 사진" />` : ""}
+      `;
+    },
+    family(node) {
+      node.innerHTML = `
+        <div class="section-header">
+          <p class="section-kicker">Family</p>
+          <h2 class="section-title">혼주와 인사</h2>
+          <p class="section-lead">${safeText(data.familyNote, "양가 부모님과 함께 감사한 마음으로 초대의 말씀을 전합니다.")}</p>
+        </div>
+        <div class="family-grid">
+          <div class="family-card">
+            <span class="family-role">신랑측</span>
+            <span class="family-name">${safeText(data.groomName)}</span>
+            <span class="family-sub">${safeText(data.groomFather, "")} · ${safeText(data.groomMother, "")}</span>
+            ${buildContactButton(data.groomContact, "신랑에게 연락하기")}
+          </div>
+          <div class="family-card">
+            <span class="family-role">신부측</span>
+            <span class="family-name">${safeText(data.brideName)}</span>
+            <span class="family-sub">${safeText(data.brideFather, "")} · ${safeText(data.brideMother, "")}</span>
+            ${buildContactButton(data.brideContact, "신부에게 연락하기")}
+          </div>
+        </div>
       `;
     },
     gallery(node) {
       const photos = Array.isArray(assets.photos) ? assets.photos : [];
       node.innerHTML = `
-        <p class="eyebrow">우리의 순간</p>
-        <h2 class="headline" style="font-size: 28px">함께 쌓아온 장면들</h2>
+        <div class="section-header">
+          <p class="section-kicker">Gallery</p>
+          <h2 class="section-title">${safeText(data.galleryTitle, "우리의 순간")}</h2>
+          <p class="section-lead">${safeText(data.galleryLead, "함께 웃고 머물렀던 장면들을 한 장씩 모았습니다.")}</p>
+        </div>
         ${
           photos.length
             ? `<div class="gallery-grid">${photos
@@ -136,47 +260,114 @@
         }
       `;
     },
-    info(node) {
+    schedule(node) {
       node.innerHTML = `
-        <p class="eyebrow">예식 안내</p>
-        <div class="info-list">
-          <div class="info-item">
-            <strong>예식 일시</strong>
-            <span>${formatter.format(new Date(data.weddingDate || fallbackConfig.data.weddingDate))}</span>
+        <div class="section-header">
+          <p class="section-kicker">Schedule</p>
+          <h2 class="section-title">${safeText(data.scheduleTitle, "예식 일정")}</h2>
+          <p class="section-lead">${safeText(data.scheduleNote, "예식 종료 후 같은 층 연회장에서 식사가 이어집니다.")}</p>
+        </div>
+        <div class="schedule-grid">
+          <div class="calendar-box">
+            <span class="calendar-date">${formatter.format(eventDate)}</span>
+            <span class="timeline-sub">${safeText(data.venue)} ${data.hallDetail ? `· ${data.hallDetail}` : ""}</span>
           </div>
-          <div class="info-item">
-            <strong>예식장</strong>
-            <span>${safeText(data.venue)}</span>
+          <div class="countdown-grid">
+            <div class="countdown-item"><span class="countdown-value">${countdown.days}</span><span class="countdown-label">Days</span></div>
+            <div class="countdown-item"><span class="countdown-value">${String(countdown.hours).padStart(2, "0")}</span><span class="countdown-label">Hour</span></div>
+            <div class="countdown-item"><span class="countdown-value">${String(countdown.minutes).padStart(2, "0")}</span><span class="countdown-label">Min</span></div>
+            <div class="countdown-item"><span class="countdown-value">${String(countdown.seconds).padStart(2, "0")}</span><span class="countdown-label">Sec</span></div>
           </div>
-          <div class="info-item">
-            <strong>주소</strong>
-            <span>${safeText(data.address)}</span>
-          </div>
-          <div class="info-item">
-            <strong>교통 안내</strong>
-            <span>${safeText(data.transport)}</span>
-          </div>
-          <div class="info-item">
-            <strong>주차 안내</strong>
-            <span>${safeText(data.parking)}</span>
-          </div>
+          <p class="section-lead">${safeText(data.countdownLabel, "저희의 결혼식이")} ${countdown.days}일 남았습니다.</p>
         </div>
       `;
     },
-    rsvp(node) {
+    location(node) {
       node.innerHTML = `
-        <p class="eyebrow">참석 의사</p>
-        <h2 class="headline" style="font-size: 28px">함께해 주실 수 있나요?</h2>
-        <p class="placeholder-note">참석 여부와 동행 인원, 식사 여부를 미리 알려주시면 준비에 큰 도움이 됩니다.</p>
-        ${linkButton(data.rsvpUrl, "참석 의사 전달하기")}
+        <div class="section-header">
+          <p class="section-kicker">Location</p>
+          <h2 class="section-title">${safeText(data.locationTitle, "오시는 길")}</h2>
+          <p class="section-lead">${safeText(data.navigationNote, "아래 버튼으로 길안내를 바로 시작할 수 있습니다.")}</p>
+        </div>
+        <div class="location-meta">
+          <div class="info-card">
+            <span class="timeline-label">Venue</span>
+            <span class="timeline-value">${safeText(data.venue)}</span>
+            <span class="timeline-sub">${safeText(data.hallDetail, "")}\n${safeText(data.address)}</span>
+            ${data.venuePhone ? `<a class="contact-link" href="tel:${String(data.venuePhone).replaceAll("-", "")}">${data.venuePhone}</a>` : ""}
+          </div>
+          <div class="info-card">
+            <span class="timeline-label">교통 안내</span>
+            <span class="timeline-sub">${safeText(data.transport, "교통 안내를 입력해 주세요.")}</span>
+          </div>
+          <div class="info-card">
+            <span class="timeline-label">주차 안내</span>
+            <span class="timeline-sub">${safeText(data.parking, "주차 안내를 입력해 주세요.")}</span>
+          </div>
+          ${buildNavLinks()}
+        </div>
+      `;
+    },
+    account(node) {
+      const accounts = [
+        { role: "신랑", value: data.groomAccount },
+        { role: "신랑측 부모", value: data.groomFamilyAccount },
+        { role: "신부", value: data.brideAccount },
+        { role: "신부측 부모", value: data.brideFamilyAccount },
+      ]
+        .map((item) => ({ ...item, parsed: parseAccountLine(item.value) }))
+        .filter((item) => item.parsed);
+
+      node.innerHTML = `
+        <div class="section-header">
+          <p class="section-kicker">Account</p>
+          <h2 class="section-title">${safeText(data.accountTitle, "마음 전하실 곳")}</h2>
+          <p class="section-lead">${safeText(data.accountIntro, "참석이 어려우신 분들을 위해 계좌번호를 함께 남깁니다.")}</p>
+        </div>
+        ${
+          accounts.length
+            ? `<div class="account-list">${accounts
+                .map(
+                  (item) => `
+                    <div class="account-item">
+                      <span class="account-role">${item.role}</span>
+                      <span class="account-name">${item.parsed.name}</span>
+                      <span class="account-number">${item.parsed.bankAndNumber}</span>
+                    </div>`,
+                )
+                .join("")}</div>`
+            : '<p class="placeholder-note">계좌 정보를 입력하면 이곳에 정리됩니다.</p>'
+        }
       `;
     },
     guestbook(node) {
       node.innerHTML = `
-        <p class="eyebrow">방명록</p>
-        <h2 class="headline" style="font-size: 28px">축복의 한마디</h2>
-        <p class="placeholder-note">따뜻한 메시지를 남겨주시면 두 사람이 오래도록 간직하겠습니다.</p>
-        ${linkButton(data.guestbookUrl, "방명록 열기")}
+        <div class="section-header">
+          <p class="section-kicker">Guestbook & RSVP</p>
+          <h2 class="section-title">${safeText(data.guestbookTitle, "축복의 한마디")}</h2>
+          <p class="section-lead">${safeText(data.guestbookLead, "멀리서 전해주시는 축하도 오래도록 소중히 간직하겠습니다.")}</p>
+        </div>
+        <div class="action-grid">
+          <div class="timeline-card">
+            <span class="timeline-label">RSVP</span>
+            <span class="timeline-sub">참석 여부와 동행 인원을 미리 알려주시면 준비에 큰 도움이 됩니다.</span>
+            ${buildActionButton(data.rsvpUrl, safeText(data.rsvpLabel, "참석 의사 전달하기"))}
+          </div>
+          <div class="timeline-card">
+            <span class="timeline-label">Guestbook</span>
+            <span class="timeline-sub">따뜻한 한마디를 남겨주시면 오래도록 소중히 간직하겠습니다.</span>
+            ${buildActionButton(data.guestbookUrl, safeText(data.guestbookLabel, "방명록 남기기"))}
+          </div>
+        </div>
+      `;
+    },
+    ending(node) {
+      node.innerHTML = `
+        <div class="ending-card">
+          <p class="section-kicker">With Love</p>
+          <h2 class="section-title">${safeText(data.endingTitle, "저희의 첫 장면을 함께해 주세요")}</h2>
+          <p class="copy">${safeText(data.endingQuote, "함께해 주시는 마음 오래도록 기억하겠습니다.")}</p>
+        </div>
       `;
     },
   };

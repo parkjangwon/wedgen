@@ -6,6 +6,7 @@ import { injectConfigIntoHtml } from "@/lib/config-injector";
 import { processImageAssets } from "@/lib/image-processor";
 import { optimizeAssets, type BuildMode } from "@/lib/optimizers";
 import { loadTemplateBundle } from "@/lib/schema-parser";
+import { mergeSectionOrder } from "@/lib/sections";
 import type {
   FontOption,
   ResolvedFontPreset,
@@ -34,9 +35,12 @@ function normalizeSectionOrder(
   available: string[],
   required: string[],
 ): string[] {
-  const deduped = requestedOrder.filter(
+  const normalizedRequestedOrder = mergeSectionOrder(requestedOrder);
+  const mergedAvailable = [...new Set([...available, ...mergeSectionOrder([])])];
+  const deduped = normalizedRequestedOrder.filter(
     (section, index) =>
-      available.includes(section) && requestedOrder.indexOf(section) === index,
+      mergedAvailable.includes(section) &&
+      normalizedRequestedOrder.indexOf(section) === index,
   );
 
   for (const section of required) {
@@ -45,7 +49,7 @@ function normalizeSectionOrder(
     }
   }
 
-  for (const section of available) {
+  for (const section of mergedAvailable) {
     if (!deduped.includes(section)) {
       deduped.push(section);
     }

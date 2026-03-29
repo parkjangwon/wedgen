@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { BuildBar } from "@/components/editor/BuildBar";
 import { ConfigPanel } from "@/components/editor/ConfigPanel";
+import { ManualComposerPanel } from "@/components/editor/ManualComposerPanel";
 import { PreviewFrame } from "@/components/editor/PreviewFrame";
 import {
   appendFiles,
@@ -14,6 +15,7 @@ import {
   removeItem,
 } from "@/lib/gallery-assets";
 import type { BuildMode } from "@/lib/optimizers";
+import { mergeSectionOrder } from "@/lib/sections";
 import type {
   TemplateMeta,
   TemplateSchema,
@@ -31,11 +33,40 @@ const sampleValues: Record<string, unknown> = {
   groomName: "김민수",
   brideName: "이수진",
   weddingDate: "2026-05-15T14:00",
+  heroEyebrow: "Wedding day",
+  heroTagline: "서로의 계절이 된 두 사람이 평생의 약속을 나눕니다.",
   greeting: "서로 다른 시간과 취향으로 살아온 두 사람이 같은 방향을 바라보게 되었습니다. 따뜻한 축복으로 함께해 주세요.",
+  greetingTitle: "소중한 분들을 초대합니다",
+  groomFather: "김건호",
+  groomMother: "이미자",
+  brideFather: "이주명",
+  brideMother: "유수지",
+  groomContact: "010-1234-5678",
+  brideContact: "010-2345-6789",
+  familyNote: "양가 부모님과 함께 감사한 마음으로 초대의 말씀을 전합니다.",
   venue: "그랜드볼룸",
+  hallDetail: "3층 그랜드홀",
   address: "서울 강남구 테헤란로 1",
+  venuePhone: "02-1234-5678",
   transport: "2호선 역삼역 4번 출구 도보 5분",
   parking: "예식장 지하주차장 2시간 무료",
+  scheduleTitle: "예식 일정",
+  scheduleNote: "예식 종료 후 같은 층 연회장에서 식사가 이어집니다.",
+  countdownLabel: "저희의 결혼식이",
+  locationTitle: "오시는 길",
+  navigationNote: "익숙한 내비 앱으로 바로 길안내를 시작해 보세요.",
+  accountTitle: "마음 전하실 곳",
+  accountIntro:
+    "참석이 어려우신 분들을 위해 계좌번호를 함께 남깁니다. 따뜻한 마음만 감사히 받겠습니다.",
+  groomAccount: "신한은행 110-000-000000 김민수",
+  groomFamilyAccount: "하나은행 110-000-000000 김건호",
+  brideAccount: "국민은행 110-000-000000 이수진",
+  brideFamilyAccount: "농협 110-000-000000 유수지",
+  guestbookTitle: "축복의 한마디",
+  guestbookLead: "멀리서 전해주시는 축하도 오래도록 소중히 간직하겠습니다.",
+  endingTitle: "저희의 첫 장면을 함께해 주세요",
+  endingQuote:
+    "서로의 오늘을 가장 다정한 내일로 이어가겠습니다. 함께해 주시는 마음 오래도록 기억하겠습니다.",
   mapType: "kakao",
   mapCoords: { lat: "37.5012", lng: "127.0396" },
   rsvpFields: ["name", "attending", "guests"],
@@ -75,7 +106,7 @@ function createInitialDraft(schema: TemplateSchema): EditorDraft {
 
   return {
     locale: schema.i18n.defaultLocale,
-    sectionOrder: schema.sections.defaultOrder,
+    sectionOrder: mergeSectionOrder(schema.sections.defaultOrder),
     data,
     style,
     assets: {} as WedgenConfigAssets,
@@ -253,26 +284,27 @@ export function EditorLayout({
 
       <section className="grid gap-6 xl:grid-cols-[440px_minmax(0,1fr)]">
         <aside className="rounded-[2rem] border border-black/5 bg-white/68 p-4 shadow-[0_28px_80px_rgba(92,55,38,0.1)] backdrop-blur">
-          <ConfigPanel
-            schema={schema}
-            values={{
-              data: draft.data,
-              style: draft.style,
-              sectionOrder: draft.sectionOrder,
-            }}
-            assets={draft.assets ?? {}}
-            onValueChange={(fieldKey, nextValue, tabName) => {
-              startTransition(() => {
-                setDraft((current) => ({
-                  ...current,
-                  [tabName === "스타일" ? "style" : "data"]: {
-                    ...(tabName === "스타일" ? current.style : current.data),
-                    [fieldKey]: nextValue,
-                  },
-                }));
-              });
-            }}
-            onFileChange={(fieldKey, nextValue) => {
+          <div className="grid gap-4">
+            <ConfigPanel
+              schema={schema}
+              values={{
+                data: draft.data,
+                style: draft.style,
+                sectionOrder: draft.sectionOrder,
+              }}
+              assets={draft.assets ?? {}}
+              onValueChange={(fieldKey, nextValue, tabName) => {
+                startTransition(() => {
+                  setDraft((current) => ({
+                    ...current,
+                    [tabName === "스타일" ? "style" : "data"]: {
+                      ...(tabName === "스타일" ? current.style : current.data),
+                      [fieldKey]: nextValue,
+                    },
+                  }));
+                });
+              }}
+              onFileChange={(fieldKey, nextValue) => {
               void (async () => {
                 if (Array.isArray(nextValue)) {
                   const currentFiles = draftRef.current.files[fieldKey];
@@ -327,59 +359,72 @@ export function EditorLayout({
                   }));
                 });
               })();
-            }}
-            onArrayMove={(fieldKey, fromIndex, toIndex) => {
-              startTransition(() => {
-                setDraft((current) => {
-                  const existingFiles = Array.isArray(current.files[fieldKey])
-                    ? (current.files[fieldKey] as File[])
-                    : [];
-                  const existingAssets = Array.isArray(current.assets?.[fieldKey])
-                    ? (current.assets?.[fieldKey] as string[])
-                    : [];
+              }}
+              onArrayMove={(fieldKey, fromIndex, toIndex) => {
+                startTransition(() => {
+                  setDraft((current) => {
+                    const existingFiles = Array.isArray(current.files[fieldKey])
+                      ? (current.files[fieldKey] as File[])
+                      : [];
+                    const existingAssets = Array.isArray(current.assets?.[fieldKey])
+                      ? (current.assets?.[fieldKey] as string[])
+                      : [];
 
-                  return {
-                    ...current,
-                    files: {
-                      ...current.files,
-                      [fieldKey]: moveItem(existingFiles, fromIndex, toIndex),
-                    },
-                    assets: {
-                      ...(current.assets ?? {}),
-                      [fieldKey]: moveItem(existingAssets, fromIndex, toIndex),
-                    },
-                  };
+                    return {
+                      ...current,
+                      files: {
+                        ...current.files,
+                        [fieldKey]: moveItem(existingFiles, fromIndex, toIndex),
+                      },
+                      assets: {
+                        ...(current.assets ?? {}),
+                        [fieldKey]: moveItem(existingAssets, fromIndex, toIndex),
+                      },
+                    };
+                  });
                 });
-              });
-            }}
-            onArrayRemove={(fieldKey, index) => {
-              startTransition(() => {
-                setDraft((current) => {
-                  const existingFiles = Array.isArray(current.files[fieldKey])
-                    ? (current.files[fieldKey] as File[])
-                    : [];
-                  const existingAssets = Array.isArray(current.assets?.[fieldKey])
-                    ? (current.assets?.[fieldKey] as string[])
-                    : [];
+              }}
+              onArrayRemove={(fieldKey, index) => {
+                startTransition(() => {
+                  setDraft((current) => {
+                    const existingFiles = Array.isArray(current.files[fieldKey])
+                      ? (current.files[fieldKey] as File[])
+                      : [];
+                    const existingAssets = Array.isArray(current.assets?.[fieldKey])
+                      ? (current.assets?.[fieldKey] as string[])
+                      : [];
 
-                  return {
-                    ...current,
-                    files: {
-                      ...current.files,
-                      [fieldKey]: removeItem(existingFiles, index),
-                    },
-                    assets: {
-                      ...(current.assets ?? {}),
-                      [fieldKey]: removeItem(existingAssets, index),
-                    },
-                  };
+                    return {
+                      ...current,
+                      files: {
+                        ...current.files,
+                        [fieldKey]: removeItem(existingFiles, index),
+                      },
+                      assets: {
+                        ...(current.assets ?? {}),
+                        [fieldKey]: removeItem(existingAssets, index),
+                      },
+                    };
+                  });
                 });
-              });
-            }}
-            onSectionOrderChange={(nextOrder) =>
-              setDraft((current) => ({ ...current, sectionOrder: nextOrder }))
-            }
-          />
+              }}
+              onSectionOrderChange={(nextOrder) =>
+                setDraft((current) => ({ ...current, sectionOrder: nextOrder }))
+              }
+            />
+            <ManualComposerPanel
+              values={draft.data}
+              onChange={(key, value) =>
+                setDraft((current) => ({
+                  ...current,
+                  data: {
+                    ...current.data,
+                    [key]: value,
+                  },
+                }))
+              }
+            />
+          </div>
         </aside>
 
         <section className="grid gap-6">

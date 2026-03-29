@@ -6,9 +6,14 @@ import { Badge } from "@/components/ui/badge";
 const sectionLabels: Record<string, string> = {
   hero: "첫 화면",
   greeting: "인사말",
+  family: "혼주 정보",
   gallery: "갤러리",
-  info: "예식 정보",
+  schedule: "일정 안내",
+  location: "오시는 길",
+  account: "마음 전하실 곳",
   guestbook: "방명록",
+  ending: "마무리",
+  info: "예식 정보",
   rsvp: "참석 의사",
 };
 

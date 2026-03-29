@@ -198,3 +198,24 @@ body[data-animation="slide"] .section {
     transform: translateY(0);
   }
 }
+
+.section-header,.schedule-grid,.location-meta,.account-list,.action-grid{display:grid;gap:12px}
+.section-header{margin-bottom:18px}
+.section-kicker{margin:0;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:rgba(243,233,222,.48)}
+.section-title{margin:0;font-size:28px;line-height:1.14;font-family:var(--wedgen-font-heading)}
+.section-lead{margin:0;font-size:14px;line-height:1.8;color:rgba(243,233,222,.68)}
+.family-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.family-card,.info-card,.account-item,.timeline-card,.calendar-box{display:grid;gap:8px;border-radius:20px;border:1px solid var(--wedgen-border);background:rgba(18,22,27,.92);padding:16px}
+.family-role,.timeline-label,.account-role,.countdown-label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(243,233,222,.48)}
+.family-name,.timeline-value,.account-name,.calendar-date{font-family:var(--wedgen-font-heading)}
+.family-name,.timeline-value,.account-name{font-size:18px}
+.calendar-date{font-size:34px}
+.family-sub,.account-number,.timeline-sub{font-size:13px;line-height:1.7;color:rgba(243,233,222,.78);white-space:pre-wrap}
+.contact-link,.nav-link,.account-copy{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 14px;border-radius:999px;border:1px solid var(--wedgen-border);color:inherit;text-decoration:none;background:rgba(255,255,255,.06)}
+.hero-meta{display:grid;gap:6px;margin-top:18px}
+.hero-meta-line{font-size:14px;line-height:1.7;color:rgba(243,233,222,.74)}
+.countdown-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.countdown-item{border-radius:16px;background:rgba(255,255,255,.06);border:1px solid var(--wedgen-border);padding:12px 8px;text-align:center}
+.countdown-value{display:block;font-size:20px;font-family:var(--wedgen-font-heading)}
+.nav-links{display:flex;flex-wrap:wrap;gap:8px}
+.ending-card{display:grid;gap:14px;text-align:center}
