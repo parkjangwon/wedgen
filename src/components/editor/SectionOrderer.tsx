@@ -29,7 +29,7 @@ export function SectionOrderer({
   onChange: (order: string[]) => void;
 }) {
   return (
-    <div className="space-y-3 rounded-[1.5rem] border border-black/5 bg-white/92 p-4 shadow-[0_16px_40px_rgba(88,47,33,0.05)]">
+    <div className="space-y-3 rounded-[1.5rem] border border-white/10 bg-card/80 p-4 shadow-[0_16px_40px_rgba(0,0,0,0.2)]">
       <div className="flex items-center justify-between">
         <div>
           <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/70">
@@ -60,7 +60,7 @@ export function SectionOrderer({
               current.splice(to, 0, dragged);
               onChange(current);
             }}
-            className="flex items-center justify-between rounded-[1rem] border border-black/5 bg-[#fffaf5] px-3 py-3 text-[13px] shadow-[0_8px_20px_rgba(88,47,33,0.04)]"
+            className="flex items-center justify-between rounded-[1rem] border border-white/10 bg-secondary/50 px-3 py-3 text-[13px] shadow-[0_8px_20px_rgba(0,0,0,0.15)] transition hover:bg-secondary/70"
           >
             <div className="flex items-center gap-3">
               <GripVertical className="h-4 w-4 text-muted-foreground" />
@@ -68,7 +68,7 @@ export function SectionOrderer({
             </div>
             <div className="flex items-center gap-2">
               {required.includes(section) ? (
-                <Badge variant="secondary" className="rounded-full px-3 py-1">
+                <Badge variant="secondary" className="rounded-full px-3 py-1 bg-primary/20 text-primary">
                   필수
                 </Badge>
               ) : null}
@@ -77,10 +77,10 @@ export function SectionOrderer({
                   className={[
                     "rounded-full px-2.5 py-1 text-[11px]",
                     statusMap[section] === "done"
-                      ? "bg-emerald-50 text-emerald-700"
+                      ? "bg-emerald-500/20 text-emerald-400"
                       : statusMap[section] === "draft"
-                        ? "bg-amber-50 text-amber-700"
-                        : "bg-[#f1ece7] text-[#7b655b]",
+                        ? "bg-amber-500/20 text-amber-400"
+                        : "bg-secondary text-muted-foreground",
                   ].join(" ")}
                 >
                   {statusMap[section] === "done"

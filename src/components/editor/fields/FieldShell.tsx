@@ -18,7 +18,7 @@ export function FieldShell({
   children: ReactNode;
 }) {
   return (
-    <div className="space-y-3 rounded-[1.15rem] border border-black/5 bg-white/88 p-3.5 shadow-[0_12px_28px_rgba(88,47,33,0.05)] ring-1 ring-white/70">
+    <div className="space-y-3 rounded-[1.15rem] border border-white/10 bg-card/80 p-3.5 shadow-[0_12px_28px_rgba(0,0,0,0.2)]">
       <div className="space-y-1.5">
         <div className="flex items-start justify-between gap-3">
           <div className="space-y-1.5">
@@ -39,7 +39,7 @@ export function FieldShell({
               hintTone === "error"
                 ? "text-destructive"
                 : hintTone === "success"
-                  ? "text-emerald-700"
+                  ? "text-emerald-400"
                   : "text-muted-foreground",
             ].join(" ")}
           >

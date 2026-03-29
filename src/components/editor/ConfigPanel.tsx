@@ -157,9 +157,9 @@ export function ConfigPanel({
 
   return (
     <div className="grid gap-4">
-      <div className="grid gap-4 rounded-[1.5rem] border border-black/5 bg-[#fcfbf9] p-3 shadow-[0_18px_44px_rgba(88,47,33,0.06)] xl:grid-cols-[214px_minmax(0,1fr)]">
+      <div className="grid gap-4 rounded-[1.5rem] border border-white/10 bg-secondary/30 p-3 shadow-[0_18px_44px_rgba(0,0,0,0.25)] xl:grid-cols-[214px_minmax(0,1fr)]">
         <div className="grid gap-2 xl:content-start">
-          <div className="rounded-[1.1rem] border border-black/5 bg-white px-3 py-3">
+          <div className="rounded-[1.1rem] border border-white/10 bg-card/50 px-3 py-3">
             <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/70">
               편집 섹션
             </p>
@@ -181,15 +181,15 @@ export function ConfigPanel({
                 className={[
                   "grid gap-1 rounded-[1.1rem] border px-3 py-3 text-left transition",
                   isActive
-                    ? "border-primary/18 bg-[#fff7f1] shadow-[0_12px_28px_rgba(157,94,67,0.08)]"
-                    : "border-black/5 bg-white hover:bg-[#fffaf5]",
+                    ? "border-primary/30 bg-primary/10 shadow-[0_12px_28px_rgba(212,165,116,0.1)]"
+                    : "border-white/10 bg-card/50 hover:bg-secondary/50",
                 ].join(" ")}
               >
                 <div className="flex items-center gap-2">
                   <div
                     className={[
                       "flex h-8 w-8 items-center justify-center rounded-full",
-                      isActive ? "bg-primary text-primary-foreground" : "bg-[#f4efe8] text-[#6a5347]",
+                      isActive ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground",
                     ].join(" ")}
                   >
                     <Icon className="h-4 w-4" />
@@ -206,10 +206,10 @@ export function ConfigPanel({
                     className={[
                       "rounded-full px-2 py-1 text-[11px]",
                       status.tone === "success"
-                        ? "bg-emerald-50 text-emerald-700"
+                        ? "bg-emerald-500/20 text-emerald-400"
                         : status.tone === "warning"
-                          ? "bg-amber-50 text-amber-700"
-                          : "bg-[#f5efe8] text-[#6a5347]",
+                          ? "bg-amber-500/20 text-amber-400"
+                          : "bg-secondary text-muted-foreground",
                     ].join(" ")}
                   >
                     {status.label}
@@ -224,14 +224,14 @@ export function ConfigPanel({
         </div>
 
         <div className="grid gap-3">
-          <div className="grid gap-3 rounded-[1.2rem] border border-black/5 bg-white px-4 py-4">
+          <div className="grid gap-3 rounded-[1.2rem] border border-white/10 bg-card/50 px-4 py-4">
             <div className="flex items-start justify-between gap-3">
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/70">
                   Active Panel
                 </p>
                 <div className="mt-2 flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#fff3e8] text-primary">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/20 text-primary">
                     <ActiveIcon className="h-4 w-4" />
                   </div>
                   <div>
@@ -248,29 +248,29 @@ export function ConfigPanel({
                 className={[
                   "rounded-full px-2.5 py-1 text-[11px]",
                   activeStatus.tone === "success"
-                    ? "bg-emerald-50 text-emerald-700"
+                    ? "bg-emerald-500/20 text-emerald-400"
                     : activeStatus.tone === "warning"
-                      ? "bg-amber-50 text-amber-700"
-                      : "bg-[#f5efe8] text-[#6a5347]",
+                      ? "bg-amber-500/20 text-amber-400"
+                      : "bg-secondary text-muted-foreground",
                 ].join(" ")}
               >
                 {activeStatus.label}
               </span>
             </div>
 
-            <div className="grid gap-2 rounded-[1rem] border border-black/5 bg-[#fcfaf7] px-3 py-3 text-[12px] text-muted-foreground">
+            <div className="grid gap-2 rounded-[1rem] border border-white/10 bg-secondary/30 px-3 py-3 text-[12px] text-muted-foreground">
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
                 입력이 충분하면 상태가 자동으로 완료로 바뀝니다.
               </div>
               <div className="flex items-center gap-2">
-                <AlertTriangle className="h-3.5 w-3.5 text-amber-600" />
+                <AlertTriangle className="h-3.5 w-3.5 text-amber-400" />
                 필수 값이 비어 있으면 생성 전 점검이 필요합니다.
               </div>
             </div>
           </div>
 
-          <div className="grid gap-3 rounded-[1.2rem] border border-black/5 bg-white/92 p-3">
+          <div className="grid gap-3 rounded-[1.2rem] border border-white/10 bg-card/60 p-3">
             {Object.entries(activeFields).map(([fieldKey, field]) => {
               const isStyleTab = activeTab === "스타일";
               if (!isFieldVisible(field, values)) {
