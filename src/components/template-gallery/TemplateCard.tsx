@@ -44,6 +44,36 @@ const templateMood: Record<
     keywords: ["영화같은", "몰입형"],
     accent: "#d4a373",
   },
+  "art-deco-arch": {
+    city: "파리",
+    english: "Paris",
+    keywords: ["대칭형", "포멀한"],
+    accent: "#c9a45c",
+  },
+  "bento-memory": {
+    city: "오사카",
+    english: "Osaka",
+    keywords: ["벤토형", "캐주얼"],
+    accent: "#eb7d52",
+  },
+  "ceremony-program": {
+    city: "취리히",
+    english: "Zurich",
+    keywords: ["프로그램북", "정리된"],
+    accent: "#315b77",
+  },
+  "paper-collage": {
+    city: "포틀랜드",
+    english: "Portland",
+    keywords: ["콜라주", "감성적"],
+    accent: "#a66052",
+  },
+  "starlight-minimal": {
+    city: "레이캬비크",
+    english: "Reykjavik",
+    keywords: ["야간형", "여백형"],
+    accent: "#d9c6a5",
+  },
 };
 
 export function TemplateCard({ template }: { template: TemplateMeta }) {
