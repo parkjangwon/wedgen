@@ -6,17 +6,25 @@
     <title>매거진 스타일</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body data-template="magazine-style">
-    <div class="invitation-shell">
-      <section class="section hero" data-section="hero"></section>
-      <section class="section greeting" data-section="greeting"></section>
-      <section class="section family" data-section="family"></section>
-      <section class="section gallery" data-section="gallery"></section>
-      <section class="section schedule" data-section="schedule"></section>
-      <section class="section location" data-section="location"></section>
-      <section class="section account" data-section="account"></section>
-      <section class="section guestbook" data-section="guestbook"></section>
-      <section class="section ending" data-section="ending"></section>
+  <body data-template="magazine-style" data-layout="editorial-story">
+    <div class="magazine-container">
+      <header class="magazine-header" data-section="hero"></header>
+
+      <article class="editorial-feature" data-section="greeting"></article>
+
+      <div class="editorial-spread">
+        <aside class="spread-sidebar" data-section="family"></aside>
+        <main class="spread-content" data-section="gallery"></main>
+      </div>
+
+      <section class="editorial-timeline" data-section="schedule"></section>
+
+      <div class="editorial-spread spread-reverse">
+        <main class="spread-content" data-section="location"></main>
+        <aside class="spread-sidebar" data-section="account"></aside>
+      </div>
+
+      <footer class="magazine-footer" data-section="ending"></footer>
     </div>
     <script src="script.js" defer></script>
   </body>

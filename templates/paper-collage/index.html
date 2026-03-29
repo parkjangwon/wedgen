@@ -6,17 +6,23 @@
     <title>페이퍼 콜라주</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body data-template="paper-collage">
-    <div class="invitation-shell">
-      <section class="section hero" data-section="hero"></section>
-      <section class="section greeting" data-section="greeting"></section>
-      <section class="section family" data-section="family"></section>
-      <section class="section gallery" data-section="gallery"></section>
-      <section class="section schedule" data-section="schedule"></section>
-      <section class="section location" data-section="location"></section>
-      <section class="section account" data-section="account"></section>
-      <section class="section guestbook" data-section="guestbook"></section>
-      <section class="section ending" data-section="ending"></section>
+  <body data-template="paper-collage" data-layout="collage-cards">
+    <div class="collage-scrapbook">
+      <div class="card-stack card-main" data-section="hero"></div>
+
+      <div class="card-pile">
+        <div class="scrap-card card-tilt-left" data-section="greeting"></div>
+        <div class="scrap-card card-tilt-right" data-section="gallery"></div>
+        <div class="scrap-card card-tilt-left" data-section="family"></div>
+      </div>
+
+      <div class="card-memories">
+        <div class="memory-slip" data-section="schedule"></div>
+        <div class="memory-slip" data-section="location"></div>
+        <div class="memory-slip" data-section="account"></div>
+      </div>
+
+      <div class="card-closing" data-section="ending"></div>
     </div>
     <script src="script.js" defer></script>
   </body>

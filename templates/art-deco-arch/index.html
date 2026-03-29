@@ -6,17 +6,23 @@
     <title>아르데코 아치</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body data-template="art-deco-arch">
-    <div class="invitation-shell">
-      <section class="section hero" data-section="hero"></section>
-      <section class="section greeting" data-section="greeting"></section>
-      <section class="section family" data-section="family"></section>
-      <section class="section gallery" data-section="gallery"></section>
-      <section class="section schedule" data-section="schedule"></section>
-      <section class="section location" data-section="location"></section>
-      <section class="section account" data-section="account"></section>
-      <section class="section guestbook" data-section="guestbook"></section>
-      <section class="section ending" data-section="ending"></section>
+  <body data-template="art-deco-arch" data-layout="hero-arch">
+    <div class="arch-container">
+      <div class="arch-frame">
+        <div class="arch-hero" data-section="hero"></div>
+        <div class="arch-accent"></div>
+      </div>
+
+      <div class="arch-content">
+        <section class="arch-section" data-section="greeting"></section>
+        <section class="arch-section arch-split" data-section="family"></section>
+        <section class="arch-section" data-section="gallery"></section>
+        <section class="arch-section arch-compact" data-section="schedule"></section>
+        <section class="arch-section arch-compact" data-section="location"></section>
+        <section class="arch-section arch-compact" data-section="account"></section>
+      </div>
+
+      <div class="arch-closing" data-section="ending"></div>
     </div>
     <script src="script.js" defer></script>
   </body>
