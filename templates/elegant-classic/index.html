@@ -6,18 +6,60 @@
     <title>우아한 클래식</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body data-template="elegant-classic">
-    <div class="invitation-shell">
-      <section class="section hero" data-section="hero"></section>
-      <section class="section greeting" data-section="greeting"></section>
-      <section class="section family" data-section="family"></section>
-      <section class="section gallery" data-section="gallery"></section>
-      <section class="section schedule" data-section="schedule"></section>
-      <section class="section location" data-section="location"></section>
-      <section class="section account" data-section="account"></section>
-      <section class="section guestbook" data-section="guestbook"></section>
-      <section class="section ending" data-section="ending"></section>
+  <body data-template="elegant-classic" data-layout="program-book">
+    <div class="program-book">
+      <header class="book-header">
+        <nav class="toc-nav" aria-label="목차">
+          <button class="toc-toggle" aria-expanded="false" aria-controls="toc-menu">
+            <span class="toc-line"></span>
+            <span class="toc-line"></span>
+            <span class="toc-line"></span>
+          </button>
+          <ul id="toc-menu" class="toc-menu" hidden>
+            <li><a href="#hero" data-section="hero">표지</a></li>
+            <li><a href="#greeting" data-section="greeting">인사말</a></li>
+            <li><a href="#family" data-section="family">혼주</a></li>
+            <li><a href="#schedule" data-section="schedule">예식 순서</a></li>
+            <li><a href="#location" data-section="location">오시는 길</a></li>
+            <li><a href="#account" data-section="account">마음 전하실 곳</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <main class="book-content">
+        <article class="page cover-page" id="hero" data-section="hero">
+          <div class="page-inner"></div>
+        </article>
+
+        <article class="page" id="greeting" data-section="greeting">
+          <div class="page-inner"></div>
+        </article>
+
+        <article class="page" id="family" data-section="family">
+          <div class="page-inner"></div>
+        </article>
+
+        <article class="page" id="schedule" data-section="schedule">
+          <div class="page-inner"></div>
+        </article>
+
+        <article class="page" id="location" data-section="location">
+          <div class="page-inner"></div>
+        </article>
+
+        <article class="page" id="account" data-section="account">
+          <div class="page-inner"></div>
+        </article>
+
+        <article class="page back-cover" id="ending" data-section="ending">
+          <div class="page-inner"></div>
+        </article>
+      </main>
+
+      <footer class="book-footer">
+        <p class="page-number">1</p>
+      </footer>
     </div>
     <script src="script.js" defer></script>
   </body>
-  </html>
+</html>
