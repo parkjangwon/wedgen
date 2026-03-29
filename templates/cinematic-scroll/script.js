@@ -78,7 +78,7 @@
   const renderers = {
     hero(node) {
       node.innerHTML = `
-        <p class="eyebrow">Wedding Invitation</p>
+        <p class="eyebrow">모바일 청첩장</p>
         <h1 class="headline">${safeText(data.groomName)} <span style="color: var(--wedgen-primary)">&amp;</span> ${safeText(data.brideName)}</h1>
         <p class="subline">${formatter.format(new Date(data.weddingDate || fallbackConfig.data.weddingDate))}</p>
         ${assets.heroImage ? `<img class="hero-image" src="${assets.heroImage}" alt="대표 사진" />` : ""}
@@ -86,7 +86,7 @@
     },
     greeting(node) {
       node.innerHTML = `
-        <p class="eyebrow">Invitation Note</p>
+        <p class="eyebrow">초대의 글</p>
         <div class="divider"></div>
         <p class="copy">${safeText(data.greeting)}</p>
         ${assets.couplePhoto ? `<img class="portrait-image" src="${assets.couplePhoto}" alt="커플 사진" />` : ""}
@@ -95,7 +95,7 @@
     gallery(node) {
       const photos = Array.isArray(assets.photos) ? assets.photos : [];
       node.innerHTML = `
-        <p class="eyebrow">Moments</p>
+        <p class="eyebrow">우리의 순간</p>
         <h2 class="headline" style="font-size: 28px">함께 쌓아온 장면들</h2>
         ${
           photos.length
@@ -108,26 +108,26 @@
     },
     info(node) {
       node.innerHTML = `
-        <p class="eyebrow">Ceremony Info</p>
+        <p class="eyebrow">예식 안내</p>
         <div class="info-list">
           <div class="info-item">
-            <strong>Date</strong>
+            <strong>예식 일시</strong>
             <span>${formatter.format(new Date(data.weddingDate || fallbackConfig.data.weddingDate))}</span>
           </div>
           <div class="info-item">
-            <strong>Venue</strong>
+            <strong>예식장</strong>
             <span>${safeText(data.venue)}</span>
           </div>
           <div class="info-item">
-            <strong>Address</strong>
+            <strong>주소</strong>
             <span>${safeText(data.address)}</span>
           </div>
           <div class="info-item">
-            <strong>Transit</strong>
+            <strong>교통 안내</strong>
             <span>${safeText(data.transport)}</span>
           </div>
           <div class="info-item">
-            <strong>Parking</strong>
+            <strong>주차 안내</strong>
             <span>${safeText(data.parking)}</span>
           </div>
         </div>
@@ -135,7 +135,7 @@
     },
     rsvp(node) {
       node.innerHTML = `
-        <p class="eyebrow">RSVP</p>
+        <p class="eyebrow">참석 의사</p>
         <h2 class="headline" style="font-size: 28px">함께해 주실 수 있나요?</h2>
         <p class="placeholder-note">참석 여부와 동행 인원, 식사 여부를 미리 알려주시면 준비에 큰 도움이 됩니다.</p>
         ${linkButton(data.rsvpUrl, "참석 의사 전달하기")}
@@ -143,7 +143,7 @@
     },
     guestbook(node) {
       node.innerHTML = `
-        <p class="eyebrow">Guestbook</p>
+        <p class="eyebrow">방명록</p>
         <h2 class="headline" style="font-size: 28px">축복의 한마디</h2>
         <p class="placeholder-note">따뜻한 메시지를 남겨주시면 두 사람이 오래도록 간직하겠습니다.</p>
         ${linkButton(data.guestbookUrl, "방명록 열기")}

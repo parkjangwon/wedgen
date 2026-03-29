@@ -231,7 +231,7 @@ export function EditorLayout({
           </Link>
           <div>
             <p className="font-mono text-[11px] uppercase tracking-[0.34em] text-primary/70">
-              Editor Workspace
+              편집 워크스페이스
             </p>
             <h1 className="mt-1 text-4xl tracking-[-0.04em]">{meta.name}</h1>
             <p className="mt-2 text-sm leading-7 text-muted-foreground">{meta.description}</p>

@@ -22,7 +22,7 @@ export function BuildBar({
     <div className="flex flex-col gap-4 rounded-[1.75rem] border border-black/5 bg-white/85 p-5 shadow-[0_20px_50px_rgba(92,55,38,0.08)] lg:flex-row lg:items-center lg:justify-between">
       <div className="space-y-2">
         <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-primary/70">
-          Build Mode
+          빌드 모드
         </p>
         <RadioGroup
           value={buildMode}
@@ -31,11 +31,11 @@ export function BuildBar({
         >
           <Label className="flex items-center gap-2 rounded-full border border-black/5 bg-[#fffaf5] px-3 py-2">
             <RadioGroupItem value="tweak" />
-            Tweak
+            수정용
           </Label>
           <Label className="flex items-center gap-2 rounded-full border border-black/5 bg-[#fffaf5] px-3 py-2">
             <RadioGroupItem value="optimized" />
-            Optimized
+            배포용
           </Label>
         </RadioGroup>
       </div>

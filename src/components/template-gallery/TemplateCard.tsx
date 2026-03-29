@@ -5,9 +5,9 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 
 const interactionLabels: Record<TemplateMeta["interaction"], string> = {
-  scroll: "Scroll",
-  page: "Page",
-  parallax: "Parallax",
+  scroll: "스크롤형",
+  page: "페이지형",
+  parallax: "패럴랙스형",
 };
 
 export function TemplateCard({ template }: { template: TemplateMeta }) {

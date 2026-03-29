@@ -3,6 +3,15 @@
 import { GripVertical } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
+const sectionLabels: Record<string, string> = {
+  hero: "첫 화면",
+  greeting: "인사말",
+  gallery: "갤러리",
+  info: "예식 정보",
+  guestbook: "방명록",
+  rsvp: "참석 의사",
+};
+
 export function SectionOrderer({
   order,
   required,
@@ -17,7 +26,7 @@ export function SectionOrderer({
       <div className="flex items-center justify-between">
         <div>
           <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-primary/70">
-            Section Order
+            섹션 구성
           </p>
           <h3 className="mt-1 text-xl tracking-[-0.03em]">섹션 순서</h3>
         </div>
@@ -48,7 +57,7 @@ export function SectionOrderer({
           >
             <div className="flex items-center gap-3">
               <GripVertical className="h-4 w-4 text-muted-foreground" />
-              <span>{section}</span>
+              <span>{sectionLabels[section] ?? section}</span>
             </div>
             {required.includes(section) ? (
               <Badge variant="secondary" className="rounded-full px-3 py-1">

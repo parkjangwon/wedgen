@@ -10,7 +10,7 @@ export default async function Home() {
       <section className="grid gap-8 rounded-[2rem] border border-black/5 bg-white/70 p-8 shadow-[0_30px_120px_rgba(88,47,33,0.12)] backdrop-blur xl:grid-cols-[1.35fr_0.65fr]">
         <div className="space-y-6">
           <p className="font-mono text-xs uppercase tracking-[0.4em] text-primary/70">
-            Local-First Wedding Publishing Console
+            로컬 청첩장 퍼블리싱 콘솔
           </p>
           <div className="space-y-4">
             <h1 className="max-w-4xl text-5xl leading-[0.95] tracking-[-0.04em] text-foreground md:text-7xl">
@@ -27,7 +27,7 @@ export default async function Home() {
         <div className="grid gap-3 rounded-[1.75rem] border border-primary/10 bg-[#1f1714] p-5 text-[#f7ede2] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
           <div className="flex items-center justify-between rounded-full border border-white/10 px-4 py-3">
             <span className="font-mono text-xs uppercase tracking-[0.3em] text-white/48">
-              Build Flow
+              제작 흐름
             </span>
             <span className="rounded-full bg-white/10 px-3 py-1 text-xs">ZIP</span>
           </div>
@@ -44,7 +44,7 @@ export default async function Home() {
         <div className="flex items-end justify-between gap-4">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.36em] text-primary/70">
-              Template Gallery
+              템플릿 모음
             </p>
             <h2 className="mt-2 text-3xl tracking-[-0.03em]">첫 화면에서 바로 분위기를 고르세요</h2>
           </div>
