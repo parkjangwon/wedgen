@@ -16,7 +16,11 @@ export function DateTimeField({
   onChange: (value: string) => void;
 }) {
   return (
-    <FieldShell fieldKey={fieldKey} field={field}>
+    <FieldShell
+      fieldKey={fieldKey}
+      field={field}
+      hint={value ? "예식 일시가 설정되었습니다." : "날짜와 시간을 함께 선택하세요."}
+    >
       <Input
         id={fieldKey}
         type="datetime-local"

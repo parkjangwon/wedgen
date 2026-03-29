@@ -16,7 +16,11 @@ export function TextareaField({
   onChange: (value: string) => void;
 }) {
   return (
-    <FieldShell fieldKey={fieldKey} field={field}>
+    <FieldShell
+      fieldKey={fieldKey}
+      field={field}
+      hint={`${value.length}${field.maxLength ? ` / ${field.maxLength}` : ""}자`}
+    >
       <Textarea
         id={fieldKey}
         value={value}

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { FieldDefinition } from "@/types";
@@ -22,7 +21,11 @@ export function UrlField({
   const [result, setResult] = useState<{ ok: boolean; message: string } | null>(null);
 
   return (
-    <FieldShell fieldKey={fieldKey} field={field}>
+    <FieldShell
+      fieldKey={fieldKey}
+      field={field}
+      hint={result ? result.message : "GAS URL은 검증 버튼으로 즉시 확인할 수 있습니다."}
+    >
       <div className="flex gap-2">
         <Input
           id={fieldKey}
@@ -51,14 +54,6 @@ export function UrlField({
           {pending ? "검증 중" : "검증"}
         </Button>
       </div>
-      {result ? (
-        <Badge
-          variant={result.ok ? "secondary" : "destructive"}
-          className="rounded-full px-3 py-1"
-        >
-          {result.message}
-        </Badge>
-      ) : null}
     </FieldShell>
   );
 }

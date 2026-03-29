@@ -23,7 +23,11 @@ export function ImageArrayField({
   onRemove: (index: number) => void;
 }) {
   return (
-    <FieldShell fieldKey={fieldKey} field={field}>
+    <FieldShell
+      fieldKey={fieldKey}
+      field={field}
+      hint={previewUrls.length ? `${previewUrls.length}장의 사진이 등록되었습니다.` : "여러 장 업로드 후 아래에서 순서를 조정할 수 있습니다."}
+    >
       <label className="block cursor-pointer">
         <input
           id={fieldKey}

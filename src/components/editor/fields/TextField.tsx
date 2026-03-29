@@ -16,7 +16,11 @@ export function TextField({
   onChange: (value: string) => void;
 }) {
   return (
-    <FieldShell fieldKey={fieldKey} field={field}>
+    <FieldShell
+      fieldKey={fieldKey}
+      field={field}
+      hint={value ? "입력이 완료되었습니다." : field.required ? "필수 입력 항목입니다." : "선택 입력 항목입니다."}
+    >
       <Input
         id={fieldKey}
         value={value}

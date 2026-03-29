@@ -16,7 +16,11 @@ export function LatLngField({
   onChange: (value: { lat: string; lng: string }) => void;
 }) {
   return (
-    <FieldShell fieldKey={fieldKey} field={field}>
+    <FieldShell
+      fieldKey={fieldKey}
+      field={field}
+      hint={value.lat && value.lng ? "좌표가 입력되었습니다." : "위도와 경도를 모두 입력하세요."}
+    >
       <div className="grid grid-cols-2 gap-2">
         <Input
           id={`${fieldKey}-lat`}

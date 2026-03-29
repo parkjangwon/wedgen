@@ -7,6 +7,7 @@ import { BuildBar } from "@/components/editor/BuildBar";
 import { ConfigPanel } from "@/components/editor/ConfigPanel";
 import { ManualComposerPanel } from "@/components/editor/ManualComposerPanel";
 import { PreviewFrame } from "@/components/editor/PreviewFrame";
+import { TemplateModePanel } from "@/components/editor/TemplateModePanel";
 import { type PreviewDevice } from "@/components/editor/preview-utils";
 import {
   appendFiles,
@@ -466,6 +467,7 @@ export function EditorLayout({
                 }))
               }
             />
+            <TemplateModePanel meta={meta} />
           </div>
         </aside>
 

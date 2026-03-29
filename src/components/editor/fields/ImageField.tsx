@@ -17,7 +17,11 @@ export function ImageField({
   onChange: (value: File | undefined) => void;
 }) {
   return (
-    <FieldShell fieldKey={fieldKey} field={field}>
+    <FieldShell
+      fieldKey={fieldKey}
+      field={field}
+      hint={previewUrl ? "이미지가 연결되었습니다." : "권장 비율 4:5"}
+    >
       <label className="block cursor-pointer">
         <input
           id={fieldKey}

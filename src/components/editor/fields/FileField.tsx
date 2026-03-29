@@ -16,7 +16,11 @@ export function FileField({
   onChange: (value: File | undefined) => void;
 }) {
   return (
-    <FieldShell fieldKey={fieldKey} field={field}>
+    <FieldShell
+      fieldKey={fieldKey}
+      field={field}
+      hint={fileName ? "파일이 연결되었습니다." : "선택한 파일은 최종 ZIP에 함께 포함됩니다."}
+    >
       <label className="block cursor-pointer">
         <input
           id={fieldKey}
