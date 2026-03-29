@@ -2,7 +2,8 @@
 
 import { startTransition, useDeferredValue, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { ArrowLeft, LayoutTemplate, PenSquare, SlidersHorizontal } from "lucide-react";
 import { BuildBar } from "@/components/editor/BuildBar";
 import { ConfigPanel } from "@/components/editor/ConfigPanel";
 import { ManualComposerPanel } from "@/components/editor/ManualComposerPanel";
@@ -141,12 +142,16 @@ function revokeAsset(asset: string | string[] | undefined) {
 export function EditorLayout({
   meta,
   schema,
+  templates,
 }: {
   meta: TemplateMeta;
   schema: TemplateSchema;
+  templates: TemplateMeta[];
 }) {
+  const router = useRouter();
   const [draft, setDraft] = useState<EditorDraft>(() => createInitialDraft(schema));
   const draftRef = useRef(draft);
+  const [editorMode, setEditorMode] = useState<"manual" | "structured">("manual");
   const [previewHtml, setPreviewHtml] = useState("");
   const [previewLoading, setPreviewLoading] = useState(true);
   const [previewError, setPreviewError] = useState<string | null>(null);
@@ -315,162 +320,204 @@ export function EditorLayout({
             </p>
           </div>
         </div>
-        <div className="flex flex-wrap gap-2 text-[12px] text-muted-foreground">
-          <span className="rounded-full border border-black/5 bg-[#fffaf5] px-3 py-2">
-            라이브 프리뷰
-          </span>
-          <span className="rounded-full border border-black/5 bg-[#fffaf5] px-3 py-2">
-            수동 제작 지원
-          </span>
-          <span className="rounded-full border border-black/5 bg-[#fffaf5] px-3 py-2">
-            ZIP 배포 가능
-          </span>
+        <div className="grid gap-2 lg:min-w-[340px]">
+          <label className="grid gap-1">
+            <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/70">
+              템플릿 불러오기
+            </span>
+            <div className="flex items-center gap-2 rounded-[1rem] border border-black/5 bg-[#fffaf5] px-3 py-2">
+              <LayoutTemplate className="h-4 w-4 text-[#7b655b]" />
+              <select
+                value={meta.id}
+                className="h-9 flex-1 bg-transparent text-[13px] text-foreground outline-none"
+                onChange={(event) => router.push(`/editor/${event.target.value}`)}
+              >
+                {templates.map((template) => (
+                  <option key={template.id} value={template.id}>
+                    {template.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </label>
         </div>
       </div>
 
       <section className="grid gap-4 xl:min-h-0 xl:grid-cols-[680px_minmax(0,1fr)]">
         <aside className="rounded-[1.9rem] border border-black/5 bg-[#fbfaf8] p-4 shadow-[0_28px_80px_rgba(92,55,38,0.1)] backdrop-blur xl:min-h-0 xl:overflow-hidden">
           <div className="grid gap-4 xl:h-full xl:overflow-y-auto xl:pr-1">
-            <ConfigPanel
-              schema={schema}
-              values={{
-                data: draft.data,
-                style: draft.style,
-                sectionOrder: draft.sectionOrder,
-              }}
-              assets={draft.assets ?? {}}
-              onValueChange={(fieldKey, nextValue, tabName) => {
-                startTransition(() => {
-                  setDraft((current) => ({
-                    ...current,
-                    [tabName === "스타일" ? "style" : "data"]: {
-                      ...(tabName === "스타일" ? current.style : current.data),
-                      [fieldKey]: nextValue,
-                    },
-                  }));
-                });
-              }}
-              onFileChange={(fieldKey, nextValue) => {
-              void (async () => {
-                if (Array.isArray(nextValue)) {
-                  const currentFiles = draftRef.current.files[fieldKey];
-                  const existingFiles = Array.isArray(currentFiles)
-                    ? currentFiles
-                    : [];
-                  const mergedFiles = appendFiles(existingFiles, nextValue);
+            <div className="flex flex-wrap gap-2 rounded-[1.4rem] border border-black/5 bg-white/92 p-2 shadow-[0_12px_28px_rgba(88,47,33,0.05)]">
+              <button
+                type="button"
+                onClick={() => setEditorMode("manual")}
+                className={[
+                  "flex items-center gap-2 rounded-full px-4 py-2 text-[13px] transition",
+                  editorMode === "manual"
+                    ? "bg-primary text-primary-foreground shadow-[0_12px_24px_rgba(157,94,67,0.18)]"
+                    : "bg-[#fff7f0] text-[#6b5346]",
+                ].join(" ")}
+              >
+                <PenSquare className="h-4 w-4" />
+                수동 제작
+              </button>
+              <button
+                type="button"
+                onClick={() => setEditorMode("structured")}
+                className={[
+                  "flex items-center gap-2 rounded-full px-4 py-2 text-[13px] transition",
+                  editorMode === "structured"
+                    ? "bg-primary text-primary-foreground shadow-[0_12px_24px_rgba(157,94,67,0.18)]"
+                    : "bg-[#fff7f0] text-[#6b5346]",
+                ].join(" ")}
+              >
+                <SlidersHorizontal className="h-4 w-4" />
+                구성 편집
+              </button>
+            </div>
+            {editorMode === "structured" ? (
+              <ConfigPanel
+                schema={schema}
+                values={{
+                  data: draft.data,
+                  style: draft.style,
+                  sectionOrder: draft.sectionOrder,
+                }}
+                assets={draft.assets ?? {}}
+                onValueChange={(fieldKey, nextValue, tabName) => {
+                  startTransition(() => {
+                    setDraft((current) => ({
+                      ...current,
+                      [tabName === "스타일" ? "style" : "data"]: {
+                        ...(tabName === "스타일" ? current.style : current.data),
+                        [fieldKey]: nextValue,
+                      },
+                    }));
+                  });
+                }}
+                onFileChange={(fieldKey, nextValue) => {
+                void (async () => {
+                  if (Array.isArray(nextValue)) {
+                    const currentFiles = draftRef.current.files[fieldKey];
+                    const existingFiles = Array.isArray(currentFiles)
+                      ? currentFiles
+                      : [];
+                    const mergedFiles = appendFiles(existingFiles, nextValue);
 
-                  const previewUrls = await filesToDataUrls(mergedFiles);
+                    const previewUrls = await filesToDataUrls(mergedFiles);
+                    startTransition(() => {
+                      setDraft((current) => ({
+                        ...current,
+                        assets: {
+                          ...(current.assets ?? {}),
+                          [fieldKey]: previewUrls,
+                        },
+                        files: {
+                          ...current.files,
+                          [fieldKey]: mergedFiles,
+                        },
+                      }));
+                    });
+                    return;
+                  }
+
+                  if (!nextValue) {
+                    startTransition(() => {
+                      setDraft((current) => {
+                        revokeAsset(current.assets?.[fieldKey]);
+                        const nextAssets = { ...(current.assets ?? {}) };
+                        const nextFiles = { ...current.files };
+                        delete nextAssets[fieldKey];
+                        delete nextFiles[fieldKey];
+                        return { ...current, assets: nextAssets, files: nextFiles };
+                      });
+                    });
+                    return;
+                  }
+
+                  const previewUrl = await fileToDataUrl(nextValue);
                   startTransition(() => {
                     setDraft((current) => ({
                       ...current,
                       assets: {
                         ...(current.assets ?? {}),
-                        [fieldKey]: previewUrls,
+                        [fieldKey]: previewUrl,
                       },
                       files: {
                         ...current.files,
-                        [fieldKey]: mergedFiles,
+                        [fieldKey]: nextValue,
                       },
                     }));
                   });
-                  return;
-                }
-
-                if (!nextValue) {
+                })();
+                }}
+                onArrayMove={(fieldKey, fromIndex, toIndex) => {
                   startTransition(() => {
                     setDraft((current) => {
-                      revokeAsset(current.assets?.[fieldKey]);
-                      const nextAssets = { ...(current.assets ?? {}) };
-                      const nextFiles = { ...current.files };
-                      delete nextAssets[fieldKey];
-                      delete nextFiles[fieldKey];
-                      return { ...current, assets: nextAssets, files: nextFiles };
+                      const existingFiles = Array.isArray(current.files[fieldKey])
+                        ? (current.files[fieldKey] as File[])
+                        : [];
+                      const existingAssets = Array.isArray(current.assets?.[fieldKey])
+                        ? (current.assets?.[fieldKey] as string[])
+                        : [];
+
+                      return {
+                        ...current,
+                        files: {
+                          ...current.files,
+                          [fieldKey]: moveItem(existingFiles, fromIndex, toIndex),
+                        },
+                        assets: {
+                          ...(current.assets ?? {}),
+                          [fieldKey]: moveItem(existingAssets, fromIndex, toIndex),
+                        },
+                      };
                     });
                   });
-                  return;
-                }
+                }}
+                onArrayRemove={(fieldKey, index) => {
+                  startTransition(() => {
+                    setDraft((current) => {
+                      const existingFiles = Array.isArray(current.files[fieldKey])
+                        ? (current.files[fieldKey] as File[])
+                        : [];
+                      const existingAssets = Array.isArray(current.assets?.[fieldKey])
+                        ? (current.assets?.[fieldKey] as string[])
+                        : [];
 
-                const previewUrl = await fileToDataUrl(nextValue);
-                startTransition(() => {
+                      return {
+                        ...current,
+                        files: {
+                          ...current.files,
+                          [fieldKey]: removeItem(existingFiles, index),
+                        },
+                        assets: {
+                          ...(current.assets ?? {}),
+                          [fieldKey]: removeItem(existingAssets, index),
+                        },
+                      };
+                    });
+                  });
+                }}
+                onSectionOrderChange={(nextOrder) =>
+                  setDraft((current) => ({ ...current, sectionOrder: nextOrder }))
+                }
+                statusMap={sectionStatusMap}
+              />
+            ) : null}
+            {editorMode === "manual" ? (
+              <ManualComposerPanel
+                values={draft.data}
+                onChange={(key, value) =>
                   setDraft((current) => ({
                     ...current,
-                    assets: {
-                      ...(current.assets ?? {}),
-                      [fieldKey]: previewUrl,
+                    data: {
+                      ...current.data,
+                      [key]: value,
                     },
-                    files: {
-                      ...current.files,
-                      [fieldKey]: nextValue,
-                    },
-                  }));
-                });
-              })();
-              }}
-              onArrayMove={(fieldKey, fromIndex, toIndex) => {
-                startTransition(() => {
-                  setDraft((current) => {
-                    const existingFiles = Array.isArray(current.files[fieldKey])
-                      ? (current.files[fieldKey] as File[])
-                      : [];
-                    const existingAssets = Array.isArray(current.assets?.[fieldKey])
-                      ? (current.assets?.[fieldKey] as string[])
-                      : [];
-
-                    return {
-                      ...current,
-                      files: {
-                        ...current.files,
-                        [fieldKey]: moveItem(existingFiles, fromIndex, toIndex),
-                      },
-                      assets: {
-                        ...(current.assets ?? {}),
-                        [fieldKey]: moveItem(existingAssets, fromIndex, toIndex),
-                      },
-                    };
-                  });
-                });
-              }}
-              onArrayRemove={(fieldKey, index) => {
-                startTransition(() => {
-                  setDraft((current) => {
-                    const existingFiles = Array.isArray(current.files[fieldKey])
-                      ? (current.files[fieldKey] as File[])
-                      : [];
-                    const existingAssets = Array.isArray(current.assets?.[fieldKey])
-                      ? (current.assets?.[fieldKey] as string[])
-                      : [];
-
-                    return {
-                      ...current,
-                      files: {
-                        ...current.files,
-                        [fieldKey]: removeItem(existingFiles, index),
-                      },
-                      assets: {
-                        ...(current.assets ?? {}),
-                        [fieldKey]: removeItem(existingAssets, index),
-                      },
-                    };
-                  });
-                });
-              }}
-              onSectionOrderChange={(nextOrder) =>
-                setDraft((current) => ({ ...current, sectionOrder: nextOrder }))
-              }
-              statusMap={sectionStatusMap}
-            />
-            <ManualComposerPanel
-              values={draft.data}
-              onChange={(key, value) =>
-                setDraft((current) => ({
-                  ...current,
-                  data: {
-                    ...current.data,
-                    [key]: value,
-                  },
-                }))
-              }
-            />
+                  }))
+                }
+              />
+            ) : null}
             <TemplateModePanel meta={meta} />
           </div>
         </aside>
