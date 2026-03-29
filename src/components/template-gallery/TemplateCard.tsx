@@ -1,8 +1,13 @@
+"use client";
+
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
+import { useState } from "react";
+import { Eye } from "lucide-react";
 import type { TemplateMeta } from "@/types";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { TemplatePreviewModal } from "./TemplatePreviewModal";
 
 const interactionLabels: Record<TemplateMeta["interaction"], string> = {
   scroll: "스크롤형",
@@ -77,6 +82,7 @@ const templateMood: Record<
 };
 
 export function TemplateCard({ template }: { template: TemplateMeta }) {
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const mood = templateMood[template.id] ?? {
     city: "Sample",
     english: "Sample",
@@ -85,8 +91,8 @@ export function TemplateCard({ template }: { template: TemplateMeta }) {
   };
 
   return (
-    <Link href={`/editor/${template.id}`} className="group block h-full">
-      <Card className="h-full overflow-hidden rounded-[1.6rem] border-black/5 bg-white/88 shadow-[0_18px_54px_rgba(92,55,38,0.12)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_32px_90px_rgba(92,55,38,0.16)]">
+    <>
+      <Card className="group h-full overflow-hidden rounded-[1.6rem] border-black/5 bg-white/88 shadow-[0_18px_54px_rgba(92,55,38,0.12)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_32px_90px_rgba(92,55,38,0.16)]">
         <div className="relative aspect-[4/5] overflow-hidden bg-[#f3ebe0]">
           <img
             src={`/api/templates/${template.id}/thumbnail`}
@@ -101,10 +107,14 @@ export function TemplateCard({ template }: { template: TemplateMeta }) {
             >
               {interactionLabels[template.interaction]}
             </Badge>
-            <Badge className="rounded-full border border-white/20 bg-black/20 px-2.5 py-1 text-[11px] text-white backdrop-blur">
-              수동 제작 지원
-            </Badge>
           </div>
+          <button
+            onClick={() => setIsPreviewOpen(true)}
+            className="absolute right-3 top-3 flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1.5 text-[11px] font-medium text-[#2d1f1a] opacity-0 backdrop-blur transition duration-200 hover:bg-white group-hover:opacity-100"
+          >
+            <Eye className="h-3.5 w-3.5" />
+            미리보기
+          </button>
           <div className="absolute inset-x-4 bottom-3 text-white">
             <p className="text-sm font-medium leading-none">{mood.city}</p>
             <p className="mt-1 text-[10px] uppercase tracking-[0.24em] text-white/68">
@@ -112,31 +122,39 @@ export function TemplateCard({ template }: { template: TemplateMeta }) {
             </p>
           </div>
         </div>
-        <CardContent className="space-y-3 p-4">
-          <div className="space-y-2">
-            <div className="flex flex-wrap gap-2">
-              {mood.keywords.map((keyword) => (
-                <span
-                  key={keyword}
-                  className="rounded-full bg-[#fff7f0] px-2.5 py-1 text-[11px] text-[#6d4a3b]"
-                >
-                  {keyword}
-                </span>
-              ))}
+        <Link href={`/editor/${template.id}`} className="block">
+          <CardContent className="space-y-3 p-4">
+            <div className="space-y-2">
+              <div className="flex flex-wrap gap-2">
+                {mood.keywords.map((keyword) => (
+                  <span
+                    key={keyword}
+                    className="rounded-full bg-[#fff7f0] px-2.5 py-1 text-[11px] text-[#6d4a3b]"
+                  >
+                    {keyword}
+                  </span>
+                ))}
+              </div>
+              <h3 className="text-[1.35rem] leading-tight tracking-[-0.04em]">
+                {template.name}
+              </h3>
             </div>
-            <h3 className="text-[1.35rem] leading-tight tracking-[-0.04em]">
-              {template.name}
-            </h3>
-          </div>
-          <p className="text-[13px] leading-6 text-muted-foreground">{template.description}</p>
-          <div className="flex items-center justify-between border-t border-black/5 pt-3">
-            <p className="text-[11px] text-muted-foreground">샘플 열고 바로 수정 시작</p>
-            <span className="text-sm font-medium text-foreground">
-              샘플 보기 →
-            </span>
-          </div>
-        </CardContent>
+            <p className="text-[13px] leading-6 text-muted-foreground">{template.description}</p>
+            <div className="flex items-center justify-between border-t border-black/5 pt-3">
+              <p className="text-[11px] text-muted-foreground">클릭해서 제작 시작</p>
+              <span className="text-sm font-medium text-foreground">
+                선택하기 →
+              </span>
+            </div>
+          </CardContent>
+        </Link>
       </Card>
-    </Link>
+
+      <TemplatePreviewModal
+        template={template}
+        isOpen={isPreviewOpen}
+        onClose={() => setIsPreviewOpen(false)}
+      />
+    </>
   );
 }
