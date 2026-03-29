@@ -6,17 +6,30 @@
     <title>벤토 메모리</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body data-template="bento-memory">
-    <div class="invitation-shell">
-      <section class="section hero" data-section="hero"></section>
-      <section class="section greeting" data-section="greeting"></section>
-      <section class="section family" data-section="family"></section>
-      <section class="section gallery" data-section="gallery"></section>
-      <section class="section schedule" data-section="schedule"></section>
-      <section class="section location" data-section="location"></section>
-      <section class="section account" data-section="account"></section>
-      <section class="section guestbook" data-section="guestbook"></section>
-      <section class="section ending" data-section="ending"></section>
+  <body data-template="bento-memory" data-layout="bento-grid">
+    <div class="bento-board">
+      <header class="bento-card card-xl" data-section="hero"></header>
+
+      <main class="bento-grid">
+        <article class="bento-card card-lg" data-section="gallery"></article>
+
+        <div class="bento-cluster">
+          <article class="bento-card card-md" data-section="greeting"></article>
+          <article class="bento-card card-sm" data-section="family"></article>
+        </div>
+
+        <div class="bento-cluster">
+          <article class="bento-card card-sm" data-section="schedule"></article>
+          <article class="bento-card card-md" data-section="account"></article>
+        </div>
+
+        <article class="bento-card card-lg" data-section="location"></article>
+
+        <div class="bento-cluster">
+          <article class="bento-card card-sm" data-section="guestbook"></article>
+          <article class="bento-card card-sm" data-section="ending"></article>
+        </div>
+      </main>
     </div>
     <script src="script.js" defer></script>
   </body>

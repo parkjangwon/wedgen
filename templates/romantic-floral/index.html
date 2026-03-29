@@ -6,17 +6,39 @@
     <title>로맨틱 플로럴</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body data-template="romantic-floral">
-    <div class="invitation-shell">
-      <section class="section hero" data-section="hero"></section>
-      <section class="section greeting" data-section="greeting"></section>
-      <section class="section family" data-section="family"></section>
-      <section class="section gallery" data-section="gallery"></section>
-      <section class="section schedule" data-section="schedule"></section>
-      <section class="section location" data-section="location"></section>
-      <section class="section account" data-section="account"></section>
-      <section class="section guestbook" data-section="guestbook"></section>
-      <section class="section ending" data-section="ending"></section>
+  <body data-template="romantic-floral" data-layout="scroll-story">
+    <div class="story-container">
+      <div class="story-progress">
+        <div class="progress-fill"></div>
+      </div>
+
+      <section class="story-chapter chapter-hero" data-section="hero" data-chapter="1">
+        <div class="chapter-content"></div>
+      </section>
+
+      <section class="story-chapter chapter-greeting" data-section="greeting" data-chapter="2">
+        <div class="chapter-content"></div>
+      </section>
+
+      <section class="story-chapter chapter-gallery" data-section="gallery" data-chapter="3">
+        <div class="chapter-content"></div>
+      </section>
+
+      <section class="story-chapter chapter-schedule" data-section="schedule" data-chapter="4">
+        <div class="chapter-content"></div>
+      </section>
+
+      <section class="story-chapter chapter-location" data-section="location" data-chapter="5">
+        <div class="chapter-content"></div>
+      </section>
+
+      <section class="story-chapter chapter-family" data-section="family" data-chapter="6">
+        <div class="chapter-content"></div>
+      </section>
+
+      <section class="story-chapter chapter-ending" data-section="ending" data-chapter="7">
+        <div class="chapter-content"></div>
+      </section>
     </div>
     <script src="script.js" defer></script>
   </body>
