@@ -1,0 +1,152 @@
+/**
+ * Hero Image Optimization
+ * 대표 이미지(히어로 이미지) 최적화 스타일
+ * 
+ * Issues Fixed:
+ * - 엄청 길게 보이는 문제 (too tall)
+ * - 좌우 스크롤 문제 (horizontal scroll)
+ * - 모바일 최적화
+ */
+
+/* ============================================
+   Base Hero Image Styles
+   ============================================ */
+
+.hero-image {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: 70vh;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 16px;
+  display: block;
+  margin: 20px 0 0 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ============================================
+   Mobile Optimizations
+   ============================================ */
+
+@media (max-width: 480px) {
+  .hero-image {
+    aspect-ratio: 3 / 4;
+    max-height: 60vh;
+    border-radius: 12px;
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero-image {
+    aspect-ratio: 2 / 3;
+    max-height: 55vh;
+    border-radius: 10px;
+    margin-top: 12px;
+  }
+}
+
+/* ============================================
+   Tablet and Desktop
+   ============================================ */
+
+@media (min-width: 768px) {
+  .hero-image {
+    max-height: 75vh;
+    border-radius: 20px;
+  }
+}
+
+/* ============================================
+   Container Overflow Prevention
+   ============================================ */
+
+.section,
+.hero,
+.gallery,
+.greeting,
+.family,
+.schedule,
+.location,
+.account,
+.guestbook,
+.ending {
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ============================================
+   Alternative Hero Styles
+   ============================================ */
+
+/* Landscape hero (wider) */
+.hero-image-landscape {
+  aspect-ratio: 4 / 3;
+  max-height: 50vh;
+}
+
+/* Square hero */
+.hero-image-square {
+  aspect-ratio: 1 / 1;
+  max-height: 60vh;
+}
+
+/* Full-width hero (no border radius) */
+.hero-image-full {
+  border-radius: 0;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(-1 * var(--section-padding, 20px));
+  margin-right: calc(-1 * var(--section-padding, 20px));
+}
+
+/* ============================================
+   Hero Container
+   ============================================ */
+
+.hero {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  padding: 24px 22px;
+  box-sizing: border-box;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-image-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* ============================================
+   Prevent Layout Shift
+   ============================================ */
+
+.hero-image-wrapper {
+  aspect-ratio: 3 / 4;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.hero-image-wrapper img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

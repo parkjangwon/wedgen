@@ -91,17 +91,6 @@ body {
   object-fit: cover;
 }
 
-.hero-image {
-  aspect-ratio: 3 / 4;
-  margin-top: 22px;
-  border: 1px solid rgba(185, 122, 86, 0.18);
-}
-
-.portrait-image {
-  aspect-ratio: 1 / 1.15;
-  margin-top: 18px;
-}
-
 .copy {
   margin: 0;
   font-size: var(--wedgen-body-copy-size);
@@ -247,17 +236,7 @@ body[data-animation="slide"] .section {
   line-height: 0.94;
 }
 
-.hero .hero-image {
-  border-radius: 4px;
-  aspect-ratio: 4 / 5;
-}
-
-.greeting,
-.family,
-.account,
-.ending {
-  border-left: 6px solid rgba(24,24,27,.12);
-}
+.hero 
 
 .gallery {
   padding: 24px 22px;
@@ -298,7 +277,6 @@ body[data-animation="slide"] .section {
   grid-template-columns: repeat(2, minmax(0,1fr));
 }
 
-
 /* ============================================
    Gallery Responsive Adjustments
    ============================================ */
@@ -334,4 +312,96 @@ body[data-animation="slide"] .section {
   max-width: 100%;
   max-height: 100%;
   box-sizing: border-box;
+}
+
+/* ============================================
+   Hero Image Optimization
+   ============================================ */
+
+.hero-image {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: 70vh;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 16px;
+  display: block;
+  margin: 20px 0 0 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Mobile optimization */
+@media (max-width: 480px) {
+  .hero-image {
+    aspect-ratio: 3 / 4;
+    max-height: 60vh;
+    border-radius: 12px;
+    margin-top: 16px;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 360px) {
+  .hero-image {
+    aspect-ratio: 2 / 3;
+    max-height: 55vh;
+    border-radius: 10px;
+    margin-top: 12px;
+  }
+}
+
+/* Tablet and up */
+@media (min-width: 768px) {
+  .hero-image {
+    max-height: 75vh;
+    border-radius: 20px;
+  }
+}
+
+/* ============================================
+   Container Overflow Prevention
+   ============================================ */
+
+.section,
+.hero,
+.gallery,
+.greeting,
+.family,
+.schedule,
+.location,
+.account,
+.guestbook,
+.ending {
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* Ensure images don't cause overflow */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Prevent horizontal scroll on mobile */
+@media (max-width: 480px) {
+  body {
+    overflow-x: hidden;
+  }
+  
+  .invitation-shell {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+  }
+  
+  .section {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }

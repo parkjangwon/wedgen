@@ -74,3 +74,48 @@ body { padding: 24px 0 80px; }
     border-radius: 14px;
   }
 }
+
+/* ============================================
+   Container Overflow Prevention
+   ============================================ */
+
+.section,
+.hero,
+.gallery,
+.greeting,
+.family,
+.schedule,
+.location,
+.account,
+.guestbook,
+.ending {
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* Ensure images don't cause overflow */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Prevent horizontal scroll on mobile */
+@media (max-width: 480px) {
+  body {
+    overflow-x: hidden;
+  }
+  
+  .invitation-shell {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+  }
+  
+  .section {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
