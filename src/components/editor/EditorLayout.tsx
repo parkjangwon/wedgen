@@ -81,10 +81,13 @@ const sampleValues: Record<string, unknown> = {
   rsvpUrl: "",
 };
 
-function createInitialDraft(schema: TemplateSchema): EditorDraft {
+function createInitialDraft(
+  templateId: string,
+  schema: TemplateSchema,
+): EditorDraft {
   const data = {} as WedgenConfigData;
   const style = {} as WedgenConfigStyle;
-  const sampleSource = schema.id === "blank-canvas" ? {} : sampleValues;
+  const sampleSource = templateId === "blank-canvas" ? {} : sampleValues;
 
   for (const [tabName, fields] of Object.entries(schema.fields)) {
     const isStyleTab = tabName === "스타일";
@@ -174,8 +177,11 @@ export function EditorLayout({
   templates: TemplateMeta[];
 }) {
   const router = useRouter();
-  const [draft, setDraft] = useState<EditorDraft>(() => createInitialDraft(schema));
+  const [draft, setDraft] = useState<EditorDraft>(() => createInitialDraft(meta.id, schema));
+  const [storageSlot, setStorageSlot] = useState<1 | 2 | 3>(1);
   const storageKey = `wedgen:draft:${meta.id}`;
+  const autosaveKey = `${storageKey}:autosave`;
+  const slotStorageKey = `${storageKey}:slot:${storageSlot}`;
   const draftRef = useRef(draft);
   const [editorMode, setEditorMode] = useState<"manual" | "structured">("manual");
   const [previewHtml, setPreviewHtml] = useState("");
@@ -195,8 +201,12 @@ export function EditorLayout({
   }, [draft]);
 
   useEffect(() => {
+    setDraft(createInitialDraft(meta.id, schema));
+  }, [meta.id, schema]);
+
+  useEffect(() => {
     void (async () => {
-      const raw = window.localStorage.getItem(storageKey);
+      const raw = window.localStorage.getItem(autosaveKey);
       if (!raw) {
         return;
       }
@@ -212,10 +222,10 @@ export function EditorLayout({
         }));
         setSaveMessage("임시 저장본을 불러왔습니다.");
       } catch {
-        window.localStorage.removeItem(storageKey);
+        window.localStorage.removeItem(autosaveKey);
       }
     })();
-  }, [storageKey]);
+  }, [autosaveKey]);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -223,12 +233,12 @@ export function EditorLayout({
         ...draft,
         files: {},
       };
-      window.localStorage.setItem(storageKey, JSON.stringify(serializableDraft));
+      window.localStorage.setItem(autosaveKey, JSON.stringify(serializableDraft));
       setSaveMessage("브라우저에 임시 저장되었습니다.");
     }, 700);
 
     return () => window.clearTimeout(timer);
-  }, [draft, storageKey]);
+  }, [draft, autosaveKey]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -590,17 +600,21 @@ export function EditorLayout({
           <BuildBar
             buildMode={buildMode}
             onBuildModeChange={setBuildMode}
+            storageSlot={storageSlot}
+            onStorageSlotChange={setStorageSlot}
             onGenerate={generateZip}
             onSave={() => {
               const serializableDraft = {
                 ...draftRef.current,
                 files: {},
               };
-              window.localStorage.setItem(storageKey, JSON.stringify(serializableDraft));
-              setSaveMessage("임시 저장했습니다.");
+              window.localStorage.setItem(slotStorageKey, JSON.stringify(serializableDraft));
+              setSaveMessage(`슬롯 ${storageSlot}에 저장했습니다.`);
             }}
             onRestore={async () => {
-              const raw = window.localStorage.getItem(storageKey);
+              const raw =
+                window.localStorage.getItem(slotStorageKey) ??
+                window.localStorage.getItem(autosaveKey);
               if (!raw) {
                 setSaveMessage("복원할 저장본이 없습니다.");
                 return;
@@ -614,14 +628,15 @@ export function EditorLayout({
                   ...savedDraft,
                   files: restoredFiles,
                 }));
-                setSaveMessage("저장본을 복원했습니다.");
+                setSaveMessage(`슬롯 ${storageSlot} 또는 자동 저장본을 복원했습니다.`);
               } catch {
                 setSaveMessage("복원할 저장본이 없습니다.");
               }
             }}
             onReset={() => {
-              window.localStorage.removeItem(storageKey);
-              setDraft(createInitialDraft(schema));
+              window.localStorage.removeItem(slotStorageKey);
+              window.localStorage.removeItem(autosaveKey);
+              setDraft(createInitialDraft(meta.id, schema));
               setSaveMessage("초기 상태로 되돌렸습니다.");
             }}
             pending={buildPending}

@@ -8,6 +8,8 @@ import type { BuildMode } from "@/lib/optimizers";
 export function BuildBar({
   buildMode,
   onBuildModeChange,
+  storageSlot,
+  onStorageSlotChange,
   onGenerate,
   onSave,
   onRestore,
@@ -18,6 +20,8 @@ export function BuildBar({
 }: {
   buildMode: BuildMode;
   onBuildModeChange: (value: BuildMode) => void;
+  storageSlot: 1 | 2 | 3;
+  onStorageSlotChange: (slot: 1 | 2 | 3) => void;
   onGenerate: () => void;
   onSave: () => void;
   onRestore: () => void;
@@ -41,6 +45,24 @@ export function BuildBar({
           <span className="rounded-full border border-white/10 bg-white/6 px-3 py-1 text-[11px] text-white/68">
             정적 ZIP 출력
           </span>
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-[12px] text-white/56">저장 슬롯</span>
+          {[1, 2, 3].map((slot) => (
+            <button
+              key={slot}
+              type="button"
+              onClick={() => onStorageSlotChange(slot as 1 | 2 | 3)}
+              className={[
+                "rounded-full px-3 py-1.5 text-[11px] transition",
+                storageSlot === slot
+                  ? "bg-white text-[#181312]"
+                  : "border border-white/10 bg-white/[0.04] text-white/64",
+              ].join(" ")}
+            >
+              슬롯 {slot}
+            </button>
+          ))}
         </div>
         <RadioGroup
           value={buildMode}
