@@ -10,44 +10,45 @@ export default async function Home() {
       <section className="grid gap-6 overflow-hidden rounded-[2rem] border border-black/5 bg-[linear-gradient(135deg,#fff8f1_0%,#f4e7d6_42%,#eed8c8_100%)] p-6 shadow-[0_30px_120px_rgba(88,47,33,0.12)] xl:grid-cols-[1.2fr_0.8fr] xl:p-8">
         <div className="space-y-5">
           <div className="inline-flex rounded-full border border-black/5 bg-white/70 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.3em] text-primary/70 backdrop-blur">
-            Premium Wedding Card Studio
+            Curated Mobile Invitation Studio
           </div>
           <div className="space-y-3">
             <h1 className="max-w-4xl text-4xl leading-[0.96] tracking-[-0.05em] text-foreground md:text-6xl">
-              샘플 서비스를 보며 부러웠던
+              두 사람의 결혼이
               <br />
-              그 수준까지 직접 다듬는
+              가장 아름답게 기억되도록
               <br />
-              모바일 청첩장 제작실
+              한 장의 초대장을 완성하세요
             </h1>
             <p className="max-w-2xl text-sm leading-7 text-[#6d5649] md:text-base">
-              템플릿 선택, 문구 정리, 사진 편집, 실시간 미리보기, 정적 ZIP 배포까지
-              한 번에 이어지는 로컬 청첩장 퍼블리싱 콘솔입니다.
+              분위기 있는 템플릿, 세밀한 문구 편집, 감도 높은 사진 구성,
+              실시간 미리보기와 정적 ZIP 배포까지.
+              모바일 청첩장을 가장 정제된 형태로 완성하는 로컬 제작 환경입니다.
             </p>
           </div>
           <div className="flex flex-wrap gap-2 text-sm">
             <span className="rounded-full bg-white/72 px-3 py-2 text-[#5f4438]">
-              템플릿 {templates.length}종
+              프리미엄 템플릿 {templates.length}종
             </span>
             <span className="rounded-full bg-white/72 px-3 py-2 text-[#5f4438]">
-              수동 제작 지원
+              문구·구성 직접 편집
             </span>
             <span className="rounded-full bg-white/72 px-3 py-2 text-[#5f4438]">
-              ZIP 바로 배포
+              ZIP 즉시 배포
             </span>
           </div>
         </div>
         <div className="grid gap-3 rounded-[1.75rem] border border-white/35 bg-[#1f1714] p-4 text-[#f7ede2] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
           <div className="grid gap-3 rounded-[1.25rem] border border-white/10 bg-white/6 p-4">
             <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/44">
-              제작 흐름
+              Invitation Flow
             </p>
             <div className="grid gap-2 text-sm text-white/76">
-              <p>1. 무드에 맞는 템플릿 선택</p>
-              <p>2. 사진/문구/혼주/계좌 정보 입력</p>
-              <p>3. 수동 제작 패널로 카피 완성</p>
-              <p>4. 실시간 모바일 청첩장 확인</p>
-              <p>5. 수정용 또는 배포용 ZIP 생성</p>
+              <p>1. 무드와 레이아웃이 분명한 템플릿 선택</p>
+              <p>2. 사진, 문구, 혼주, 계좌 정보를 정리</p>
+              <p>3. 수동 제작 패널로 카피와 흐름 완성</p>
+              <p>4. 실시간 모바일 청첩장으로 최종 확인</p>
+              <p>5. 수정용 또는 배포용 ZIP으로 출력</p>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
