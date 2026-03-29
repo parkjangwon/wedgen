@@ -381,4 +381,69 @@
     renderers[sectionName](node);
     node.style.animationDelay = `${index * 90}ms`;
   });
+
+  function setupPageDeck() {
+    const shell = document.querySelector(".invitation-shell");
+    if (!shell) return;
+
+    const pages = orderedSections
+      .map((sectionName) => sectionNodes.get(sectionName))
+      .filter(Boolean);
+
+    shell.classList.add("page-deck");
+
+    let activeIndex = 0;
+    const nav = document.createElement("div");
+    nav.className = "page-nav";
+    nav.innerHTML = `
+      <button type="button" data-page-action="prev">이전</button>
+      <div class="page-dots"></div>
+      <button type="button" data-page-action="next">다음</button>
+    `;
+
+    const dots = nav.querySelector(".page-dots");
+    pages.forEach((_, index) => {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "page-dot";
+      dot.setAttribute("aria-label", `${index + 1} 페이지`);
+      dot.addEventListener("click", () => setActive(index));
+      dots.appendChild(dot);
+    });
+
+    function setActive(index) {
+      activeIndex = Math.max(0, Math.min(index, pages.length - 1));
+      pages.forEach((page, pageIndex) => {
+        page.classList.toggle("is-active", pageIndex === activeIndex);
+      });
+      Array.from(dots.children).forEach((dot, dotIndex) => {
+        dot.classList.toggle("is-active", dotIndex === activeIndex);
+      });
+      nav.querySelector('[data-page-action="prev"]').disabled = activeIndex === 0;
+      nav.querySelector('[data-page-action="next"]').disabled =
+        activeIndex === pages.length - 1;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    nav.querySelector('[data-page-action="prev"]').addEventListener("click", () => {
+      setActive(activeIndex - 1);
+    });
+    nav.querySelector('[data-page-action="next"]').addEventListener("click", () => {
+      setActive(activeIndex + 1);
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+        setActive(activeIndex + 1);
+      }
+      if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+        setActive(activeIndex - 1);
+      }
+    });
+
+    document.body.appendChild(nav);
+    setActive(0);
+  }
+
+  setupPageDeck();
 })();

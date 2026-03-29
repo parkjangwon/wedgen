@@ -282,3 +282,61 @@ body[data-animation="slide"] .section {
   display: grid;
   grid-template-columns: repeat(3, minmax(0,1fr));
 }
+
+html,
+body {
+  scroll-snap-type: y mandatory;
+}
+
+.page-deck {
+  min-height: 100svh;
+}
+
+.page-deck > .section {
+  display: none;
+}
+
+.page-deck > .section.is-active {
+  display: grid;
+}
+
+.page-nav {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transform: translateX(-50%);
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(17, 17, 17, 0.1);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 20px 50px rgba(17, 17, 17, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.page-nav button {
+  border: 0;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+}
+
+.page-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.page-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(17, 17, 17, 0.18);
+}
+
+.page-dot.is-active {
+  width: 24px;
+  background: var(--wedgen-primary);
+}

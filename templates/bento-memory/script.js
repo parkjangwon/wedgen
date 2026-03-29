@@ -223,8 +223,8 @@
     family(node) {
       node.innerHTML = `
         <div class="section-header">
-          <p class="section-kicker">Family</p>
-          <h2 class="section-title">혼주와 인사</h2>
+          <p class="section-kicker">Mini Notes</p>
+          <h2 class="section-title">가까운 사람들</h2>
           <p class="section-lead">${safeText(data.familyNote, "양가 부모님과 함께 감사한 마음으로 초대의 말씀을 전합니다.")}</p>
         </div>
         <div class="family-grid">
@@ -263,8 +263,8 @@
     schedule(node) {
       node.innerHTML = `
         <div class="section-header">
-          <p class="section-kicker">Schedule</p>
-          <h2 class="section-title">${safeText(data.scheduleTitle, "예식 일정")}</h2>
+          <p class="section-kicker">Bento Plan</p>
+          <h2 class="section-title">${safeText(data.scheduleTitle, "우리의 하루")}</h2>
           <p class="section-lead">${safeText(data.scheduleNote, "예식 종료 후 같은 층 연회장에서 식사가 이어집니다.")}</p>
         </div>
         <div class="schedule-grid">
@@ -320,8 +320,8 @@
 
       node.innerHTML = `
         <div class="section-header">
-          <p class="section-kicker">Account</p>
-          <h2 class="section-title">${safeText(data.accountTitle, "마음 전하실 곳")}</h2>
+          <p class="section-kicker">Tiny Envelope</p>
+          <h2 class="section-title">${safeText(data.accountTitle, "따뜻한 마음 전하기")}</h2>
           <p class="section-lead">${safeText(data.accountIntro, "참석이 어려우신 분들을 위해 계좌번호를 함께 남깁니다.")}</p>
         </div>
         ${

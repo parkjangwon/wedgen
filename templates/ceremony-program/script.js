@@ -261,10 +261,16 @@
       `;
     },
     schedule(node) {
+      const agenda = [
+        { label: "Check In", value: "예식장 도착 및 좌석 안내" },
+        { label: "Ceremony", value: formatter.format(eventDate) },
+        { label: "Photo", value: "예식 종료 후 기념 촬영" },
+        { label: "Dinner", value: "연회장 식사 및 인사" },
+      ];
       node.innerHTML = `
         <div class="section-header">
-          <p class="section-kicker">Schedule</p>
-          <h2 class="section-title">${safeText(data.scheduleTitle, "예식 일정")}</h2>
+          <p class="section-kicker">Program</p>
+          <h2 class="section-title">${safeText(data.scheduleTitle, "세레모니 프로그램")}</h2>
           <p class="section-lead">${safeText(data.scheduleNote, "예식 종료 후 같은 층 연회장에서 식사가 이어집니다.")}</p>
         </div>
         <div class="schedule-grid">
@@ -273,10 +279,16 @@
             <span class="timeline-sub">${safeText(data.venue)} ${data.hallDetail ? `· ${data.hallDetail}` : ""}</span>
           </div>
           <div class="countdown-grid">
-            <div class="countdown-item"><span class="countdown-value">${countdown.days}</span><span class="countdown-label">Days</span></div>
-            <div class="countdown-item"><span class="countdown-value">${String(countdown.hours).padStart(2, "0")}</span><span class="countdown-label">Hour</span></div>
-            <div class="countdown-item"><span class="countdown-value">${String(countdown.minutes).padStart(2, "0")}</span><span class="countdown-label">Min</span></div>
-            <div class="countdown-item"><span class="countdown-value">${String(countdown.seconds).padStart(2, "0")}</span><span class="countdown-label">Sec</span></div>
+            ${agenda
+              .map(
+                (item, index) => `
+                  <div class="countdown-item">
+                    <span class="countdown-label">0${index + 1}</span>
+                    <span class="timeline-sub">${item.label}</span>
+                    <span class="timeline-sub">${item.value}</span>
+                  </div>`,
+              )
+              .join("")}
           </div>
           <p class="section-lead">${safeText(data.countdownLabel, "저희의 결혼식이")} ${countdown.days}일 남았습니다.</p>
         </div>

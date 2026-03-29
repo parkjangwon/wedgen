@@ -381,4 +381,26 @@
     renderers[sectionName](node);
     node.style.animationDelay = `${index * 90}ms`;
   });
+
+  function setupParallaxScenes() {
+    const scenes = Array.from(document.querySelectorAll(".section"));
+    scenes.forEach((scene, index) => {
+      scene.classList.add("scene-frame");
+      scene.dataset.scene = String(index);
+    });
+
+    function updateParallax() {
+      scenes.forEach((scene, index) => {
+        const rect = scene.getBoundingClientRect();
+        const shift = ((window.innerHeight * 0.5 - rect.top) / window.innerHeight) * 28;
+        scene.style.setProperty("--parallax-shift", `${shift}px`);
+        scene.style.opacity = index === 0 ? "1" : `${Math.max(0.82, 1 - Math.abs(rect.top) / 2200)}`;
+      });
+    }
+
+    window.addEventListener("scroll", updateParallax, { passive: true });
+    updateParallax();
+  }
+
+  setupParallaxScenes();
 })();

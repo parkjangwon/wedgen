@@ -285,3 +285,18 @@ body[data-animation="slide"] .section {
     radial-gradient(circle at top, rgba(212,163,115,.12), transparent 38%),
     linear-gradient(180deg, rgba(20,24,29,.98), rgba(13,16,21,.92));
 }
+
+.section:not(.hero) {
+  min-height: 78svh;
+  align-content: center;
+}
+
+.scene-frame {
+  display: grid;
+  gap: 18px;
+}
+
+.scene-frame img {
+  transform: translateY(var(--parallax-shift, 0));
+  transition: transform 0.15s linear;
+}
