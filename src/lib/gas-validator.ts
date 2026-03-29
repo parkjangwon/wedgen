@@ -4,6 +4,35 @@ export interface GasValidationResult {
   message: string;
 }
 
+const ALLOWED_HOSTS = [
+  "script.google.com",
+  "script.googleusercontent.com",
+  "docs.google.com",
+  "forms.gle",
+  "docs.google.com",
+];
+
+function isPrivateIp(hostname: string): boolean {
+  const privatePatterns = [
+    /^127\./,
+    /^10\./,
+    /^172\.(1[6-9]|2[0-9]|3[0-1])\./,
+    /^192\.168\./,
+    /^169\.254\./,
+    /^0\./,
+    /^::1$/,
+    /^fc00:/i,
+    /^fe80:/i,
+  ];
+  return privatePatterns.some((pattern) => pattern.test(hostname));
+}
+
+function isAllowedHost(hostname: string): boolean {
+  return ALLOWED_HOSTS.some(
+    (allowed) => hostname === allowed || hostname.endsWith(`.${allowed}`),
+  );
+}
+
 export async function validateGasUrl(url: string): Promise<GasValidationResult> {
   let parsedUrl: URL;
   try {
@@ -22,9 +51,25 @@ export async function validateGasUrl(url: string): Promise<GasValidationResult> 
     };
   }
 
+  const hostname = parsedUrl.hostname.toLowerCase();
+
+  if (isPrivateIp(hostname)) {
+    return {
+      ok: false,
+      message: "낶부 네트워크 주소는 검증할 수 없습니다.",
+    };
+  }
+
+  if (!isAllowedHost(hostname)) {
+    return {
+      ok: false,
+      message: "Google Apps Script 또는 Google Forms URL만 검증할 수 있습니다.",
+    };
+  }
+
   try {
     const response = await fetch(parsedUrl, {
-      method: "GET",
+      method: "HEAD",
       redirect: "follow",
       signal: AbortSignal.timeout(5000),
     });

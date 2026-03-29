@@ -1,8 +1,11 @@
 import { buildInvitationArchive } from "@/lib/build-pipeline";
+import { isValidTemplateId } from "@/lib/template-scanner";
 import type { BuildMode } from "@/lib/optimizers";
 import type { WedgenDraftInput } from "@/types";
 
 export const runtime = "nodejs";
+
+const VALID_BUILD_MODES: BuildMode[] = ["tweak", "optimized"];
 
 function appendUpload(
   target: Record<string, File | File[] | undefined>,
@@ -29,10 +32,24 @@ export async function POST(request: Request) {
     const templateId = String(formData.get("templateId") || "");
     const buildMode = String(formData.get("buildMode") || "optimized") as BuildMode;
     const rawConfig = String(formData.get("config") || "{}");
-    const config = JSON.parse(rawConfig) as WedgenDraftInput;
 
     if (!templateId) {
       return Response.json({ error: "templateId가 필요합니다." }, { status: 400 });
+    }
+
+    if (!isValidTemplateId(templateId)) {
+      return Response.json({ error: "유효하지 않은 템플릿 ID입니다." }, { status: 400 });
+    }
+
+    if (!VALID_BUILD_MODES.includes(buildMode)) {
+      return Response.json({ error: "유효하지 않은 빌드 모드입니다." }, { status: 400 });
+    }
+
+    let config: WedgenDraftInput;
+    try {
+      config = JSON.parse(rawConfig) as WedgenDraftInput;
+    } catch {
+      return Response.json({ error: "유효하지 않은 설정 데이터입니다." }, { status: 400 });
     }
 
     const files: Record<string, File | File[] | undefined> = {};
@@ -41,7 +58,12 @@ export async function POST(request: Request) {
         continue;
       }
 
-      appendUpload(files, key.replace("asset:", ""), value);
+      const fieldKey = key.replace("asset:", "");
+      if (!/^[a-zA-Z0-9_-]+$/.test(fieldKey)) {
+        continue;
+      }
+
+      appendUpload(files, fieldKey, value);
     }
 
     const artifact = await buildInvitationArchive({

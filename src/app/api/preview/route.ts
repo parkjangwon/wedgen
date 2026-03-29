@@ -1,5 +1,6 @@
 import path from "node:path";
 import { buildPreviewDocument } from "@/lib/build-pipeline";
+import { isValidTemplateId } from "@/lib/template-scanner";
 import type { WedgenDraftInput } from "@/types";
 
 export const runtime = "nodejs";
@@ -14,6 +15,13 @@ export async function POST(request: Request) {
     if (!body.templateId || !body.config) {
       return Response.json(
         { error: "templateId와 config가 필요합니다." },
+        { status: 400 },
+      );
+    }
+
+    if (!isValidTemplateId(body.templateId)) {
+      return Response.json(
+        { error: "유효하지 않은 템플릿 ID입니다." },
         { status: 400 },
       );
     }

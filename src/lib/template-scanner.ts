@@ -3,6 +3,12 @@ import path from "node:path";
 import type { TemplateMeta } from "@/types";
 import { parseSchema } from "@/lib/schema-parser";
 
+const VALID_TEMPLATE_ID_PATTERN = /^[a-z0-9-]+$/;
+
+export function isValidTemplateId(id: string): boolean {
+  return VALID_TEMPLATE_ID_PATTERN.test(id) && id.length > 0 && id.length <= 64;
+}
+
 export async function scanTemplates(templatesDir: string): Promise<TemplateMeta[]> {
   try {
     const entries = await fs.readdir(templatesDir, { withFileTypes: true });
