@@ -6,12 +6,14 @@ export function FieldShell({
   fieldKey,
   field,
   hint,
+  hintTone,
   action,
   children,
 }: {
   fieldKey: string;
   field: FieldDefinition;
   hint?: ReactNode;
+  hintTone?: "default" | "error" | "success";
   action?: ReactNode;
   children: ReactNode;
 }) {
@@ -30,7 +32,20 @@ export function FieldShell({
           </div>
           {action}
         </div>
-        {hint ? <div className="text-[12px] leading-5 text-muted-foreground">{hint}</div> : null}
+        {hint ? (
+          <div
+            className={[
+              "text-[12px] leading-5",
+              hintTone === "error"
+                ? "text-destructive"
+                : hintTone === "success"
+                  ? "text-emerald-700"
+                  : "text-muted-foreground",
+            ].join(" ")}
+          >
+            {hint}
+          </div>
+        ) : null}
       </div>
       {children}
     </div>

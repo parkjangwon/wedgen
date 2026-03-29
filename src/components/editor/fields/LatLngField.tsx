@@ -3,6 +3,7 @@
 import { Input } from "@/components/ui/input";
 import type { FieldDefinition } from "@/types";
 import { FieldShell } from "./FieldShell";
+import { validateFieldValue } from "./field-intel";
 
 export function LatLngField({
   fieldKey,
@@ -15,11 +16,13 @@ export function LatLngField({
   value: { lat: string; lng: string };
   onChange: (value: { lat: string; lng: string }) => void;
 }) {
+  const error = validateFieldValue(fieldKey, value, field.required);
   return (
     <FieldShell
       fieldKey={fieldKey}
       field={field}
-      hint={value.lat && value.lng ? "좌표가 입력되었습니다." : "위도와 경도를 모두 입력하세요."}
+      hint={error ?? (value.lat && value.lng ? "좌표가 입력되었습니다." : "위도와 경도를 모두 입력하세요.")}
+      hintTone={error ? "error" : value.lat && value.lng ? "success" : "default"}
     >
       <div className="grid grid-cols-2 gap-2">
         <Input

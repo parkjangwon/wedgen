@@ -3,7 +3,13 @@
 import { useMemo, useRef } from "react";
 import { MonitorSmartphone, ZoomIn, ZoomOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { withPreviewBridge, type PreviewDevice, previewDeviceMeta } from "./preview-utils";
+import {
+  withPreviewBridge,
+  type PreviewBackdrop,
+  type PreviewDevice,
+  previewBackdropMeta,
+  previewDeviceMeta,
+} from "./preview-utils";
 
 export function PreviewFrame({
   html,
@@ -11,9 +17,11 @@ export function PreviewFrame({
   error,
   templateName,
   device,
+  backdrop,
   zoom,
   onZoomChange,
   onDeviceChange,
+  onBackdropChange,
   sections,
 }: {
   html: string;
@@ -21,9 +29,11 @@ export function PreviewFrame({
   error?: string | null;
   templateName: string;
   device: PreviewDevice;
+  backdrop: PreviewBackdrop;
   zoom: number;
   onZoomChange: (zoom: number) => void;
   onDeviceChange: (device: PreviewDevice) => void;
+  onBackdropChange: (backdrop: PreviewBackdrop) => void;
   sections: { id: string; label: string }[];
 }) {
   const frameRef = useRef<HTMLIFrameElement>(null);
@@ -54,6 +64,21 @@ export function PreviewFrame({
                 className={[
                   "rounded-full px-3 py-1.5 text-[11px] transition",
                   device === deviceKey ? "bg-white text-[#181312]" : "text-white/64",
+                ].join(" ")}
+              >
+                {meta.label}
+              </button>
+            ))}
+          </div>
+          <div className="flex items-center gap-1 rounded-full border border-white/10 bg-white/6 p-1">
+            {Object.entries(previewBackdropMeta).map(([backdropKey, meta]) => (
+              <button
+                key={backdropKey}
+                type="button"
+                onClick={() => onBackdropChange(backdropKey as PreviewBackdrop)}
+                className={[
+                  "rounded-full px-3 py-1.5 text-[11px] transition",
+                  backdrop === backdropKey ? "bg-white text-[#181312]" : "text-white/64",
                 ].join(" ")}
               >
                 {meta.label}
@@ -115,7 +140,9 @@ export function PreviewFrame({
             {error}
           </div>
         ) : null}
-        <div className="flex justify-center overflow-auto bg-[#0f0f10] p-4">
+        <div
+          className={`flex justify-center overflow-auto p-4 ${previewBackdropMeta[backdrop].className}`}
+        >
           <div
             className="rounded-[2rem] border border-white/8 bg-white shadow-[0_30px_80px_rgba(0,0,0,0.28)]"
             style={{

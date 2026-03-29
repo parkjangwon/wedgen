@@ -8,7 +8,10 @@ import { ConfigPanel } from "@/components/editor/ConfigPanel";
 import { ManualComposerPanel } from "@/components/editor/ManualComposerPanel";
 import { PreviewFrame } from "@/components/editor/PreviewFrame";
 import { TemplateModePanel } from "@/components/editor/TemplateModePanel";
-import { type PreviewDevice } from "@/components/editor/preview-utils";
+import {
+  type PreviewBackdrop,
+  type PreviewDevice,
+} from "@/components/editor/preview-utils";
 import {
   appendFiles,
   fileToDataUrl,
@@ -148,6 +151,7 @@ export function EditorLayout({
   const [previewLoading, setPreviewLoading] = useState(true);
   const [previewError, setPreviewError] = useState<string | null>(null);
   const [previewDevice, setPreviewDevice] = useState<PreviewDevice>("iphone");
+  const [previewBackdrop, setPreviewBackdrop] = useState<PreviewBackdrop>("studio");
   const [previewZoom, setPreviewZoom] = useState(1);
   const [buildMode, setBuildMode] = useState<BuildMode>("optimized");
   const [buildPending, setBuildPending] = useState(false);
@@ -486,9 +490,11 @@ export function EditorLayout({
               error={previewError}
               templateName={meta.name}
               device={previewDevice}
+              backdrop={previewBackdrop}
               zoom={previewZoom}
               onZoomChange={setPreviewZoom}
               onDeviceChange={setPreviewDevice}
+              onBackdropChange={setPreviewBackdrop}
               sections={previewSections}
             />
           </div>
