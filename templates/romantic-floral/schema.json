@@ -55,7 +55,44 @@
     },
     "스타일": {
       "colorScheme": { "type": "select", "label": "색상 테마", "optionsFrom": "style.colorSchemes" },
-      "fontPair": { "type": "select", "label": "폰트 조합", "optionsFrom": "style.fonts" },
+      "fontSourceMode": {
+        "type": "select",
+        "label": "폰트 설정 방식",
+        "options": [
+          { "value": "preset", "label": "추천 조합 사용" },
+          { "value": "custom", "label": "직접 입력" }
+        ]
+      },
+      "headingFont": {
+        "type": "select",
+        "label": "제목 폰트",
+        "optionsFrom": "style.headingFonts",
+        "visibleWhen": { "field": "fontSourceMode", "equals": "preset" }
+      },
+      "bodyFont": {
+        "type": "select",
+        "label": "본문 폰트",
+        "optionsFrom": "style.bodyFonts",
+        "visibleWhen": { "field": "fontSourceMode", "equals": "preset" }
+      },
+      "googleFontUrl": {
+        "type": "url",
+        "label": "구글 폰트 CSS URL",
+        "placeholder": "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;700&display=swap",
+        "visibleWhen": { "field": "fontSourceMode", "equals": "custom" }
+      },
+      "customHeadingFamily": {
+        "type": "text",
+        "label": "제목 font-family",
+        "placeholder": "\"Playfair Display\", serif",
+        "visibleWhen": { "field": "fontSourceMode", "equals": "custom" }
+      },
+      "customBodyFamily": {
+        "type": "text",
+        "label": "본문 font-family",
+        "placeholder": "Inter, sans-serif",
+        "visibleWhen": { "field": "fontSourceMode", "equals": "custom" }
+      },
       "animation": {
         "type": "select",
         "label": "애니메이션 스타일",
@@ -73,30 +110,50 @@
       { "value": "rose-petal", "label": "로즈 페탈", "primary": "#c78aa5", "bg": "#fff2f6" },
       { "value": "peach-garden", "label": "피치 가든", "primary": "#cf8c70", "bg": "#fff7ef" }
     ],
-    "fonts": [
+    "headingFonts": [
       {
-        "value": "song-myung-noto-sans",
-        "label": "송명 + 노토산스 KR",
+        "value": "song-myung",
+        "label": "송명",
         "provider": "google",
-        "importUrl": "https://fonts.googleapis.com/css2?family=Song+Myung&family=Noto+Sans+KR:wght@400;500;700&display=swap",
-        "headingFamily": "\"Song Myung\", \"Noto Serif KR\", serif",
-        "bodyFamily": "\"Noto Sans KR\", sans-serif"
+        "importUrl": "https://fonts.googleapis.com/css2?family=Song+Myung&display=swap",
+        "family": "\"Song Myung\", \"Noto Serif KR\", serif"
       },
       {
-        "value": "gowun-batang-noto-sans",
-        "label": "고운바탕 + 노토산스 KR",
+        "value": "gowun-batang",
+        "label": "고운바탕",
         "provider": "google",
-        "importUrl": "https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap",
-        "headingFamily": "\"Gowun Batang\", \"Noto Serif KR\", serif",
-        "bodyFamily": "\"Noto Sans KR\", sans-serif"
+        "importUrl": "https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap",
+        "family": "\"Gowun Batang\", \"Noto Serif KR\", serif"
       },
       {
-        "value": "noto-serif-noto-sans",
-        "label": "노토세리프 KR + 노토산스 KR",
+        "value": "nanum-myeongjo",
+        "label": "나눔명조",
         "provider": "google",
-        "importUrl": "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@400;500;600;700&display=swap",
-        "headingFamily": "\"Noto Serif KR\", serif",
-        "bodyFamily": "\"Noto Sans KR\", sans-serif"
+        "importUrl": "https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap",
+        "family": "\"Nanum Myeongjo\", serif"
+      }
+    ],
+    "bodyFonts": [
+      {
+        "value": "gowun-dodum",
+        "label": "고운돋움",
+        "provider": "google",
+        "importUrl": "https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap",
+        "family": "\"Gowun Dodum\", \"Noto Sans KR\", sans-serif"
+      },
+      {
+        "value": "noto-sans-kr",
+        "label": "노토산스 KR",
+        "provider": "google",
+        "importUrl": "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap",
+        "family": "\"Noto Sans KR\", sans-serif"
+      },
+      {
+        "value": "nanum-gothic",
+        "label": "나눔고딕",
+        "provider": "google",
+        "importUrl": "https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap",
+        "family": "\"Nanum Gothic\", sans-serif"
       }
     ],
     "animations": [

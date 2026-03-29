@@ -3,7 +3,26 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FieldRenderer } from "@/components/editor/fields/FieldRenderer";
 import { SectionOrderer } from "@/components/editor/SectionOrderer";
-import type { FontOption, TemplateSchema } from "@/types";
+import type { ResolvedFontPreset, TemplateSchema } from "@/types";
+
+function isFieldVisible(
+  field: TemplateSchema["fields"][string][string],
+  values: {
+    data: Record<string, unknown>;
+    style: Record<string, string | ResolvedFontPreset | undefined>;
+  },
+) {
+  if (!field.visibleWhen) {
+    return true;
+  }
+
+  const { field: dependencyField, equals } = field.visibleWhen;
+  const currentValue =
+    values.style[dependencyField] ?? values.data[dependencyField];
+  const expectedValues = Array.isArray(equals) ? equals : [equals];
+
+  return expectedValues.includes(String(currentValue ?? ""));
+}
 
 export function ConfigPanel({
   schema,
@@ -16,7 +35,7 @@ export function ConfigPanel({
   schema: TemplateSchema;
   values: {
     data: Record<string, unknown>;
-    style: Record<string, string | FontOption | undefined>;
+    style: Record<string, string | ResolvedFontPreset | undefined>;
     sectionOrder: string[];
   };
   assets: Record<string, string | string[] | undefined>;
@@ -44,6 +63,10 @@ export function ConfigPanel({
           <TabsContent key={tabName} value={tabName} className="grid gap-3">
             {Object.entries(fields).map(([fieldKey, field]) => {
               const isStyleTab = tabName === "스타일";
+              if (!isFieldVisible(field, values)) {
+                return null;
+              }
+
               return (
                 <FieldRenderer
                   key={fieldKey}

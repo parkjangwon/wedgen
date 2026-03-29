@@ -16,8 +16,13 @@ const colorSchemeSchema = selectOptionSchema.extend({
 const fontOptionSchema = selectOptionSchema.extend({
   provider: z.literal("google"),
   importUrl: z.string().url(),
-  headingFamily: z.string(),
-  bodyFamily: z.string(),
+  family: z.string(),
+  previewText: z.string().optional(),
+});
+
+const fieldVisibilitySchema = z.object({
+  field: z.string(),
+  equals: z.union([z.string(), z.array(z.string())]),
 });
 
 const fieldSchema = z.object({
@@ -45,6 +50,7 @@ const fieldSchema = z.object({
   optionsFrom: z.string().optional(),
   validate: z.enum(["ping"]).optional(),
   description: z.string().optional(),
+  visibleWhen: fieldVisibilitySchema.optional(),
 });
 
 const templateSchemaValidator = z.object({
@@ -62,7 +68,8 @@ const templateSchemaValidator = z.object({
   fields: z.record(z.string(), z.record(z.string(), fieldSchema)),
   style: z.object({
     colorSchemes: z.array(colorSchemeSchema),
-    fonts: z.array(fontOptionSchema),
+    headingFonts: z.array(fontOptionSchema),
+    bodyFonts: z.array(fontOptionSchema),
     animations: z.array(selectOptionSchema),
   }),
   i18n: z.object({

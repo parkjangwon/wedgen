@@ -17,15 +17,18 @@
     },
     style: {
       colorScheme: "graphite",
-      fontPair: "gowun-dodum-noto-sans",
+      fontSourceMode: "preset",
+      headingFont: "gowun-dodum",
+      bodyFont: "noto-sans-kr",
       fontPreset: {
-        value: "gowun-dodum-noto-sans",
-        label: "고운돋움 + 노토산스 KR",
+        mode: "preset",
         provider: "google",
         importUrl:
           "https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700&display=swap",
         headingFamily: '"Gowun Dodum", "Noto Sans KR", sans-serif',
         bodyFamily: '"Noto Sans KR", sans-serif',
+        headingValue: "gowun-dodum",
+        bodyValue: "noto-sans-kr",
       },
       animation: "slide",
     },
@@ -100,7 +103,6 @@
   document.documentElement.style.setProperty("--wedgen-primary", scheme.primary);
   document.documentElement.style.setProperty("--wedgen-bg", scheme.bg);
   document.body.dataset.animation = style.animation || "fade";
-  document.body.dataset.fontPair = style.fontPair || fallbackConfig.style.fontPair;
   applyFontPreset(style.fontPreset || fallbackConfig.style.fontPreset);
 
   const renderers = {

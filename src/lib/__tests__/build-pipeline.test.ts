@@ -21,7 +21,9 @@ describe("buildInvitationArchive", () => {
         },
         style: {
           colorScheme: "warm-blush",
-          fontPair: "gowun-batang-noto-sans",
+          fontSourceMode: "preset",
+          headingFont: "gowun-batang",
+          bodyFont: "noto-sans-kr",
           animation: "fade",
         },
       },
@@ -32,8 +34,46 @@ describe("buildInvitationArchive", () => {
     expect(artifact.files.get("index.html")).toContain("__WEDGEN_CONFIG__");
     expect(artifact.files.get("style.css")).toContain("--wedgen-primary");
     expect(artifact.runtimeConfig.style.fontPreset).toMatchObject({
-      value: "gowun-batang-noto-sans",
+      headingValue: "gowun-batang",
+      bodyValue: "noto-sans-kr",
       provider: "google",
+    });
+  });
+
+  it("supports custom google font input for heading and body", async () => {
+    const artifact = await buildInvitationArchive({
+      templateId: "elegant-classic",
+      buildMode: "tweak",
+      templatesDir: path.resolve(process.cwd(), "templates"),
+      config: {
+        locale: "ko",
+        sectionOrder: ["hero", "greeting", "gallery", "info", "rsvp", "guestbook"],
+        data: {
+          groomName: "김민수",
+          brideName: "이수진",
+          weddingDate: "2026-05-15T14:00:00+09:00",
+        },
+        style: {
+          colorScheme: "warm-blush",
+          fontSourceMode: "custom",
+          headingFont: "gowun-batang",
+          bodyFont: "noto-sans-kr",
+          googleFontUrl:
+            "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;700&display=swap",
+          customHeadingFamily: "\"Playfair Display\", serif",
+          customBodyFamily: "Inter, sans-serif",
+          animation: "fade",
+        },
+      },
+      files: {},
+    });
+
+    expect(artifact.runtimeConfig.style.fontPreset).toMatchObject({
+      mode: "custom",
+      importUrl:
+        "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;700&display=swap",
+      headingFamily: "\"Playfair Display\", serif",
+      bodyFamily: "Inter, sans-serif",
     });
   });
 });

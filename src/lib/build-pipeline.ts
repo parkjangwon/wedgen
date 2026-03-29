@@ -6,7 +6,12 @@ import { injectConfigIntoHtml } from "@/lib/config-injector";
 import { processImageAssets } from "@/lib/image-processor";
 import { optimizeAssets, type BuildMode } from "@/lib/optimizers";
 import { loadTemplateBundle } from "@/lib/schema-parser";
-import type { FontOption, WedgenConfig, WedgenDraftInput } from "@/types";
+import type {
+  FontOption,
+  ResolvedFontPreset,
+  WedgenConfig,
+  WedgenDraftInput,
+} from "@/types";
 
 type UploadMap = Record<string, File | File[] | undefined>;
 
@@ -58,13 +63,66 @@ function ensureRequiredFields(config: WedgenDraftInput): void {
   }
 }
 
-function resolveFontPreset(
+function mergeGoogleFontImports(fonts: FontOption[]): string {
+  const families = new Set<string>();
+
+  for (const font of fonts) {
+    const url = new URL(font.importUrl);
+    for (const family of url.searchParams.getAll("family")) {
+      families.add(family);
+    }
+  }
+
+  const params = new URLSearchParams();
+  for (const family of families) {
+    params.append("family", family);
+  }
+  params.set("display", "swap");
+
+  return `https://fonts.googleapis.com/css2?${params.toString()}`;
+}
+
+function resolveFontChoice(
   availableFonts: FontOption[],
   requestedValue: string,
-): FontOption | undefined {
+): FontOption {
   return (
     availableFonts.find((font) => font.value === requestedValue) ?? availableFonts[0]
   );
+}
+
+function resolveFontPreset(
+  styleConfig: WedgenDraftInput["style"],
+  headingFonts: FontOption[],
+  bodyFonts: FontOption[],
+): ResolvedFontPreset {
+  if (
+    styleConfig.fontSourceMode === "custom" &&
+    styleConfig.googleFontUrl &&
+    styleConfig.customHeadingFamily &&
+    styleConfig.customBodyFamily
+  ) {
+    return {
+      mode: "custom",
+      provider: "google",
+      importUrl: styleConfig.googleFontUrl,
+      headingFamily: styleConfig.customHeadingFamily,
+      bodyFamily: styleConfig.customBodyFamily,
+    };
+  }
+
+  const headingFont = resolveFontChoice(headingFonts, styleConfig.headingFont);
+  const bodyFont = resolveFontChoice(bodyFonts, styleConfig.bodyFont);
+
+  return {
+    mode: "preset",
+    provider: "google",
+    importUrl: mergeGoogleFontImports([headingFont, bodyFont]),
+    headingFamily: headingFont.family,
+    bodyFamily: bodyFont.family,
+    headingValue: headingFont.value,
+    bodyValue: bodyFont.value,
+  };
 }
 
 async function createZipBuffer(files: Map<string, string | Buffer>): Promise<Buffer> {
@@ -121,10 +179,17 @@ export async function buildPreviewDocument(
     style: {
       colorScheme:
         config.style.colorScheme || bundle.schema.style.colorSchemes[0]?.value || "",
-      fontPair: config.style.fontPair || bundle.schema.style.fonts[0]?.value || "",
+      fontSourceMode: config.style.fontSourceMode || "preset",
+      headingFont:
+        config.style.headingFont || bundle.schema.style.headingFonts[0]?.value || "",
+      bodyFont: config.style.bodyFont || bundle.schema.style.bodyFonts[0]?.value || "",
+      googleFontUrl: config.style.googleFontUrl,
+      customHeadingFamily: config.style.customHeadingFamily,
+      customBodyFamily: config.style.customBodyFamily,
       fontPreset: resolveFontPreset(
-        bundle.schema.style.fonts,
-        config.style.fontPair || bundle.schema.style.fonts[0]?.value || "",
+        config.style,
+        bundle.schema.style.headingFonts,
+        bundle.schema.style.bodyFonts,
       ),
       animation:
         config.style.animation || bundle.schema.style.animations[0]?.value || "fade",
@@ -162,10 +227,20 @@ export async function buildInvitationArchive(
         options.config.style.colorScheme ||
         bundle.schema.style.colorSchemes[0]?.value ||
         "",
-      fontPair: options.config.style.fontPair || bundle.schema.style.fonts[0]?.value || "",
+      fontSourceMode: options.config.style.fontSourceMode || "preset",
+      headingFont:
+        options.config.style.headingFont ||
+        bundle.schema.style.headingFonts[0]?.value ||
+        "",
+      bodyFont:
+        options.config.style.bodyFont || bundle.schema.style.bodyFonts[0]?.value || "",
+      googleFontUrl: options.config.style.googleFontUrl,
+      customHeadingFamily: options.config.style.customHeadingFamily,
+      customBodyFamily: options.config.style.customBodyFamily,
       fontPreset: resolveFontPreset(
-        bundle.schema.style.fonts,
-        options.config.style.fontPair || bundle.schema.style.fonts[0]?.value || "",
+        options.config.style,
+        bundle.schema.style.headingFonts,
+        bundle.schema.style.bodyFonts,
       ),
       animation:
         options.config.style.animation ||

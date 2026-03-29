@@ -17,15 +17,18 @@
     },
     style: {
       colorScheme: "ink-red",
-      fontPair: "noto-serif-noto-sans",
+      fontSourceMode: "preset",
+      headingFont: "noto-serif-kr",
+      bodyFont: "ibm-plex-sans-kr",
       fontPreset: {
-        value: "noto-serif-noto-sans",
-        label: "노토세리프 KR + 노토산스 KR",
+        mode: "preset",
         provider: "google",
         importUrl:
-          "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@400;500;600;700&display=swap",
+          "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@400;500;600;700&display=swap",
         headingFamily: '"Noto Serif KR", serif',
-        bodyFamily: '"Noto Sans KR", sans-serif',
+        bodyFamily: '"IBM Plex Sans KR", sans-serif',
+        headingValue: "noto-serif-kr",
+        bodyValue: "ibm-plex-sans-kr",
       },
       animation: "slide",
     },
@@ -100,7 +103,6 @@
   document.documentElement.style.setProperty("--wedgen-primary", scheme.primary);
   document.documentElement.style.setProperty("--wedgen-bg", scheme.bg);
   document.body.dataset.animation = style.animation || "fade";
-  document.body.dataset.fontPair = style.fontPair || fallbackConfig.style.fontPair;
   applyFontPreset(style.fontPreset || fallbackConfig.style.fontPreset);
 
   const renderers = {

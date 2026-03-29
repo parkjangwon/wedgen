@@ -1,5 +1,3 @@
-import type { FontOption } from "./schema";
-
 export interface LatLng {
   lat: number;
   lng: number;
@@ -22,12 +20,27 @@ export interface WedgenConfigData {
   [key: string]: unknown;
 }
 
+export interface ResolvedFontPreset {
+  mode: "preset" | "custom";
+  provider: "google";
+  importUrl: string;
+  headingFamily: string;
+  bodyFamily: string;
+  headingValue?: string;
+  bodyValue?: string;
+}
+
 export interface WedgenConfigStyle {
   colorScheme: string;
-  fontPair: string;
+  fontSourceMode: string;
+  headingFont: string;
+  bodyFont: string;
+  googleFontUrl?: string;
+  customHeadingFamily?: string;
+  customBodyFamily?: string;
   animation: string;
-  fontPreset?: FontOption;
-  [key: string]: string | FontOption | undefined;
+  fontPreset?: ResolvedFontPreset;
+  [key: string]: string | ResolvedFontPreset | undefined;
 }
 
 export interface WedgenConfigAssets {

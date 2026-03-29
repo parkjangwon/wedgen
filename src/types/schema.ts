@@ -23,8 +23,13 @@ export interface ColorSchemeOption extends SelectOption {
 export interface FontOption extends SelectOption {
   provider: "google";
   importUrl: string;
-  headingFamily: string;
-  bodyFamily: string;
+  family: string;
+  previewText?: string;
+}
+
+export interface FieldVisibilityRule {
+  field: string;
+  equals: string | string[];
 }
 
 export interface FieldDefinition {
@@ -41,6 +46,7 @@ export interface FieldDefinition {
   optionsFrom?: string;
   validate?: "ping";
   description?: string;
+  visibleWhen?: FieldVisibilityRule;
 }
 
 export interface SectionConfig {
@@ -51,7 +57,8 @@ export interface SectionConfig {
 
 export interface StyleConfig {
   colorSchemes: ColorSchemeOption[];
-  fonts: FontOption[];
+  headingFonts: FontOption[];
+  bodyFonts: FontOption[];
   animations: SelectOption[];
 }
 

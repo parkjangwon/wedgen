@@ -17,15 +17,18 @@
     },
     style: {
       colorScheme: "warm-blush",
-      fontPair: "gowun-batang-noto-sans",
+      fontSourceMode: "preset",
+      headingFont: "gowun-batang",
+      bodyFont: "noto-sans-kr",
       fontPreset: {
-        value: "gowun-batang-noto-sans",
-        label: "고운바탕 + 노토산스 KR",
+        mode: "preset",
         provider: "google",
         importUrl:
           "https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap",
         headingFamily: '"Gowun Batang", "Noto Serif KR", serif',
         bodyFamily: '"Noto Sans KR", sans-serif',
+        headingValue: "gowun-batang",
+        bodyValue: "noto-sans-kr",
       },
       animation: "fade",
     },
@@ -101,7 +104,6 @@
   document.documentElement.style.setProperty("--wedgen-primary", scheme.primary);
   document.documentElement.style.setProperty("--wedgen-bg", scheme.bg);
   document.body.dataset.animation = style.animation || "fade";
-  document.body.dataset.fontPair = style.fontPair || fallbackConfig.style.fontPair;
   applyFontPreset(style.fontPreset || fallbackConfig.style.fontPreset);
 
   const renderers = {

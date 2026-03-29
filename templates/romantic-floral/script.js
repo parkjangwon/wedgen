@@ -17,15 +17,18 @@
     },
     style: {
       colorScheme: "rose-petal",
-      fontPair: "song-myung-noto-sans",
+      fontSourceMode: "preset",
+      headingFont: "song-myung",
+      bodyFont: "gowun-dodum",
       fontPreset: {
-        value: "song-myung-noto-sans",
-        label: "송명 + 노토산스 KR",
+        mode: "preset",
         provider: "google",
         importUrl:
-          "https://fonts.googleapis.com/css2?family=Song+Myung&family=Noto+Sans+KR:wght@400;500;700&display=swap",
+          "https://fonts.googleapis.com/css2?family=Song+Myung&family=Gowun+Dodum&display=swap",
         headingFamily: '"Song Myung", "Noto Serif KR", serif',
-        bodyFamily: '"Noto Sans KR", sans-serif',
+        bodyFamily: '"Gowun Dodum", "Noto Sans KR", sans-serif',
+        headingValue: "song-myung",
+        bodyValue: "gowun-dodum",
       },
       animation: "fade",
     },
@@ -100,7 +103,6 @@
   document.documentElement.style.setProperty("--wedgen-primary", scheme.primary);
   document.documentElement.style.setProperty("--wedgen-bg", scheme.bg);
   document.body.dataset.animation = style.animation || "fade";
-  document.body.dataset.fontPair = style.fontPair || fallbackConfig.style.fontPair;
   applyFontPreset(style.fontPreset || fallbackConfig.style.fontPreset);
 
   const renderers = {

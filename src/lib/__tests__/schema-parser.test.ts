@@ -14,8 +14,8 @@ describe("parseSchema", () => {
     expect(schema.id).toBe("elegant-classic");
     expect(schema.fields["기본 정보"].groomName.type).toBe("text");
     expect(schema.sections.available).toContain("hero");
-    expect(schema.style.fonts[0]).toMatchObject({
-      value: "gowun-batang-noto-sans",
+    expect(schema.style.headingFonts[0]).toMatchObject({
+      value: "gowun-batang",
       provider: "google",
     });
   });
@@ -38,6 +38,10 @@ describe("resolveFieldOptions", () => {
     expect(resolved.fields["스타일"].colorScheme.options?.[0]).toMatchObject({
       value: "warm-blush",
       label: "웜 블러시",
+    });
+    expect(resolved.fields["스타일"].headingFont.options?.[0]).toMatchObject({
+      value: "gowun-batang",
+      label: "고운바탕",
     });
   });
 });
