@@ -45,33 +45,34 @@ export function ManualComposerPanel({
   onChange: (key: string, value: string) => void;
 }) {
   return (
-    <details className="rounded-[1.5rem] border border-black/5 bg-white/80 p-4" open>
+    <details className="rounded-[1.5rem] border border-black/5 bg-white/88 p-4" open>
       <summary className="cursor-pointer list-none">
-        <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-primary/70">
+        <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/70">
           수동 제작
         </p>
-        <h3 className="mt-1 text-xl tracking-[-0.03em]">섹션 문구를 직접 다듬기</h3>
-        <p className="mt-2 text-sm leading-6 text-muted-foreground">
+        <h3 className="mt-1 text-lg tracking-[-0.03em]">섹션 문구를 직접 다듬기</h3>
+        <p className="mt-2 max-w-xl text-[13px] leading-6 text-muted-foreground">
           템플릿 기본 구조는 유지하면서, 실제 서비스 수준으로 제목과 안내 문구를 세밀하게 바꿀 수 있습니다.
         </p>
       </summary>
 
-      <div className="mt-4 grid gap-3">
+      <div className="mt-4 grid gap-3 xl:grid-cols-2">
         {manualFields.map((field) => (
           <label
             key={field.key}
-            className="grid gap-2 rounded-2xl border border-black/5 bg-[#fffaf5] p-4"
+            className="grid gap-2 rounded-2xl border border-black/5 bg-[#fffaf5] p-3"
           >
-            <span className="text-sm font-medium">{field.label}</span>
+            <span className="text-[13px] font-medium">{field.label}</span>
             {field.type === "textarea" ? (
               <Textarea
                 value={String(values[field.key] ?? "")}
-                className="min-h-24"
+                className="min-h-24 text-sm leading-6"
                 onChange={(event) => onChange(field.key, event.target.value)}
               />
             ) : (
               <Input
                 value={String(values[field.key] ?? "")}
+                className="text-sm"
                 onChange={(event) => onChange(field.key, event.target.value)}
               />
             )}

@@ -19,7 +19,7 @@ export function SelectField({
       <select
         id={fieldKey}
         value={value}
-        className="flex h-11 w-full rounded-xl border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/30"
+        className="flex h-11 w-full rounded-xl border border-input bg-background px-3 text-[14px] outline-none transition focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/30"
         onChange={(event) => onChange(event.target.value)}
       >
         {(field.options ?? []).map((option) => (

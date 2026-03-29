@@ -262,28 +262,30 @@ export function EditorLayout({
   }
 
   return (
-    <main className="mx-auto flex w-full max-w-[1600px] flex-1 flex-col gap-6 px-5 py-6 lg:px-8">
-      <div className="flex items-center justify-between gap-4">
+    <main className="mx-auto flex w-full max-w-[1720px] flex-1 flex-col gap-5 px-4 py-4 lg:px-6 xl:px-8">
+      <div className="flex items-start justify-between gap-4">
         <div className="space-y-2">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+            className="inline-flex items-center gap-2 text-[13px] text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4" />
             템플릿 갤러리로
           </Link>
           <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.34em] text-primary/70">
+            <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/70">
               편집 워크스페이스
             </p>
-            <h1 className="mt-1 text-4xl tracking-[-0.04em]">{meta.name}</h1>
-            <p className="mt-2 text-sm leading-7 text-muted-foreground">{meta.description}</p>
+            <h1 className="mt-1 text-3xl tracking-[-0.04em] lg:text-4xl">{meta.name}</h1>
+            <p className="mt-2 max-w-3xl text-[13px] leading-6 text-muted-foreground lg:text-sm lg:leading-7">
+              {meta.description}
+            </p>
           </div>
         </div>
       </div>
 
-      <section className="grid gap-6 xl:grid-cols-[440px_minmax(0,1fr)]">
-        <aside className="rounded-[2rem] border border-black/5 bg-white/68 p-4 shadow-[0_28px_80px_rgba(92,55,38,0.1)] backdrop-blur">
+      <section className="grid gap-4 xl:grid-cols-[560px_minmax(0,1fr)]">
+        <aside className="rounded-[1.8rem] border border-black/5 bg-white/72 p-4 shadow-[0_28px_80px_rgba(92,55,38,0.1)] backdrop-blur">
           <div className="grid gap-4">
             <ConfigPanel
               schema={schema}
@@ -427,15 +429,7 @@ export function EditorLayout({
           </div>
         </aside>
 
-        <section className="grid gap-6">
-          <div className="rounded-[2rem] border border-black/5 bg-white/55 p-6 shadow-[0_28px_80px_rgba(92,55,38,0.08)] backdrop-blur">
-            <PreviewFrame
-              html={previewHtml}
-              loading={previewLoading}
-              error={previewError}
-              templateName={meta.name}
-            />
-          </div>
+        <section className="grid content-start gap-4">
           <BuildBar
             buildMode={buildMode}
             onBuildModeChange={setBuildMode}
@@ -443,6 +437,14 @@ export function EditorLayout({
             pending={buildPending}
             message={buildMessage}
           />
+          <div className="rounded-[1.9rem] border border-black/5 bg-white/58 p-4 shadow-[0_28px_80px_rgba(92,55,38,0.08)] backdrop-blur lg:p-6">
+            <PreviewFrame
+              html={previewHtml}
+              loading={previewLoading}
+              error={previewError}
+              templateName={meta.name}
+            />
+          </div>
         </section>
       </section>
     </main>

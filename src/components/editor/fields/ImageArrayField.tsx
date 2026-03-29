@@ -36,24 +36,25 @@ export function ImageArrayField({
         }}
       />
       {previewUrls.length ? (
-        <div className="mt-3 grid grid-cols-2 gap-3">
+        <div className="mt-3 grid grid-cols-2 gap-3 xl:grid-cols-3">
           {previewUrls.map((url, index) => (
             <div
               key={`${url}-${index}`}
-              className="overflow-hidden rounded-2xl border border-black/5 bg-white"
+              className="overflow-hidden rounded-[1rem] border border-black/5 bg-white shadow-[0_10px_24px_rgba(88,47,33,0.05)]"
             >
               <img
                 src={url}
                 alt={`갤러리 이미지 ${index + 1}`}
                 className="aspect-square w-full object-cover"
               />
-              <div className="flex items-center justify-between gap-2 border-t border-black/5 px-2 py-2">
-                <span className="text-xs text-muted-foreground">사진 {index + 1}</span>
-                <div className="flex items-center gap-1">
+              <div className="grid gap-2 border-t border-black/5 px-2.5 py-2.5">
+                <span className="text-[11px] text-muted-foreground">사진 {index + 1}</span>
+                <div className="flex flex-wrap items-center gap-1.5">
                   <Button
                     type="button"
                     size="sm"
                     variant="secondary"
+                    className="h-8 rounded-full px-3 text-[11px]"
                     disabled={index === 0}
                     onClick={() => onMove(index, index - 1)}
                   >
@@ -63,6 +64,7 @@ export function ImageArrayField({
                     type="button"
                     size="sm"
                     variant="secondary"
+                    className="h-8 rounded-full px-3 text-[11px]"
                     disabled={index === previewUrls.length - 1}
                     onClick={() => onMove(index, index + 1)}
                   >

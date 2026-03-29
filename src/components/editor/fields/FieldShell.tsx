@@ -12,14 +12,14 @@ export function FieldShell({
   children: ReactNode;
 }) {
   return (
-    <div className="space-y-3 rounded-2xl border border-black/5 bg-white/70 p-4">
-      <div className="space-y-1">
-        <Label htmlFor={fieldKey} className="text-sm font-medium text-foreground">
+    <div className="space-y-3 rounded-[1.15rem] border border-black/5 bg-white/76 p-3.5 shadow-[0_10px_24px_rgba(88,47,33,0.04)]">
+      <div className="space-y-1.5">
+        <Label htmlFor={fieldKey} className="text-[13px] font-medium leading-none text-foreground">
           {field.label}
           {field.required ? <span className="ml-1 text-primary">*</span> : null}
         </Label>
         {field.description ? (
-          <p className="text-xs leading-5 text-muted-foreground">{field.description}</p>
+          <p className="text-[12px] leading-5 text-muted-foreground">{field.description}</p>
         ) : null}
       </div>
       {children}
