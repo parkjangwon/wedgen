@@ -7,7 +7,7 @@
   "interaction": "scroll",
   "sections": {
     "available": ["hero", "greeting", "gallery", "info", "guestbook", "rsvp"],
-    "defaultOrder": ["hero", "greeting", "gallery", "info", "guestbook", "rsvp"],
+    "defaultOrder": ["hero", "greeting", "family", "gallery", "location", "schedule", "guestbook", "account", "ending"],
     "required": ["hero", "info"]
   },
   "fields": {

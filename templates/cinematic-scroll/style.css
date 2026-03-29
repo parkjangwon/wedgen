@@ -219,3 +219,69 @@ body[data-animation="slide"] .section {
 .countdown-value{display:block;font-size:20px;font-family:var(--wedgen-font-heading)}
 .nav-links{display:flex;flex-wrap:wrap;gap:8px}
 .ending-card{display:grid;gap:14px;text-align:center}
+
+.invitation-shell {
+  gap: 22px;
+}
+
+.hero {
+  min-height: 82vh;
+  display: grid;
+  align-content: end;
+  padding: 40px 26px;
+  background:
+    linear-gradient(180deg, rgba(8,12,16,.12), rgba(8,12,16,.82)),
+    rgba(16,19,23,.94);
+}
+
+.hero .hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  border-radius: 0;
+  margin-top: 0;
+  border: 0;
+  z-index: 0;
+}
+
+.hero > *:not(.hero-image) {
+  position: relative;
+  z-index: 1;
+}
+
+.hero .headline {
+  font-size: 58px;
+  line-height: 0.92;
+}
+
+.gallery-grid {
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  grid-auto-rows: 180px;
+}
+
+.gallery-grid img:nth-child(1),
+.gallery-grid img:nth-child(4) {
+  grid-column: span 2;
+  aspect-ratio: auto;
+  height: 100%;
+}
+
+.schedule .calendar-box,
+.account-item,
+.timeline-card,
+.info-card,
+.family-card {
+  background: rgba(255,255,255,.04);
+}
+
+.countdown-item {
+  backdrop-filter: blur(10px);
+}
+
+.ending {
+  background:
+    radial-gradient(circle at top, rgba(212,163,115,.12), transparent 38%),
+    linear-gradient(180deg, rgba(20,24,29,.98), rgba(13,16,21,.92));
+}

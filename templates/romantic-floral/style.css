@@ -220,3 +220,47 @@ body[data-animation="slide"] .section {
 .countdown-value{display:block;font-size:20px;font-family:var(--wedgen-font-heading)}
 .nav-links{display:flex;flex-wrap:wrap;gap:8px}
 .ending-card{display:grid;gap:14px;text-align:center}
+
+.hero::after,
+.greeting::after,
+.ending::after {
+  content: "";
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  right: -28px;
+  top: -32px;
+  background: radial-gradient(circle, rgba(255,255,255,.66), rgba(255,255,255,0));
+  pointer-events: none;
+}
+
+.hero .hero-image {
+  aspect-ratio: 4 / 4.8;
+}
+
+.greeting,
+.ending {
+  background:
+    radial-gradient(circle at top right, rgba(255,255,255,.8), transparent 30%),
+    linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,248,251,.84));
+}
+
+.gallery-grid {
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 150px;
+}
+
+.gallery-grid img:nth-child(1) {
+  grid-column: span 2;
+  aspect-ratio: auto;
+  height: 100%;
+}
+
+.family-card,
+.account-item {
+  border-radius: 26px;
+}
+
+.schedule .calendar-box {
+  border-radius: 28px;
+}

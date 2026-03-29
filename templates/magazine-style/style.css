@@ -219,3 +219,54 @@ body[data-animation="slide"] .section {
 .countdown-value{display:block;font-size:20px;font-family:var(--wedgen-font-heading)}
 .nav-links{display:flex;flex-wrap:wrap;gap:8px}
 .ending-card{display:grid;gap:14px;text-align:center}
+
+.hero {
+  padding-top: 34px;
+  border-top: 6px solid var(--wedgen-primary);
+}
+
+.hero .headline {
+  font-size: 60px;
+  line-height: 0.94;
+}
+
+.hero .hero-image {
+  border-radius: 4px;
+  aspect-ratio: 4 / 5;
+}
+
+.greeting,
+.family,
+.account,
+.ending {
+  border-left: 6px solid rgba(24,24,27,.12);
+}
+
+.gallery-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 118px;
+}
+
+.gallery-grid img:first-child {
+  grid-column: span 2;
+  grid-row: span 2;
+  aspect-ratio: auto;
+  height: 100%;
+}
+
+.section-kicker {
+  letter-spacing: 0.32em;
+}
+
+.schedule-grid {
+  grid-template-columns: 0.9fr 1.1fr;
+  align-items: start;
+}
+
+.countdown-grid {
+  grid-template-columns: repeat(2, minmax(0,1fr));
+}
+
+.account-list {
+  grid-template-columns: repeat(2, minmax(0,1fr));
+}
