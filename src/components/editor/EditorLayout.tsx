@@ -144,6 +144,16 @@ function revokeAsset(asset: string | string[] | undefined) {
   }
 }
 
+function serializeDraft(draft: EditorDraft) {
+  return JSON.stringify({
+    locale: draft.locale,
+    sectionOrder: draft.sectionOrder,
+    data: draft.data,
+    style: draft.style,
+    assets: draft.assets ?? {},
+  });
+}
+
 async function restoreFilesFromAssets(
   assets: Record<string, string | string[] | undefined>,
 ) {
@@ -177,7 +187,8 @@ export function EditorLayout({
   templates: TemplateMeta[];
 }) {
   const router = useRouter();
-  const [draft, setDraft] = useState<EditorDraft>(() => createInitialDraft(meta.id, schema));
+  const initialDraft = createInitialDraft(meta.id, schema);
+  const [draft, setDraft] = useState<EditorDraft>(() => initialDraft);
   const [storageSlot, setStorageSlot] = useState<1 | 2 | 3>(1);
   const storageKey = `wedgen:draft:${meta.id}`;
   const autosaveKey = `${storageKey}:autosave`;
@@ -195,6 +206,7 @@ export function EditorLayout({
   const [buildMessage, setBuildMessage] = useState<string | null>(null);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
   const deferredDraft = useDeferredValue(draft);
+  const isDirty = serializeDraft(draft) !== serializeDraft(initialDraft);
 
   useEffect(() => {
     draftRef.current = draft;
@@ -403,7 +415,29 @@ export function EditorLayout({
               <select
                 value={meta.id}
                 className="h-9 flex-1 bg-transparent text-[13px] text-foreground outline-none"
-                onChange={(event) => router.push(`/editor/${event.target.value}`)}
+                onChange={(event) => {
+                  const nextTemplate = event.target.value;
+                  if (!isDirty) {
+                    router.push(`/editor/${nextTemplate}`);
+                    return;
+                  }
+
+                  const shouldMove = window.confirm(
+                    "현재 편집 중인 내용이 있습니다. 이동하기 전에 임시 저장해 두었고, 다른 템플릿으로 전환할까요?",
+                  );
+
+                  if (!shouldMove) {
+                    event.currentTarget.value = meta.id;
+                    return;
+                  }
+
+                  const serializableDraft = {
+                    ...draftRef.current,
+                    files: {},
+                  };
+                  window.localStorage.setItem(autosaveKey, JSON.stringify(serializableDraft));
+                  router.push(`/editor/${nextTemplate}`);
+                }}
               >
                 {templates.map((template) => (
                   <option key={template.id} value={template.id}>
