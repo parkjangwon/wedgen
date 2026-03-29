@@ -1,11 +1,18 @@
 "use client";
 
-import { startTransition, useDeferredValue, useEffect, useState } from "react";
+import { startTransition, useDeferredValue, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { BuildBar } from "@/components/editor/BuildBar";
 import { ConfigPanel } from "@/components/editor/ConfigPanel";
 import { PreviewFrame } from "@/components/editor/PreviewFrame";
+import {
+  appendFiles,
+  fileToDataUrl,
+  filesToDataUrls,
+  moveItem,
+  removeItem,
+} from "@/lib/gallery-assets";
 import type { BuildMode } from "@/lib/optimizers";
 import type {
   TemplateMeta,
@@ -103,6 +110,7 @@ export function EditorLayout({
   schema: TemplateSchema;
 }) {
   const [draft, setDraft] = useState<EditorDraft>(() => createInitialDraft(schema));
+  const draftRef = useRef(draft);
   const [previewHtml, setPreviewHtml] = useState("");
   const [previewLoading, setPreviewLoading] = useState(true);
   const [previewError, setPreviewError] = useState<string | null>(null);
@@ -110,6 +118,10 @@ export function EditorLayout({
   const [buildPending, setBuildPending] = useState(false);
   const [buildMessage, setBuildMessage] = useState<string | null>(null);
   const deferredDraft = useDeferredValue(draft);
+
+  useEffect(() => {
+    draftRef.current = draft;
+  }, [draft]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -261,27 +273,106 @@ export function EditorLayout({
               });
             }}
             onFileChange={(fieldKey, nextValue) => {
+              void (async () => {
+                if (Array.isArray(nextValue)) {
+                  const currentFiles = draftRef.current.files[fieldKey];
+                  const existingFiles = Array.isArray(currentFiles)
+                    ? currentFiles
+                    : [];
+                  const mergedFiles = appendFiles(existingFiles, nextValue);
+
+                  const previewUrls = await filesToDataUrls(mergedFiles);
+                  startTransition(() => {
+                    setDraft((current) => ({
+                      ...current,
+                      assets: {
+                        ...(current.assets ?? {}),
+                        [fieldKey]: previewUrls,
+                      },
+                      files: {
+                        ...current.files,
+                        [fieldKey]: mergedFiles,
+                      },
+                    }));
+                  });
+                  return;
+                }
+
+                if (!nextValue) {
+                  startTransition(() => {
+                    setDraft((current) => {
+                      revokeAsset(current.assets?.[fieldKey]);
+                      const nextAssets = { ...(current.assets ?? {}) };
+                      const nextFiles = { ...current.files };
+                      delete nextAssets[fieldKey];
+                      delete nextFiles[fieldKey];
+                      return { ...current, assets: nextAssets, files: nextFiles };
+                    });
+                  });
+                  return;
+                }
+
+                const previewUrl = await fileToDataUrl(nextValue);
+                startTransition(() => {
+                  setDraft((current) => ({
+                    ...current,
+                    assets: {
+                      ...(current.assets ?? {}),
+                      [fieldKey]: previewUrl,
+                    },
+                    files: {
+                      ...current.files,
+                      [fieldKey]: nextValue,
+                    },
+                  }));
+                });
+              })();
+            }}
+            onArrayMove={(fieldKey, fromIndex, toIndex) => {
               startTransition(() => {
                 setDraft((current) => {
-                  revokeAsset(current.assets?.[fieldKey]);
-                  const nextAssets = { ...(current.assets ?? {}) };
-                  const nextFiles = { ...current.files };
+                  const existingFiles = Array.isArray(current.files[fieldKey])
+                    ? (current.files[fieldKey] as File[])
+                    : [];
+                  const existingAssets = Array.isArray(current.assets?.[fieldKey])
+                    ? (current.assets?.[fieldKey] as string[])
+                    : [];
 
-                  if (!nextValue) {
-                    delete nextAssets[fieldKey];
-                    delete nextFiles[fieldKey];
-                    return { ...current, assets: nextAssets, files: nextFiles };
-                  }
+                  return {
+                    ...current,
+                    files: {
+                      ...current.files,
+                      [fieldKey]: moveItem(existingFiles, fromIndex, toIndex),
+                    },
+                    assets: {
+                      ...(current.assets ?? {}),
+                      [fieldKey]: moveItem(existingAssets, fromIndex, toIndex),
+                    },
+                  };
+                });
+              });
+            }}
+            onArrayRemove={(fieldKey, index) => {
+              startTransition(() => {
+                setDraft((current) => {
+                  const existingFiles = Array.isArray(current.files[fieldKey])
+                    ? (current.files[fieldKey] as File[])
+                    : [];
+                  const existingAssets = Array.isArray(current.assets?.[fieldKey])
+                    ? (current.assets?.[fieldKey] as string[])
+                    : [];
 
-                  if (Array.isArray(nextValue)) {
-                    nextAssets[fieldKey] = nextValue.map((file) => URL.createObjectURL(file));
-                    nextFiles[fieldKey] = nextValue;
-                  } else {
-                    nextAssets[fieldKey] = URL.createObjectURL(nextValue);
-                    nextFiles[fieldKey] = nextValue;
-                  }
-
-                  return { ...current, assets: nextAssets, files: nextFiles };
+                  return {
+                    ...current,
+                    files: {
+                      ...current.files,
+                      [fieldKey]: removeItem(existingFiles, index),
+                    },
+                    assets: {
+                      ...(current.assets ?? {}),
+                      [fieldKey]: removeItem(existingAssets, index),
+                    },
+                  };
                 });
               });
             }}

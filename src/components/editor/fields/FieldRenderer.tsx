@@ -19,6 +19,8 @@ export function FieldRenderer({
   assetPreview,
   onValueChange,
   onFileChange,
+  onArrayMove,
+  onArrayRemove,
 }: {
   fieldKey: string;
   field: FieldDefinition;
@@ -26,6 +28,8 @@ export function FieldRenderer({
   assetPreview?: string | string[];
   onValueChange: (value: unknown) => void;
   onFileChange: (value: File | File[] | undefined) => void;
+  onArrayMove?: (fromIndex: number, toIndex: number) => void;
+  onArrayRemove?: (index: number) => void;
 }) {
   switch (field.type) {
     case "text":
@@ -110,7 +114,9 @@ export function FieldRenderer({
           fieldKey={fieldKey}
           field={field}
           previewUrls={Array.isArray(assetPreview) ? assetPreview : []}
-          onChange={onFileChange}
+          onAdd={(files) => onFileChange(files)}
+          onMove={(fromIndex, toIndex) => onArrayMove?.(fromIndex, toIndex)}
+          onRemove={(index) => onArrayRemove?.(index)}
         />
       );
     case "file":

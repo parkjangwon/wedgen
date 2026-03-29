@@ -30,6 +30,8 @@ export function ConfigPanel({
   assets,
   onValueChange,
   onFileChange,
+  onArrayMove,
+  onArrayRemove,
   onSectionOrderChange,
 }: {
   schema: TemplateSchema;
@@ -41,6 +43,8 @@ export function ConfigPanel({
   assets: Record<string, string | string[] | undefined>;
   onValueChange: (fieldKey: string, nextValue: unknown, tabName: string) => void;
   onFileChange: (fieldKey: string, nextValue: File | File[] | undefined) => void;
+  onArrayMove: (fieldKey: string, fromIndex: number, toIndex: number) => void;
+  onArrayRemove: (fieldKey: string, index: number) => void;
   onSectionOrderChange: (nextOrder: string[]) => void;
 }) {
   const tabs = Object.entries(schema.fields);
@@ -80,6 +84,10 @@ export function ConfigPanel({
                     onValueChange(fieldKey, nextValue, tabName)
                   }
                   onFileChange={(nextValue) => onFileChange(fieldKey, nextValue)}
+                  onArrayMove={(fromIndex, toIndex) =>
+                    onArrayMove(fieldKey, fromIndex, toIndex)
+                  }
+                  onArrayRemove={(index) => onArrayRemove(fieldKey, index)}
                 />
               );
             })}
