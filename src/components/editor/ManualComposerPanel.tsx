@@ -5,8 +5,12 @@ import { Textarea } from "@/components/ui/textarea";
 
 const manualFields = [
   { key: "heroEyebrow", label: "표지 상단 문구", type: "text" },
+  { key: "heroTitleSize", label: "표지 제목 크기", type: "text" },
+  { key: "heroMetaSize", label: "표지 메타 크기", type: "text" },
   { key: "heroTagline", label: "표지 소개 문구", type: "textarea" },
   { key: "greetingTitle", label: "초대 문구 제목", type: "text" },
+  { key: "sectionTitleSize", label: "섹션 제목 크기", type: "text" },
+  { key: "bodyCopySize", label: "본문 크기", type: "text" },
   { key: "familyNote", label: "혼주 소개 문구", type: "textarea" },
   { key: "groomFather", label: "신랑 아버지", type: "text" },
   { key: "groomMother", label: "신랑 어머니", type: "text" },

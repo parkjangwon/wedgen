@@ -8,6 +8,10 @@
   --wedgen-shadow: 0 20px 48px rgba(0, 0, 0, 0.08);
   --wedgen-font-heading: "Gowun Dodum", "Noto Sans KR", sans-serif;
   --wedgen-font-body: "Noto Sans KR", sans-serif;
+  --wedgen-hero-title-size: 38px;
+  --wedgen-hero-meta-size: 14px;
+  --wedgen-section-title-size: 28px;
+  --wedgen-body-copy-size: 15px;
 }
 
 * {
@@ -67,7 +71,7 @@ body {
 
 .headline {
   margin: 0;
-  font-size: 42px;
+  font-size: var(--wedgen-hero-title-size);
   line-height: 1.08;
   letter-spacing: -0.04em;
   font-family: var(--wedgen-font-heading);
@@ -75,7 +79,7 @@ body {
 
 .subline {
   margin: 14px 0 0;
-  font-size: 14px;
+  font-size: var(--wedgen-hero-meta-size);
   color: rgba(43, 29, 23, 0.72);
 }
 
@@ -100,7 +104,7 @@ body {
 
 .copy {
   margin: 0;
-  font-size: 15px;
+  font-size: var(--wedgen-body-copy-size);
   line-height: 1.85;
   color: rgba(43, 29, 23, 0.88);
   white-space: pre-wrap;
@@ -208,13 +212,10 @@ body[data-animation="slide"] .section {
 .family-card,.info-card,.account-item,.timeline-card,.calendar-box{display:grid;gap:8px;border-radius:18px;border:1px solid var(--wedgen-border);background:rgba(255,255,255,.96);padding:16px}
 .family-role,.timeline-label,.account-role,.countdown-label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(17,17,17,.44)}
 .family-name,.timeline-value,.account-name,.calendar-date{font-family:var(--wedgen-font-heading)}
-.family-name,.timeline-value,.account-name{font-size:18px}
-.calendar-date{font-size:34px}
-.family-sub,.account-number,.timeline-sub,.section-lead{white-space:pre-wrap}
-.family-sub,.account-number,.timeline-sub{font-size:13px;line-height:1.7;color:rgba(17,17,17,.62)}
+.family-name,.timeline-value,.account-name{font-size:calc(var(--wedgen-section-title-size) - 10px);line-height:1.7;color:rgba(17,17,17,.62)}
 .contact-link,.nav-link,.account-copy{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 14px;border-radius:999px;border:1px solid var(--wedgen-border);color:inherit;text-decoration:none;background:#fff}
 .hero-meta{display:grid;gap:6px;margin-top:18px}
-.hero-meta-line{font-size:14px;line-height:1.7;color:rgba(17,17,17,.68)}
+.hero-meta-line{font-size:var(--wedgen-hero-meta-size);line-height:1.7;color:rgba(17,17,17,.68)}
 .countdown-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
 .countdown-item{border-radius:14px;background:#fff;border:1px solid var(--wedgen-border);padding:12px 8px;text-align:center}
 .countdown-value{display:block;font-size:20px;font-family:var(--wedgen-font-heading)}
