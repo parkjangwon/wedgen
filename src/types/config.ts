@@ -1,3 +1,5 @@
+import type { FontOption } from "./schema";
+
 export interface LatLng {
   lat: number;
   lng: number;
@@ -24,7 +26,8 @@ export interface WedgenConfigStyle {
   colorScheme: string;
   fontPair: string;
   animation: string;
-  [key: string]: string;
+  fontPreset?: FontOption;
+  [key: string]: string | FontOption | undefined;
 }
 
 export interface WedgenConfigAssets {

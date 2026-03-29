@@ -14,6 +14,10 @@ describe("parseSchema", () => {
     expect(schema.id).toBe("elegant-classic");
     expect(schema.fields["기본 정보"].groomName.type).toBe("text");
     expect(schema.sections.available).toContain("hero");
+    expect(schema.style.fonts[0]).toMatchObject({
+      value: "gowun-batang-noto-sans",
+      provider: "google",
+    });
   });
 
   it("throws for an invalid schema path", async () => {

@@ -3,7 +3,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FieldRenderer } from "@/components/editor/fields/FieldRenderer";
 import { SectionOrderer } from "@/components/editor/SectionOrderer";
-import type { TemplateSchema } from "@/types";
+import type { FontOption, TemplateSchema } from "@/types";
 
 export function ConfigPanel({
   schema,
@@ -16,7 +16,7 @@ export function ConfigPanel({
   schema: TemplateSchema;
   values: {
     data: Record<string, unknown>;
-    style: Record<string, string>;
+    style: Record<string, string | FontOption | undefined>;
     sectionOrder: string[];
   };
   assets: Record<string, string | string[] | undefined>;

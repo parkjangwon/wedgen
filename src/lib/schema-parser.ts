@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { z } from "zod";
-import type { SelectOption, TemplateBundle, TemplateSchema } from "@/types";
+import type { FontOption, SelectOption, TemplateBundle, TemplateSchema } from "@/types";
 
 const selectOptionSchema = z.object({
   value: z.string(),
@@ -11,6 +11,13 @@ const selectOptionSchema = z.object({
 const colorSchemeSchema = selectOptionSchema.extend({
   primary: z.string(),
   bg: z.string(),
+});
+
+const fontOptionSchema = selectOptionSchema.extend({
+  provider: z.literal("google"),
+  importUrl: z.string().url(),
+  headingFamily: z.string(),
+  bodyFamily: z.string(),
 });
 
 const fieldSchema = z.object({
@@ -55,7 +62,7 @@ const templateSchemaValidator = z.object({
   fields: z.record(z.string(), z.record(z.string(), fieldSchema)),
   style: z.object({
     colorSchemes: z.array(colorSchemeSchema),
-    fonts: z.array(selectOptionSchema),
+    fonts: z.array(fontOptionSchema),
     animations: z.array(selectOptionSchema),
   }),
   i18n: z.object({
@@ -91,7 +98,7 @@ export function resolveFieldOptions(schema: TemplateSchema): TemplateSchema {
 
       const resolvedOptions = getNestedValue(resolved, field.optionsFrom);
       field.options = Array.isArray(resolvedOptions)
-        ? (resolvedOptions as SelectOption[])
+        ? (resolvedOptions as SelectOption[] | FontOption[])
         : [];
       delete field.optionsFrom;
     }

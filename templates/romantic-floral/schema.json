@@ -74,8 +74,30 @@
       { "value": "peach-garden", "label": "피치 가든", "primary": "#cf8c70", "bg": "#fff7ef" }
     ],
     "fonts": [
-      { "value": "noto-serif", "label": "Noto Serif KR" },
-      { "value": "pretendard-nanum", "label": "프리텐다드 + 나눔명조" }
+      {
+        "value": "song-myung-noto-sans",
+        "label": "송명 + 노토산스 KR",
+        "provider": "google",
+        "importUrl": "https://fonts.googleapis.com/css2?family=Song+Myung&family=Noto+Sans+KR:wght@400;500;700&display=swap",
+        "headingFamily": "\"Song Myung\", \"Noto Serif KR\", serif",
+        "bodyFamily": "\"Noto Sans KR\", sans-serif"
+      },
+      {
+        "value": "gowun-batang-noto-sans",
+        "label": "고운바탕 + 노토산스 KR",
+        "provider": "google",
+        "importUrl": "https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap",
+        "headingFamily": "\"Gowun Batang\", \"Noto Serif KR\", serif",
+        "bodyFamily": "\"Noto Sans KR\", sans-serif"
+      },
+      {
+        "value": "noto-serif-noto-sans",
+        "label": "노토세리프 KR + 노토산스 KR",
+        "provider": "google",
+        "importUrl": "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@400;500;600;700&display=swap",
+        "headingFamily": "\"Noto Serif KR\", serif",
+        "bodyFamily": "\"Noto Sans KR\", sans-serif"
+      }
     ],
     "animations": [
       { "value": "fade", "label": "페이드 인" },

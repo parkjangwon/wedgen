@@ -17,7 +17,16 @@
     },
     style: {
       colorScheme: "warm-blush",
-      fontPair: "pretendard-nanum",
+      fontPair: "gowun-batang-noto-sans",
+      fontPreset: {
+        value: "gowun-batang-noto-sans",
+        label: "고운바탕 + 노토산스 KR",
+        provider: "google",
+        importUrl:
+          "https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap",
+        headingFamily: '"Gowun Batang", "Noto Serif KR", serif',
+        bodyFamily: '"Noto Sans KR", sans-serif',
+      },
       animation: "fade",
     },
     assets: {
@@ -45,12 +54,6 @@
     "sage-green": { primary: "#5d7052", bg: "#f7f4ea" },
   };
 
-  const scheme = schemeMap[style.colorScheme] || schemeMap["warm-blush"];
-  document.documentElement.style.setProperty("--wedgen-primary", scheme.primary);
-  document.documentElement.style.setProperty("--wedgen-bg", scheme.bg);
-  document.body.dataset.animation = style.animation || "fade";
-  document.body.dataset.fontPair = style.fontPair || "pretendard-nanum";
-
   const orderedSections = config.sectionOrder || fallbackConfig.sectionOrder;
   const sectionNodes = new Map(
     Array.from(document.querySelectorAll("[data-section]")).map((node) => [
@@ -75,6 +78,31 @@
 
     return `<a class="cta-link" href="${url}" target="_blank" rel="noreferrer">${label}</a>`;
   }
+
+  function applyFontPreset(fontPreset) {
+    if (!fontPreset || fontPreset.provider !== "google") {
+      return;
+    }
+
+    let fontLink = document.querySelector('link[data-wedgen-fonts="google"]');
+    if (!fontLink) {
+      fontLink = document.createElement("link");
+      fontLink.rel = "stylesheet";
+      fontLink.dataset.wedgenFonts = "google";
+      document.head.appendChild(fontLink);
+    }
+
+    fontLink.href = fontPreset.importUrl;
+    document.documentElement.style.setProperty("--wedgen-font-heading", fontPreset.headingFamily);
+    document.documentElement.style.setProperty("--wedgen-font-body", fontPreset.bodyFamily);
+  }
+
+  const scheme = schemeMap[style.colorScheme] || schemeMap["warm-blush"];
+  document.documentElement.style.setProperty("--wedgen-primary", scheme.primary);
+  document.documentElement.style.setProperty("--wedgen-bg", scheme.bg);
+  document.body.dataset.animation = style.animation || "fade";
+  document.body.dataset.fontPair = style.fontPair || fallbackConfig.style.fontPair;
+  applyFontPreset(style.fontPreset || fallbackConfig.style.fontPreset);
 
   const renderers = {
     hero(node) {

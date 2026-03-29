@@ -1,12 +1,5 @@
 "use client";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import type { FieldDefinition } from "@/types";
 import { FieldShell } from "./FieldShell";
 
@@ -23,18 +16,18 @@ export function SelectField({
 }) {
   return (
     <FieldShell fieldKey={fieldKey} field={field}>
-      <Select value={value} onValueChange={(nextValue) => onChange(nextValue ?? "")}>
-        <SelectTrigger id={fieldKey} className="w-full">
-          <SelectValue placeholder={field.label} />
-        </SelectTrigger>
-        <SelectContent>
-          {(field.options ?? []).map((option) => (
-            <SelectItem key={option.value} value={option.value}>
-              {option.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      <select
+        id={fieldKey}
+        value={value}
+        className="flex h-11 w-full rounded-xl border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/30"
+        onChange={(event) => onChange(event.target.value)}
+      >
+        {(field.options ?? []).map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
     </FieldShell>
   );
 }

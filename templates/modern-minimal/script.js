@@ -17,7 +17,16 @@
     },
     style: {
       colorScheme: "graphite",
-      fontPair: "wanted-serif",
+      fontPair: "gowun-dodum-noto-sans",
+      fontPreset: {
+        value: "gowun-dodum-noto-sans",
+        label: "고운돋움 + 노토산스 KR",
+        provider: "google",
+        importUrl:
+          "https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700&display=swap",
+        headingFamily: '"Gowun Dodum", "Noto Sans KR", sans-serif',
+        bodyFamily: '"Noto Sans KR", sans-serif',
+      },
       animation: "slide",
     },
     assets: {
@@ -44,12 +53,6 @@
     "silver-mist": { primary: "#545454", bg: "#f1f1ef" },
   };
 
-  const scheme = schemeMap[style.colorScheme] || schemeMap["warm-blush"];
-  document.documentElement.style.setProperty("--wedgen-primary", scheme.primary);
-  document.documentElement.style.setProperty("--wedgen-bg", scheme.bg);
-  document.body.dataset.animation = style.animation || "fade";
-  document.body.dataset.fontPair = style.fontPair || "pretendard-nanum";
-
   const orderedSections = config.sectionOrder || fallbackConfig.sectionOrder;
   const sectionNodes = new Map(
     Array.from(document.querySelectorAll("[data-section]")).map((node) => [
@@ -74,6 +77,31 @@
 
     return `<a class="cta-link" href="${url}" target="_blank" rel="noreferrer">${label}</a>`;
   }
+
+  function applyFontPreset(fontPreset) {
+    if (!fontPreset || fontPreset.provider !== "google") {
+      return;
+    }
+
+    let fontLink = document.querySelector('link[data-wedgen-fonts="google"]');
+    if (!fontLink) {
+      fontLink = document.createElement("link");
+      fontLink.rel = "stylesheet";
+      fontLink.dataset.wedgenFonts = "google";
+      document.head.appendChild(fontLink);
+    }
+
+    fontLink.href = fontPreset.importUrl;
+    document.documentElement.style.setProperty("--wedgen-font-heading", fontPreset.headingFamily);
+    document.documentElement.style.setProperty("--wedgen-font-body", fontPreset.bodyFamily);
+  }
+
+  const scheme = schemeMap[style.colorScheme] || schemeMap.graphite;
+  document.documentElement.style.setProperty("--wedgen-primary", scheme.primary);
+  document.documentElement.style.setProperty("--wedgen-bg", scheme.bg);
+  document.body.dataset.animation = style.animation || "fade";
+  document.body.dataset.fontPair = style.fontPair || fallbackConfig.style.fontPair;
+  applyFontPreset(style.fontPreset || fallbackConfig.style.fontPreset);
 
   const renderers = {
     hero(node) {

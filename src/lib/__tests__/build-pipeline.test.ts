@@ -21,7 +21,7 @@ describe("buildInvitationArchive", () => {
         },
         style: {
           colorScheme: "warm-blush",
-          fontPair: "pretendard-nanum",
+          fontPair: "gowun-batang-noto-sans",
           animation: "fade",
         },
       },
@@ -31,5 +31,9 @@ describe("buildInvitationArchive", () => {
     expect(artifact.zipBuffer.subarray(0, 2).toString()).toBe("PK");
     expect(artifact.files.get("index.html")).toContain("__WEDGEN_CONFIG__");
     expect(artifact.files.get("style.css")).toContain("--wedgen-primary");
+    expect(artifact.runtimeConfig.style.fontPreset).toMatchObject({
+      value: "gowun-batang-noto-sans",
+      provider: "google",
+    });
   });
 });

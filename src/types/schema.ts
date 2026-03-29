@@ -20,6 +20,13 @@ export interface ColorSchemeOption extends SelectOption {
   bg: string;
 }
 
+export interface FontOption extends SelectOption {
+  provider: "google";
+  importUrl: string;
+  headingFamily: string;
+  bodyFamily: string;
+}
+
 export interface FieldDefinition {
   type: FieldType;
   label: string;
@@ -44,7 +51,7 @@ export interface SectionConfig {
 
 export interface StyleConfig {
   colorSchemes: ColorSchemeOption[];
-  fonts: SelectOption[];
+  fonts: FontOption[];
   animations: SelectOption[];
 }
 

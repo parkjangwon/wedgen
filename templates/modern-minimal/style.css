@@ -6,6 +6,8 @@
   --wedgen-border: rgba(17, 17, 17, 0.12);
   --wedgen-radius: 18px;
   --wedgen-shadow: 0 20px 48px rgba(0, 0, 0, 0.08);
+  --wedgen-font-heading: "Gowun Dodum", "Noto Sans KR", sans-serif;
+  --wedgen-font-body: "Noto Sans KR", sans-serif;
 }
 
 * {
@@ -20,23 +22,11 @@ body {
     radial-gradient(circle at top, rgba(255, 255, 255, 0.92), transparent 34%),
     linear-gradient(180deg, var(--wedgen-bg), #efe5d9 58%, #f7f0e6);
   color: var(--wedgen-ink);
-  font-family: "Wanted Sans", "Noto Sans KR", sans-serif;
+  font-family: var(--wedgen-font-body);
 }
 
 body {
   padding: 24px 0 96px;
-}
-
-body[data-font-pair="pretendard-nanum"] {
-  font-family: "Nanum Myeongjo", "Noto Serif KR", serif;
-}
-
-body[data-font-pair="wanted-serif"] {
-  font-family: "Ibarra Real Nova", "Noto Serif KR", serif;
-}
-
-body[data-font-pair="noto-serif"] {
-  font-family: "Noto Serif KR", serif;
 }
 
 .invitation-shell {
@@ -80,6 +70,7 @@ body[data-font-pair="noto-serif"] {
   font-size: 42px;
   line-height: 1.08;
   letter-spacing: -0.04em;
+  font-family: var(--wedgen-font-heading);
 }
 
 .subline {

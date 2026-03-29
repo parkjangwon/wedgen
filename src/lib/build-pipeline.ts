@@ -6,7 +6,7 @@ import { injectConfigIntoHtml } from "@/lib/config-injector";
 import { processImageAssets } from "@/lib/image-processor";
 import { optimizeAssets, type BuildMode } from "@/lib/optimizers";
 import { loadTemplateBundle } from "@/lib/schema-parser";
-import type { WedgenConfig, WedgenDraftInput } from "@/types";
+import type { FontOption, WedgenConfig, WedgenDraftInput } from "@/types";
 
 type UploadMap = Record<string, File | File[] | undefined>;
 
@@ -56,6 +56,15 @@ function ensureRequiredFields(config: WedgenDraftInput): void {
       throw new Error(`필수 입력값이 비어 있습니다: ${field}`);
     }
   }
+}
+
+function resolveFontPreset(
+  availableFonts: FontOption[],
+  requestedValue: string,
+): FontOption | undefined {
+  return (
+    availableFonts.find((font) => font.value === requestedValue) ?? availableFonts[0]
+  );
 }
 
 async function createZipBuffer(files: Map<string, string | Buffer>): Promise<Buffer> {
@@ -113,6 +122,10 @@ export async function buildPreviewDocument(
       colorScheme:
         config.style.colorScheme || bundle.schema.style.colorSchemes[0]?.value || "",
       fontPair: config.style.fontPair || bundle.schema.style.fonts[0]?.value || "",
+      fontPreset: resolveFontPreset(
+        bundle.schema.style.fonts,
+        config.style.fontPair || bundle.schema.style.fonts[0]?.value || "",
+      ),
       animation:
         config.style.animation || bundle.schema.style.animations[0]?.value || "fade",
     },
@@ -150,6 +163,10 @@ export async function buildInvitationArchive(
         bundle.schema.style.colorSchemes[0]?.value ||
         "",
       fontPair: options.config.style.fontPair || bundle.schema.style.fonts[0]?.value || "",
+      fontPreset: resolveFontPreset(
+        bundle.schema.style.fonts,
+        options.config.style.fontPair || bundle.schema.style.fonts[0]?.value || "",
+      ),
       animation:
         options.config.style.animation ||
         bundle.schema.style.animations[0]?.value ||
