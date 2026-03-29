@@ -6,11 +6,11 @@
 ## 주요 기능
 
 - 5개 청첩장 템플릿 제공
-  - `Elegant Classic`
-  - `Modern Minimal`
-  - `Romantic Floral`
-  - `Magazine Style`
-  - `Cinematic Scroll`
+  - `우아한 클래식`
+  - `모던 미니멀`
+  - `로맨틱 플로럴`
+  - `매거진 스타일`
+  - `시네마틱 스크롤`
 - 템플릿 `schema.json` 기반 동적 폼 렌더링
 - 모바일 프레임 iframe 실시간 미리보기
 - `Tweak` / `Optimized` 빌드 모드 지원
@@ -37,13 +37,13 @@
 ### 1. 의존성 설치
 
 ```bash
-npm install
+pnpm install
 ```
 
 ### 2. 개발 서버 실행
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 브라우저에서 `http://localhost:3000`을 열면 템플릿 갤러리가 표시됩니다.  
@@ -52,18 +52,18 @@ npm run dev
 ### 3. 운영 빌드
 
 ```bash
-npm run build
-npm run start
+pnpm build
+pnpm start
 ```
 
 ## 개발 명령어
 
 ```bash
-npm run dev
-npm run lint
-npm run test
-npm run test:watch
-npm run build
+pnpm dev
+pnpm lint
+pnpm test
+pnpm test:watch
+pnpm build
 ```
 
 ## 사용 흐름
@@ -162,7 +162,7 @@ src/
 아래 명령으로 기본 검증을 수행할 수 있습니다.
 
 ```bash
-npm run lint
-npm run test
-npm run build
+pnpm lint
+pnpm test
+pnpm build
 ```
