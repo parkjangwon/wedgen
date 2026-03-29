@@ -75,21 +75,16 @@ export function ManualComposerPanel({
   onChange: (key: string, value: string) => void;
 }) {
   return (
-    <details className="rounded-[1.5rem] border border-black/5 bg-white/92 p-4" open>
+    <details className="rounded-[1.5rem] border border-white/10 bg-card/90 p-4" open>
       <summary className="cursor-pointer list-none">
         <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/70">
           수동 제작
         </p>
-        <div className="mt-2 flex items-start justify-between gap-4">
-          <div>
-            <h3 className="text-lg tracking-[-0.03em]">섹션 문구와 타이포를 직접 다듬기</h3>
-            <p className="mt-1 max-w-xl text-[13px] leading-6 text-muted-foreground">
-              문구, 정보 배치, 타이포 비율까지 직접 맞추며 결과물을 다듬을 수 있습니다.
-            </p>
-          </div>
-          <span className="rounded-full bg-[#fff3e8] px-3 py-1 text-[11px] text-primary">
-            고급 편집
-          </span>
+        <div className="mt-2">
+          <h3 className="text-lg tracking-[-0.03em]">섹션 문구와 타이포를 직접 다듬기</h3>
+          <p className="mt-1 max-w-xl text-[13px] leading-6 text-muted-foreground">
+            문구, 정보 배치, 타이포 비율까지 직접 맞추며 결과물을 다듬을 수 있습니다.
+          </p>
         </div>
       </summary>
 
@@ -97,7 +92,7 @@ export function ManualComposerPanel({
         {groups.map((group) => (
           <section
             key={group.title}
-            className="rounded-[1.25rem] border border-black/5 bg-[#fffaf5] p-3"
+            className="rounded-[1.25rem] border border-white/10 bg-secondary/50 p-3"
           >
             <div className="mb-3">
               <p className="font-mono text-[10px] uppercase tracking-[0.26em] text-primary/70">
@@ -108,7 +103,7 @@ export function ManualComposerPanel({
               {group.fields.map((field) => (
                 <label
                   key={field.key}
-                  className="grid gap-2 rounded-[1rem] border border-black/5 bg-white p-3"
+                  className="grid gap-2 rounded-[1rem] border border-white/10 bg-card p-3"
                 >
                   <span className="text-[13px] font-medium">{field.label}</span>
                   {field.type === "textarea" ? (

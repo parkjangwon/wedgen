@@ -438,7 +438,7 @@ export function EditorLayout({
 
   return (
     <main className="mx-auto flex w-full max-w-[1780px] flex-1 flex-col gap-5 px-4 py-4 lg:px-6 xl:h-screen xl:overflow-hidden xl:px-8">
-      <div className="flex flex-col gap-3 rounded-[1.7rem] border border-black/5 bg-white/76 px-5 py-4 shadow-[0_18px_44px_rgba(88,47,33,0.06)] lg:flex-row lg:items-end lg:justify-between">
+      <div className="flex flex-col gap-3 rounded-[1.7rem] border border-white/10 bg-card/80 px-5 py-4 shadow-[0_18px_44px_rgba(0,0,0,0.3)] backdrop-blur lg:flex-row lg:items-end lg:justify-between">
         <div className="space-y-2">
           <Link
             href="/"
@@ -462,7 +462,7 @@ export function EditorLayout({
             <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/70">
               템플릿 불러오기
             </span>
-          <div className="flex items-center gap-2 rounded-[1rem] border border-black/5 bg-[#fffaf5] px-3 py-2">
+          <div className="flex items-center gap-2 rounded-[1rem] border border-white/10 bg-secondary/50 px-3 py-2">
             <LayoutTemplate className="h-4 w-4 text-[#7b655b]" />
               <select
                 value={meta.id}
@@ -488,18 +488,18 @@ export function EditorLayout({
         </div>
       </div>
 
-      <section className="grid gap-4 xl:min-h-0 xl:grid-cols-[680px_minmax(0,1fr)]">
-        <aside className="rounded-[1.9rem] border border-black/5 bg-[#fbfaf8] p-4 shadow-[0_28px_80px_rgba(92,55,38,0.1)] backdrop-blur xl:min-h-0 xl:overflow-hidden">
-          <div className="grid gap-4 xl:h-full xl:overflow-y-auto xl:pr-1">
-            <div className="flex flex-wrap gap-2 rounded-[1.4rem] border border-black/5 bg-white/92 p-2 shadow-[0_12px_28px_rgba(88,47,33,0.05)]">
+      <section className="grid gap-4 xl:h-[calc(100vh-180px)] xl:grid-cols-[680px_minmax(0,1fr)]">
+        <aside className="rounded-[1.9rem] border border-white/10 bg-card p-4 shadow-[0_28px_80px_rgba(0,0,0,0.3)] backdrop-blur xl:h-full xl:overflow-hidden">
+          <div className="grid gap-4 xl:h-full xl:overflow-y-auto xl:pr-2">
+            <div className="flex flex-wrap gap-2 rounded-[1.4rem] border border-white/10 bg-secondary/50 p-2 shadow-[0_12px_28px_rgba(0,0,0,0.2)]">
               <button
                 type="button"
                 onClick={() => setEditorMode("manual")}
                 className={[
                   "flex items-center gap-2 rounded-full px-4 py-2 text-[13px] transition",
                   editorMode === "manual"
-                    ? "bg-primary text-primary-foreground shadow-[0_12px_24px_rgba(157,94,67,0.18)]"
-                    : "bg-[#fff7f0] text-[#6b5346]",
+                    ? "bg-primary text-primary-foreground shadow-[0_12px_24px_rgba(212,165,116,0.25)]"
+                    : "bg-secondary text-muted-foreground hover:text-foreground",
                 ].join(" ")}
               >
                 <PenSquare className="h-4 w-4" />
@@ -511,8 +511,8 @@ export function EditorLayout({
                 className={[
                   "flex items-center gap-2 rounded-full px-4 py-2 text-[13px] transition",
                   editorMode === "structured"
-                    ? "bg-primary text-primary-foreground shadow-[0_12px_24px_rgba(157,94,67,0.18)]"
-                    : "bg-[#fff7f0] text-[#6b5346]",
+                    ? "bg-primary text-primary-foreground shadow-[0_12px_24px_rgba(212,165,116,0.25)]"
+                    : "bg-secondary text-muted-foreground hover:text-foreground",
                 ].join(" ")}
               >
                 <SlidersHorizontal className="h-4 w-4" />
@@ -667,7 +667,7 @@ export function EditorLayout({
           </div>
         </aside>
 
-        <section className="grid content-start gap-4 xl:min-h-0 xl:overflow-y-auto xl:pr-1">
+        <section className="grid content-start gap-4 xl:h-full xl:overflow-y-auto xl:pr-2">
           <BuildBar
             buildMode={buildMode}
             onBuildModeChange={setBuildMode}
@@ -730,7 +730,7 @@ export function EditorLayout({
             message={buildMessage}
             storageStatus={saveMessage}
           />
-          <div className="rounded-[1.9rem] border border-black/5 bg-white/64 p-4 shadow-[0_28px_80px_rgba(92,55,38,0.08)] backdrop-blur lg:p-6">
+          <div className="rounded-[1.9rem] border border-white/10 bg-card/60 p-4 shadow-[0_28px_80px_rgba(0,0,0,0.25)] backdrop-blur lg:p-6">
             <PreviewFrame
               html={previewHtml}
               loading={previewLoading}
@@ -748,8 +748,8 @@ export function EditorLayout({
         </section>
       </section>
       {pendingTemplateId ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-md rounded-[1.4rem] border border-black/10 bg-white p-5 shadow-[0_30px_80px_rgba(0,0,0,0.18)]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
+          <div className="w-full max-w-md rounded-[1.4rem] border border-white/10 bg-card p-5 shadow-[0_30px_80px_rgba(0,0,0,0.4)]">
             <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/70">
               Draft Protection
             </p>
@@ -779,7 +779,7 @@ export function EditorLayout({
               </button>
               <button
                 type="button"
-                className="rounded-[1rem] border border-black/5 bg-[#fff7f0] px-4 py-3 text-sm font-medium text-foreground"
+                className="rounded-[1rem] border border-white/10 bg-secondary px-4 py-3 text-sm font-medium text-foreground transition hover:bg-secondary/80"
                 onClick={() => {
                   const serializableDraft = {
                     ...draftRef.current,
@@ -795,7 +795,7 @@ export function EditorLayout({
               </button>
               <button
                 type="button"
-                className="rounded-[1rem] border border-black/5 bg-white px-4 py-3 text-sm font-medium text-foreground"
+                className="rounded-[1rem] border border-white/10 bg-transparent px-4 py-3 text-sm font-medium text-foreground transition hover:bg-white/5"
                 onClick={() => setPendingTemplateId(null)}
               >
                 취소
