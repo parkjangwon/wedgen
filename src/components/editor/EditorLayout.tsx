@@ -7,6 +7,7 @@ import { BuildBar } from "@/components/editor/BuildBar";
 import { ConfigPanel } from "@/components/editor/ConfigPanel";
 import { ManualComposerPanel } from "@/components/editor/ManualComposerPanel";
 import { PreviewFrame } from "@/components/editor/PreviewFrame";
+import { type PreviewDevice } from "@/components/editor/preview-utils";
 import {
   appendFiles,
   fileToDataUrl,
@@ -145,6 +146,8 @@ export function EditorLayout({
   const [previewHtml, setPreviewHtml] = useState("");
   const [previewLoading, setPreviewLoading] = useState(true);
   const [previewError, setPreviewError] = useState<string | null>(null);
+  const [previewDevice, setPreviewDevice] = useState<PreviewDevice>("iphone");
+  const [previewZoom, setPreviewZoom] = useState(1);
   const [buildMode, setBuildMode] = useState<BuildMode>("optimized");
   const [buildPending, setBuildPending] = useState(false);
   const [buildMessage, setBuildMessage] = useState<string | null>(null);
@@ -260,6 +263,31 @@ export function EditorLayout({
       setBuildPending(false);
     }
   }
+
+  const sectionStatusMap = {
+    hero: draft.data.groomName && draft.data.brideName && draft.data.weddingDate ? "done" : "draft",
+    greeting: draft.data.greeting ? "done" : "draft",
+    family: draft.data.groomFather || draft.data.brideFather ? "done" : "empty",
+    gallery:
+      Array.isArray(draft.assets?.photos) && draft.assets.photos.length ? "done" : "empty",
+    schedule: draft.data.venue && draft.data.weddingDate ? "done" : "draft",
+    location: draft.data.address ? "done" : "draft",
+    account: draft.data.groomAccount || draft.data.brideAccount ? "done" : "empty",
+    guestbook: draft.data.guestbookUrl || draft.data.rsvpUrl ? "done" : "draft",
+    ending: draft.data.endingQuote ? "done" : "draft",
+  } as const;
+
+  const previewSections = [
+    { id: "hero", label: "첫 화면" },
+    { id: "greeting", label: "인사말" },
+    { id: "family", label: "혼주" },
+    { id: "gallery", label: "갤러리" },
+    { id: "schedule", label: "일정" },
+    { id: "location", label: "오시는 길" },
+    { id: "account", label: "계좌" },
+    { id: "guestbook", label: "방명록" },
+    { id: "ending", label: "마무리" },
+  ];
 
   return (
     <main className="mx-auto flex w-full max-w-[1780px] flex-1 flex-col gap-5 px-4 py-4 lg:px-6 xl:h-screen xl:overflow-hidden xl:px-8">
@@ -424,6 +452,7 @@ export function EditorLayout({
               onSectionOrderChange={(nextOrder) =>
                 setDraft((current) => ({ ...current, sectionOrder: nextOrder }))
               }
+              statusMap={sectionStatusMap}
             />
             <ManualComposerPanel
               values={draft.data}
@@ -454,6 +483,11 @@ export function EditorLayout({
               loading={previewLoading}
               error={previewError}
               templateName={meta.name}
+              device={previewDevice}
+              zoom={previewZoom}
+              onZoomChange={setPreviewZoom}
+              onDeviceChange={setPreviewDevice}
+              sections={previewSections}
             />
           </div>
         </section>

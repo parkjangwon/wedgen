@@ -2,8 +2,10 @@
 
 import { useMemo, useState } from "react";
 import {
+  AlertTriangle,
   BrushCleaning,
   CalendarRange,
+  CheckCircle2,
   HeartHandshake,
   ImageIcon,
   MapPinned,
@@ -63,10 +65,47 @@ function isFieldVisible(
   return expectedValues.includes(String(currentValue ?? ""));
 }
 
+function isFieldFilled(
+  fieldKey: string,
+  tabName: string,
+  field: TemplateSchema["fields"][string][string],
+  values: {
+    data: Record<string, unknown>;
+    style: Record<string, string | ResolvedFontPreset | undefined>;
+  },
+  assets: Record<string, string | string[] | undefined>,
+) {
+  const source = tabName === "스타일" ? values.style : values.data;
+  const currentValue = source[fieldKey];
+
+  if (field.type === "image") {
+    return Boolean(assets[fieldKey]);
+  }
+
+  if (field.type === "image[]") {
+    return Array.isArray(assets[fieldKey]) && assets[fieldKey]!.length > 0;
+  }
+
+  if (field.type === "file") {
+    return Boolean(assets[fieldKey]);
+  }
+
+  if (Array.isArray(currentValue)) {
+    return currentValue.length > 0;
+  }
+
+  if (currentValue && typeof currentValue === "object") {
+    return Object.values(currentValue).some(Boolean);
+  }
+
+  return String(currentValue ?? "").trim().length > 0;
+}
+
 export function ConfigPanel({
   schema,
   values,
   assets,
+  statusMap,
   onValueChange,
   onFileChange,
   onArrayMove,
@@ -80,6 +119,7 @@ export function ConfigPanel({
     sectionOrder: string[];
   };
   assets: Record<string, string | string[] | undefined>;
+  statusMap: Record<string, "done" | "draft" | "empty">;
   onValueChange: (fieldKey: string, nextValue: unknown, tabName: string) => void;
   onFileChange: (fieldKey: string, nextValue: File | File[] | undefined) => void;
   onArrayMove: (fieldKey: string, fromIndex: number, toIndex: number) => void;
@@ -92,9 +132,32 @@ export function ConfigPanel({
   const activeMeta = tabMeta[activeTab];
   const ActiveIcon = activeMeta?.icon ?? CalendarRange;
 
+  function getTabStatus(tabName: string) {
+    const fields = Object.entries(schema.fields[tabName]).filter(([, field]) =>
+      isFieldVisible(field, values),
+    );
+    const requiredFields = fields.filter(([, field]) => field.required);
+    const filledCount = fields.filter(([fieldKey, field]) =>
+      isFieldFilled(fieldKey, tabName, field, values, assets),
+    ).length;
+    const missingRequired = requiredFields.filter(
+      ([fieldKey, field]) => !isFieldFilled(fieldKey, tabName, field, values, assets),
+    );
+
+    if (missingRequired.length > 0) {
+      return { tone: "warning", label: "필수 누락", count: filledCount, total: fields.length };
+    }
+    if (filledCount === fields.length && fields.length > 0) {
+      return { tone: "success", label: "완료", count: filledCount, total: fields.length };
+    }
+    return { tone: "progress", label: "작성 중", count: filledCount, total: fields.length };
+  }
+
+  const activeStatus = getTabStatus(activeTab);
+
   return (
     <div className="grid gap-4">
-      <div className="grid gap-4 rounded-[1.5rem] border border-black/5 bg-[#fcfbf9] p-3 shadow-[0_18px_44px_rgba(88,47,33,0.06)] xl:grid-cols-[188px_minmax(0,1fr)]">
+      <div className="grid gap-4 rounded-[1.5rem] border border-black/5 bg-[#fcfbf9] p-3 shadow-[0_18px_44px_rgba(88,47,33,0.06)] xl:grid-cols-[214px_minmax(0,1fr)]">
         <div className="grid gap-2 xl:content-start">
           <div className="rounded-[1.1rem] border border-black/5 bg-white px-3 py-3">
             <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/70">
@@ -108,6 +171,7 @@ export function ConfigPanel({
             const meta = tabMeta[tabName];
             const Icon = meta?.icon ?? CalendarRange;
             const isActive = activeTab === tabName;
+            const status = getTabStatus(tabName);
 
             return (
               <button
@@ -137,29 +201,71 @@ export function ConfigPanel({
                 <p className="pl-10 text-[12px] leading-5 text-muted-foreground">
                   {meta?.description ?? ""}
                 </p>
+                <div className="flex items-center justify-between pl-10">
+                  <span
+                    className={[
+                      "rounded-full px-2 py-1 text-[11px]",
+                      status.tone === "success"
+                        ? "bg-emerald-50 text-emerald-700"
+                        : status.tone === "warning"
+                          ? "bg-amber-50 text-amber-700"
+                          : "bg-[#f5efe8] text-[#6a5347]",
+                    ].join(" ")}
+                  >
+                    {status.label}
+                  </span>
+                  <span className="text-[11px] text-muted-foreground">
+                    {status.count}/{status.total}
+                  </span>
+                </div>
               </button>
             );
           })}
         </div>
 
         <div className="grid gap-3">
-          <div className="flex items-start justify-between gap-3 rounded-[1.2rem] border border-black/5 bg-white px-4 py-4">
-            <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/70">
-                Active Panel
-              </p>
-              <div className="mt-2 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#fff3e8] text-primary">
-                  <ActiveIcon className="h-4 w-4" />
+          <div className="grid gap-3 rounded-[1.2rem] border border-black/5 bg-white px-4 py-4">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/70">
+                  Active Panel
+                </p>
+                <div className="mt-2 flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#fff3e8] text-primary">
+                    <ActiveIcon className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-semibold tracking-[-0.02em] text-foreground">
+                      {activeMeta?.title ?? activeTab}
+                    </h3>
+                    <p className="text-[13px] leading-6 text-muted-foreground">
+                      {activeMeta?.description}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-base font-semibold tracking-[-0.02em] text-foreground">
-                    {activeMeta?.title ?? activeTab}
-                  </h3>
-                  <p className="text-[13px] leading-6 text-muted-foreground">
-                    {activeMeta?.description}
-                  </p>
-                </div>
+              </div>
+              <span
+                className={[
+                  "rounded-full px-2.5 py-1 text-[11px]",
+                  activeStatus.tone === "success"
+                    ? "bg-emerald-50 text-emerald-700"
+                    : activeStatus.tone === "warning"
+                      ? "bg-amber-50 text-amber-700"
+                      : "bg-[#f5efe8] text-[#6a5347]",
+                ].join(" ")}
+              >
+                {activeStatus.label}
+              </span>
+            </div>
+
+            <div className="grid gap-2 rounded-[1rem] border border-black/5 bg-[#fcfaf7] px-3 py-3 text-[12px] text-muted-foreground">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+                입력이 충분하면 상태가 자동으로 완료로 바뀝니다.
+              </div>
+              <div className="flex items-center gap-2">
+                <AlertTriangle className="h-3.5 w-3.5 text-amber-600" />
+                필수 값이 비어 있으면 생성 전 점검이 필요합니다.
               </div>
             </div>
           </div>
@@ -198,6 +304,7 @@ export function ConfigPanel({
       <SectionOrderer
         order={values.sectionOrder}
         required={schema.sections.required}
+        statusMap={statusMap}
         onChange={onSectionOrderChange}
       />
     </div>

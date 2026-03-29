@@ -20,10 +20,12 @@ const sectionLabels: Record<string, string> = {
 export function SectionOrderer({
   order,
   required,
+  statusMap,
   onChange,
 }: {
   order: string[];
   required: string[];
+  statusMap?: Record<string, "done" | "draft" | "empty">;
   onChange: (order: string[]) => void;
 }) {
   return (
@@ -64,11 +66,31 @@ export function SectionOrderer({
               <GripVertical className="h-4 w-4 text-muted-foreground" />
               <span>{sectionLabels[section] ?? section}</span>
             </div>
-            {required.includes(section) ? (
-              <Badge variant="secondary" className="rounded-full px-3 py-1">
-                필수
-              </Badge>
-            ) : null}
+            <div className="flex items-center gap-2">
+              {required.includes(section) ? (
+                <Badge variant="secondary" className="rounded-full px-3 py-1">
+                  필수
+                </Badge>
+              ) : null}
+              {statusMap?.[section] ? (
+                <span
+                  className={[
+                    "rounded-full px-2.5 py-1 text-[11px]",
+                    statusMap[section] === "done"
+                      ? "bg-emerald-50 text-emerald-700"
+                      : statusMap[section] === "draft"
+                        ? "bg-amber-50 text-amber-700"
+                        : "bg-[#f1ece7] text-[#7b655b]",
+                  ].join(" ")}
+                >
+                  {statusMap[section] === "done"
+                    ? "완료"
+                    : statusMap[section] === "draft"
+                      ? "작성 중"
+                      : "비어 있음"}
+                </span>
+              ) : null}
+            </div>
           </div>
         ))}
       </div>
