@@ -1,0 +1,32 @@
+{
+  "id": "hanbok-traditional",
+  "name": "벚꽃 로맨스",
+  "description": "전통 한복을 입은 신랑신부 컨셉 청첩장",
+  "thumbnail": "thumbnail.svg",
+  "interaction": "scroll",
+  "sections": {
+    "available": ["hero", "greeting", "family", "gallery", "schedule", "location", "account", "guestbook", "ending"],
+    "required": ["hero", "schedule", "location"],
+    "defaultOrder": ["hero", "greeting", "gallery", "schedule", "location", "family", "account", "ending"]
+  },
+  "fields": {
+    "기본 정보": {
+      "groomName": { "type": "text", "label": "신랑 이름", "required": true },
+      "brideName": { "type": "text", "label": "신부 이름", "required": true },
+      "weddingDate": { "type": "datetime", "label": "예식 일시", "required": true },
+      "heroEyebrow": { "type": "text", "label": "소제목" },
+      "heroTagline": { "type": "text", "label": "태그라인" }
+    },
+    "예식 정보": {
+      "venue": { "type": "text", "label": "예식장" },
+      "address": { "type": "text", "label": "주소" }
+    }
+  },
+  "style": {
+    "colorSchemes": [{ "label": "벚꽃 핑크", "value": "cherry-pink" }],
+    "headingFonts": [{ "label": "Noto Serif KR", "value": "noto-serif-kr" }],
+    "bodyFonts": [{ "label": "Noto Sans KR", "value": "noto-sans-kr" }],
+    "animations": [{ "label": "페이드", "value": "fade" }]
+  },
+  "i18n": { "defaultLocale": "ko" }
+}

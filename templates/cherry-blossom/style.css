@@ -1,0 +1,22 @@
+:root {
+  --wedgen-primary: #d56a9a;
+  --wedgen-bg: #fff5fa;
+  --wedgen-card: rgba(255, 255, 255, 0.92);
+  --wedgen-ink: #4e3240;
+  --wedgen-border: rgba(213, 106, 154, 0.25);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; background: linear-gradient(180deg, #fff8fc, var(--wedgen-bg)); color: var(--wedgen-ink); font-family: "Noto Sans KR", sans-serif; }
+body { padding: 22px 0 72px; }
+
+.petal-overlay { position: fixed; inset: 0; pointer-events: none; background: radial-gradient(circle at 20% 10%, rgba(255, 194, 220, 0.35), transparent 40%), radial-gradient(circle at 80% 30%, rgba(255, 209, 227, 0.32), transparent 42%); }
+.petal-shell { width: min(420px, calc(100% - 28px)); margin: 0 auto; display: grid; gap: 14px; }
+.petal-hero, .petal-card, .petal-ending { border: 1px solid var(--wedgen-border); border-radius: 20px; background: var(--wedgen-card); box-shadow: 0 10px 24px rgba(212, 115, 163, 0.16); padding: 22px; }
+.petal-hero { border-radius: 28px 28px 16px 16px; }
+.petal-grid { border: 1px dashed var(--wedgen-border); border-radius: 18px; min-height: 160px; background: rgba(255, 255, 255, 0.85); }
+.petal-dual { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+
+@media (max-width: 380px) {
+  .petal-dual { grid-template-columns: 1fr; }
+}
