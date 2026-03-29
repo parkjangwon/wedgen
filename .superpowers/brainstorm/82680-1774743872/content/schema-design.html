@@ -1,0 +1,168 @@
+<h2>템플릿 스키마 (schema.json) 설계</h2>
+<p class="subtitle">각 템플릿이 선언하는 커스터마이징 옵션 구조</p>
+
+<div class="section">
+  <h3>스키마 구조 개요</h3>
+  <div class="mockup">
+    <div class="mockup-header">schema.json 최상위 구조</div>
+    <div class="mockup-body" style="font-family:monospace;font-size:12px;line-height:1.7;padding:20px;">
+<pre style="margin:0;white-space:pre;overflow-x:auto;">
+{
+  <span style="color:#6c5ce7;">"id"</span>: "elegant-classic",
+  <span style="color:#6c5ce7;">"name"</span>: "Elegant Classic",
+  <span style="color:#6c5ce7;">"description"</span>: "클래식한 세로 스크롤 청첩장",
+  <span style="color:#6c5ce7;">"version"</span>: "1.0.0",
+  <span style="color:#6c5ce7;">"thumbnail"</span>: "thumbnail.png",
+  <span style="color:#6c5ce7;">"interaction"</span>: "scroll",  <span style="color:#999;">// "scroll" | "page" | "parallax"</span>
+
+  <span style="color:#e17055;">"sections"</span>: {
+    <span style="color:#999;">// 사용 가능한 섹션 목록 + 기본 순서</span>
+    <span style="color:#6c5ce7;">"available"</span>: ["hero","greeting","gallery","info","guestbook","rsvp"],
+    <span style="color:#6c5ce7;">"defaultOrder"</span>: ["hero","greeting","gallery","info","guestbook","rsvp"],
+    <span style="color:#6c5ce7;">"required"</span>: ["hero","info"]  <span style="color:#999;">// 필수 (삭제 불가)</span>
+  },
+
+  <span style="color:#e17055;">"fields"</span>: {
+    <span style="color:#999;">// 탭별로 그룹화된 입력 필드 정의</span>
+    <span style="color:#6c5ce7;">"기본 정보"</span>: { ... },
+    <span style="color:#6c5ce7;">"갤러리"</span>: { ... },
+    <span style="color:#6c5ce7;">"예식 정보"</span>: { ... },
+    <span style="color:#6c5ce7;">"방명록 & RSVP"</span>: { ... },
+    <span style="color:#6c5ce7;">"스타일"</span>: { ... }
+  },
+
+  <span style="color:#e17055;">"style"</span>: {
+    <span style="color:#999;">// 템플릿이 허용하는 스타일 커스터마이징 옵션</span>
+    <span style="color:#6c5ce7;">"colorSchemes"</span>: [...],
+    <span style="color:#6c5ce7;">"fonts"</span>: [...],
+    <span style="color:#6c5ce7;">"animations"</span>: [...]
+  },
+
+  <span style="color:#e17055;">"i18n"</span>: {
+    <span style="color:#6c5ce7;">"defaultLocale"</span>: "ko",
+    <span style="color:#6c5ce7;">"supported"</span>: ["ko"]
+  }
+}
+</pre>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:24px;">
+  <h3>fields 상세: 필드 타입 시스템</h3>
+  <div class="mockup">
+    <div class="mockup-header">지원하는 필드 타입 및 예시</div>
+    <div class="mockup-body" style="font-family:monospace;font-size:12px;line-height:1.7;padding:20px;">
+<pre style="margin:0;white-space:pre;overflow-x:auto;">
+<span style="color:#e17055;">"fields"</span>: {
+  <span style="color:#6c5ce7;">"기본 정보"</span>: {
+    "groomName":  { "type": "text",     "label": "신랑 이름", "required": true },
+    "brideName":  { "type": "text",     "label": "신부 이름", "required": true },
+    "weddingDate":{ "type": "datetime", "label": "예식 일시", "required": true },
+    "greeting":   { "type": "textarea", "label": "인사말",
+                    "placeholder": "두 사람의 이야기를 적어주세요...",
+                    "maxLength": 500 },
+    "heroImage":  { "type": "image",    "label": "대표 사진",
+                    "accept": ["jpg","png","webp"], "maxSize": "10MB" },
+    "couplePhoto":{ "type": "image",    "label": "커플 사진 (선택)" }
+  },
+
+  <span style="color:#6c5ce7;">"갤러리"</span>: {
+    "photos": { "type": "image[]",  "label": "갤러리 사진",
+                "min": 0, "max": 20,
+                "description": "최대 20장, 각 10MB 이하" }
+  },
+
+  <span style="color:#6c5ce7;">"예식 정보"</span>: {
+    "venue":     { "type": "text",     "label": "예식장 이름" },
+    "address":   { "type": "text",     "label": "주소" },
+    "mapType":   { "type": "select",   "label": "지도 유형",
+                   "options": [
+                     { "value": "kakao", "label": "카카오맵" },
+                     { "value": "naver", "label": "네이버지도" },
+                     { "value": "none",  "label": "지도 없음" }
+                   ]},
+    "mapCoords": { "type": "latlng",   "label": "좌표" },
+    "transport":  { "type": "textarea", "label": "교통 안내" },
+    "parking":    { "type": "text",     "label": "주차 안내" }
+  },
+
+  <span style="color:#6c5ce7;">"방명록 & RSVP"</span>: {
+    "guestbookUrl": { "type": "url",  "label": "방명록 GAS URL",
+                      "validate": "ping",
+                      "description": "구글 시트 웹 앱 URL" },
+    "rsvpUrl":      { "type": "url",  "label": "RSVP GAS URL",
+                      "validate": "ping" },
+    "rsvpFields":   { "type": "select[]", "label": "RSVP 수집 항목",
+                      "options": [
+                        { "value": "name",     "label": "이름" },
+                        { "value": "attending", "label": "참석 여부" },
+                        { "value": "guests",    "label": "동행 인원" },
+                        { "value": "meal",      "label": "식사 여부" },
+                        { "value": "message",   "label": "한마디" }
+                      ]}
+  },
+
+  <span style="color:#6c5ce7;">"스타일"</span>: {
+    "colorScheme": { "type": "select",  "label": "색상 테마",
+                     "options": [...] },
+    "fontPair":    { "type": "select",  "label": "폰트 조합",
+                     "options": [...] },
+    "animation":   { "type": "select",  "label": "애니메이션 스타일",
+                     "options": [
+                       { "value": "fade",    "label": "페이드 인" },
+                       { "value": "slide",   "label": "슬라이드 업" },
+                       { "value": "none",    "label": "없음" }
+                     ]},
+    "bgMusic":     { "type": "file",    "label": "배경음악 (선택)",
+                     "accept": ["mp3","ogg"], "maxSize": "5MB" }
+  }
+}
+</pre>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:24px;">
+  <h3>런타임 바인딩: window.__WEDGEN_CONFIG__</h3>
+  <div class="mockup">
+    <div class="mockup-header">생성된 index.html에 주입되는 설정 객체</div>
+    <div class="mockup-body" style="font-family:monospace;font-size:12px;line-height:1.7;padding:20px;">
+<pre style="margin:0;white-space:pre;overflow-x:auto;">
+<span style="color:#999;">// index.html의 &lt;head&gt;에 자동 주입됨</span>
+&lt;script&gt;
+window.__WEDGEN_CONFIG__ = {
+  <span style="color:#6c5ce7;">"template"</span>: "elegant-classic",
+  <span style="color:#6c5ce7;">"locale"</span>: "ko",
+  <span style="color:#6c5ce7;">"sectionOrder"</span>: ["hero","greeting","gallery","info","rsvp","guestbook"],
+
+  <span style="color:#e17055;">"data"</span>: {
+    "groomName": "김민수",
+    "brideName": "이수진",
+    "weddingDate": "2026-05-15T14:00:00+09:00",
+    "greeting": "서로 다른 길을 걸어온 두 사람이...",
+    "venue": "그랜드볼룸",
+    "address": "서울 강남구 ...",
+    "mapType": "kakao",
+    "mapCoords": { "lat": 37.5012, "lng": 127.0396 },
+    "transport": "지하철 2호선 ...",
+    "guestbookUrl": "https://script.google.com/macros/s/...",
+    "rsvpUrl": "https://script.google.com/macros/s/..."
+  },
+
+  <span style="color:#e17055;">"style"</span>: {
+    "colorScheme": "warm-blush",
+    "fontPair": "pretendard-nanum",
+    "animation": "fade"
+  },
+
+  <span style="color:#e17055;">"assets"</span>: {
+    "heroImage": "assets/hero.webp",
+    "photos": ["assets/gallery-1.webp", "assets/gallery-2.webp", ...]
+  }
+};
+&lt;/script&gt;
+</pre>
+    </div>
+  </div>
+</div>

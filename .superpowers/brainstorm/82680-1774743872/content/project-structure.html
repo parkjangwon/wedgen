@@ -1,0 +1,162 @@
+<h2>프로젝트 디렉토리 구조 & 빌드 파이프라인</h2>
+<p class="subtitle">Next.js App Router 기반 프로젝트 레이아웃</p>
+
+<div class="section">
+  <h3>디렉토리 구조</h3>
+  <div class="mockup">
+    <div class="mockup-header">wedgen/</div>
+    <div class="mockup-body" style="font-family:monospace;font-size:12px;line-height:1.8;padding:20px;">
+<pre style="margin:0;white-space:pre;overflow-x:auto;">
+wedgen/
+├── package.json
+├── next.config.ts
+├── tsconfig.json
+├── tailwind.config.ts
+│
+├── <span style="color:#6c5ce7;font-weight:bold;">src/</span>
+│   ├── <span style="color:#6c5ce7;">app/</span>                          <span style="color:#999;">── Next.js App Router</span>
+│   │   ├── layout.tsx                    <span style="color:#999;">── 루트 레이아웃</span>
+│   │   ├── page.tsx                      <span style="color:#999;">── 템플릿 갤러리 (홈)</span>
+│   │   ├── editor/
+│   │   │   └── [templateId]/
+│   │   │       └── page.tsx              <span style="color:#999;">── 편집 워크스페이스</span>
+│   │   └── api/
+│   │       ├── templates/
+│   │       │   └── route.ts              <span style="color:#999;">── GET: 템플릿 목록</span>
+│   │       ├── generate/
+│   │       │   └── route.ts              <span style="color:#999;">── POST: ZIP 빌드 & 다운로드</span>
+│   │       ├── preview/
+│   │       │   └── route.ts              <span style="color:#999;">── POST: 미리보기 데이터</span>
+│   │       └── validate/
+│   │           └── route.ts              <span style="color:#999;">── POST: GAS URL 검증 (ping)</span>
+│   │
+│   ├── <span style="color:#e17055;">components/</span>                    <span style="color:#999;">── 콘솔 UI 컴포넌트</span>
+│   │   ├── template-gallery/
+│   │   │   ├── TemplateCard.tsx
+│   │   │   └── TemplateGrid.tsx
+│   │   ├── editor/
+│   │   │   ├── EditorLayout.tsx          <span style="color:#999;">── 2패널 레이아웃</span>
+│   │   │   ├── ConfigPanel.tsx           <span style="color:#999;">── 좌측 설정 패널</span>
+│   │   │   ├── PreviewFrame.tsx          <span style="color:#999;">── 우측 iframe 미리보기</span>
+│   │   │   ├── SectionOrderer.tsx        <span style="color:#999;">── 섹션 순서 드래그</span>
+│   │   │   ├── BuildBar.tsx              <span style="color:#999;">── 하단 빌드 옵션 바</span>
+│   │   │   └── fields/                   <span style="color:#999;">── 스키마 필드 타입별 위젯</span>
+│   │   │       ├── TextField.tsx
+│   │   │       ├── TextareaField.tsx
+│   │   │       ├── DateTimeField.tsx
+│   │   │       ├── ImageField.tsx
+│   │   │       ├── ImageArrayField.tsx
+│   │   │       ├── SelectField.tsx
+│   │   │       ├── UrlField.tsx
+│   │   │       ├── LatLngField.tsx
+│   │   │       ├── FileField.tsx
+│   │   │       └── FieldRenderer.tsx     <span style="color:#999;">── type → 위젯 매핑</span>
+│   │   └── ui/                           <span style="color:#999;">── 공통 UI (shadcn/ui)</span>
+│   │
+│   ├── <span style="color:#e17055;">lib/</span>                           <span style="color:#999;">── 핵심 로직</span>
+│   │   ├── template-scanner.ts           <span style="color:#999;">── /templates 디렉토리 스캔</span>
+│   │   ├── schema-parser.ts              <span style="color:#999;">── schema.json 파싱 & 유효성</span>
+│   │   ├── config-injector.ts            <span style="color:#999;">── __WEDGEN_CONFIG__ 주입</span>
+│   │   ├── image-processor.ts            <span style="color:#999;">── sharp WebP 변환</span>
+│   │   ├── build-pipeline.ts             <span style="color:#999;">── ZIP 빌드 오케스트레이터</span>
+│   │   ├── optimizers.ts                 <span style="color:#999;">── terser/html-minifier/clean-css</span>
+│   │   └── gas-validator.ts              <span style="color:#999;">── GAS URL ping 검증</span>
+│   │
+│   └── <span style="color:#e17055;">types/</span>                         <span style="color:#999;">── TypeScript 타입 정의</span>
+│       ├── schema.d.ts                   <span style="color:#999;">── 스키마 인터페이스</span>
+│       ├── config.d.ts                   <span style="color:#999;">── __WEDGEN_CONFIG__ 타입</span>
+│       └── template.d.ts                 <span style="color:#999;">── 템플릿 메타데이터 타입</span>
+│
+├── <span style="color:#00b894;font-weight:bold;">templates/</span>                         <span style="color:#999;">── 청첩장 템플릿 (순수 HTML/CSS/JS)</span>
+│   ├── elegant-classic/
+│   │   ├── schema.json
+│   │   ├── index.html
+│   │   ├── style.css
+│   │   ├── script.js
+│   │   ├── thumbnail.png
+│   │   └── i18n/ko.json
+│   ├── modern-minimal/
+│   ├── romantic-floral/
+│   ├── magazine-style/
+│   └── cinematic-scroll/
+│
+└── <span style="color:#999;">public/</span>                            <span style="color:#999;">── 정적 에셋 (콘솔용)</span>
+</pre>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:32px;">
+  <h3>빌드 파이프라인 상세 (/api/generate)</h3>
+  <div class="mockup">
+    <div class="mockup-header">POST /api/generate — ZIP 생성 프로세스</div>
+    <div class="mockup-body" style="font-family:monospace;font-size:12px;line-height:1.8;padding:20px;">
+<pre style="margin:0;white-space:pre;overflow-x:auto;">
+<span style="color:#6c5ce7;font-weight:bold;">Request Body (multipart/form-data):</span>
+  ├── config: JSON string (폼 데이터 전체)
+  ├── buildMode: "tweak" | "optimized"
+  ├── templateId: "elegant-classic"
+  └── images[]: File[] (원본 이미지 파일들)
+
+<span style="color:#6c5ce7;font-weight:bold;">Pipeline Steps:</span>
+
+  ┌─ 1. 입력 검증 ──────────────────────────────────────────────┐
+  │  • templateId → /templates/{id} 존재 확인                    │
+  │  • config → schema.json 기준 유효성 검증                     │
+  │  • images → 파일 크기/형식 검증                              │
+  └──────────────────────────────────────────────────────────────┘
+                          │
+                          ▼
+  ┌─ 2. 이미지 처리 (sharp) ────────────────────────────────────┐
+  │  • 모든 이미지 → WebP 변환                                   │
+  │  • hero: max 1200x1600, quality 85                           │
+  │  • gallery: max 800x800, quality 80                          │
+  │  • thumbnail: 자동 생성 (lazy loading용)                     │
+  │  • → Buffer[] 반환 (디스크 미저장)                           │
+  └──────────────────────────────────────────────────────────────┘
+                          │
+                          ▼
+  ┌─ 3. 설정 주입 (config-injector) ────────────────────────────┐
+  │  • /templates/{id}/index.html 읽기                           │
+  │  • &lt;head&gt; 내에 &lt;script&gt;window.__WEDGEN_CONFIG__=...         │
+  │    주입 (JSON.stringify)                                     │
+  │  • 에셋 경로를 상대 경로 (assets/xxx.webp)로 매핑            │
+  └──────────────────────────────────────────────────────────────┘
+                          │
+                          ▼
+  ┌─ 4. 빌드 모드 분기 ────────────────────────────────────────┐
+  │                                                              │
+  │  <span style="color:#00b894;">if buildMode === "tweak"</span>                                  │
+  │    └─ HTML, CSS, JS 원본 그대로 사용                         │
+  │                                                              │
+  │  <span style="color:#e17055;">if buildMode === "optimized"</span>                              │
+  │    ├─ HTML → html-minifier-terser                            │
+  │    │   (collapseWhitespace, removeComments,                  │
+  │    │    minifyCSS, minifyJS)                                 │
+  │    ├─ JS  → terser                                           │
+  │    │   (compress, mangle)                                    │
+  │    └─ CSS → clean-css                                        │
+  │        (level 2 optimization)                                │
+  └──────────────────────────────────────────────────────────────┘
+                          │
+                          ▼
+  ┌─ 5. ZIP 아카이빙 (archiver) ────────────────────────────────┐
+  │  wedding-invitation.zip                                      │
+  │  ├── index.html        (config 주입됨)                       │
+  │  ├── style.css                                               │
+  │  ├── script.js                                               │
+  │  └── assets/                                                 │
+  │      ├── hero.webp                                           │
+  │      ├── gallery-1.webp                                      │
+  │      └── ...                                                 │
+  └──────────────────────────────────────────────────────────────┘
+                          │
+                          ▼
+  <span style="color:#6c5ce7;font-weight:bold;">Response:</span>
+    Content-Type: application/zip
+    Content-Disposition: attachment; filename="wedding-invitation.zip"
+    → 스트리밍 다운로드
+</pre>
+    </div>
+  </div>
+</div>

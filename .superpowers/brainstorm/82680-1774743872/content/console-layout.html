@@ -1,0 +1,158 @@
+<h2>관리 콘솔 UI 레이아웃</h2>
+<p class="subtitle">3단계 워크플로우: 템플릿 선택 → 편집 → 빌드</p>
+
+<div class="section">
+  <h3>Step 1. 템플릿 갤러리</h3>
+  <div class="mockup">
+    <div class="mockup-header">http://localhost:3000</div>
+    <div class="mockup-body" style="padding:0;">
+      <div style="background:#1a1a2e;color:#e0e0e0;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:18px;font-weight:bold;color:#fff;">💍 wedgen</span>
+        <span style="font-size:12px;color:#888;">v1.0.0</span>
+      </div>
+      <div style="padding:24px;background:#f8f9fa;">
+        <h3 style="margin:0 0 4px;font-size:16px;">템플릿을 선택하세요</h3>
+        <p style="margin:0 0 20px;font-size:13px;color:#666;">5종의 프리셋 중 마음에 드는 스타일을 골라주세요</p>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+          <div style="border:2px solid #6c5ce7;border-radius:12px;overflow:hidden;background:#fff;">
+            <div style="height:160px;background:linear-gradient(135deg,#ffecd2,#fcb69f);display:flex;align-items:center;justify-content:center;font-size:32px;">🌸</div>
+            <div style="padding:12px;">
+              <div style="font-weight:600;font-size:14px;">Elegant Classic</div>
+              <div style="font-size:11px;color:#888;margin-top:4px;">클래식한 세로 스크롤</div>
+            </div>
+          </div>
+          <div style="border:1px solid #e0e0e0;border-radius:12px;overflow:hidden;background:#fff;">
+            <div style="height:160px;background:linear-gradient(135deg,#a8edea,#fed6e3);display:flex;align-items:center;justify-content:center;font-size:32px;">✨</div>
+            <div style="padding:12px;">
+              <div style="font-weight:600;font-size:14px;">Modern Minimal</div>
+              <div style="font-size:11px;color:#888;margin-top:4px;">미니멀 타이포그래피</div>
+            </div>
+          </div>
+          <div style="border:1px solid #e0e0e0;border-radius:12px;overflow:hidden;background:#fff;">
+            <div style="height:160px;background:linear-gradient(135deg,#fbc2eb,#a6c1ee);display:flex;align-items:center;justify-content:center;font-size:32px;">🌹</div>
+            <div style="padding:12px;">
+              <div style="font-weight:600;font-size:14px;">Romantic Floral</div>
+              <div style="font-size:11px;color:#888;margin-top:4px;">플로럴 일러스트 장식</div>
+            </div>
+          </div>
+          <div style="border:1px solid #e0e0e0;border-radius:12px;overflow:hidden;background:#fff;">
+            <div style="height:160px;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;font-size:32px;">📰</div>
+            <div style="padding:12px;">
+              <div style="font-weight:600;font-size:14px;">Magazine Style</div>
+              <div style="font-size:11px;color:#888;margin-top:4px;">매거진 레이아웃</div>
+            </div>
+          </div>
+          <div style="border:1px solid #e0e0e0;border-radius:12px;overflow:hidden;background:#fff;">
+            <div style="height:160px;background:linear-gradient(135deg,#0c0c0c,#434343);display:flex;align-items:center;justify-content:center;font-size:32px;">🎬</div>
+            <div style="padding:12px;">
+              <div style="font-weight:600;font-size:14px;">Cinematic Scroll</div>
+              <div style="font-size:11px;color:#888;margin-top:4px;">시네마틱 패럴랙스</div>
+            </div>
+          </div>
+          <div style="border:1px dashed #ccc;border-radius:12px;display:flex;align-items:center;justify-content:center;min-height:210px;color:#aaa;font-size:14px;">
+            + 추가 예정
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:32px;">
+  <h3>Step 2. 편집 화면 (메인 워크스페이스)</h3>
+  <div class="mockup">
+    <div class="mockup-header">편집 모드 — 2패널 레이아웃</div>
+    <div class="mockup-body" style="padding:0;">
+      <div style="background:#1a1a2e;color:#e0e0e0;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span style="font-size:16px;font-weight:bold;color:#fff;">💍 wedgen</span>
+          <span style="font-size:12px;padding:2px 8px;background:#6c5ce7;border-radius:4px;color:#fff;">Elegant Classic</span>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button style="padding:6px 16px;background:#2d2d44;border:1px solid #444;color:#ccc;border-radius:6px;font-size:12px;cursor:pointer;">← 템플릿 변경</button>
+        </div>
+      </div>
+      <div style="display:flex;height:500px;">
+        <!-- 좌측: 설정 패널 -->
+        <div style="width:420px;background:#fff;border-right:1px solid #e0e0e0;overflow-y:auto;padding:20px;">
+          <div style="display:flex;gap:8px;margin-bottom:20px;">
+            <button style="padding:6px 14px;background:#6c5ce7;color:#fff;border:none;border-radius:6px;font-size:12px;">기본 정보</button>
+            <button style="padding:6px 14px;background:#f0f0f0;color:#333;border:none;border-radius:6px;font-size:12px;">갤러리</button>
+            <button style="padding:6px 14px;background:#f0f0f0;color:#333;border:none;border-radius:6px;font-size:12px;">지도</button>
+            <button style="padding:6px 14px;background:#f0f0f0;color:#333;border:none;border-radius:6px;font-size:12px;">방명록</button>
+            <button style="padding:6px 14px;background:#f0f0f0;color:#333;border:none;border-radius:6px;font-size:12px;">스타일</button>
+          </div>
+
+          <div style="margin-bottom:16px;">
+            <label style="display:block;font-size:12px;font-weight:600;margin-bottom:4px;color:#333;">신랑 이름</label>
+            <input style="width:100%;padding:8px 12px;border:1px solid #ddd;border-radius:6px;font-size:14px;box-sizing:border-box;" value="김민수" />
+          </div>
+          <div style="margin-bottom:16px;">
+            <label style="display:block;font-size:12px;font-weight:600;margin-bottom:4px;color:#333;">신부 이름</label>
+            <input style="width:100%;padding:8px 12px;border:1px solid #ddd;border-radius:6px;font-size:14px;box-sizing:border-box;" value="이수진" />
+          </div>
+          <div style="margin-bottom:16px;">
+            <label style="display:block;font-size:12px;font-weight:600;margin-bottom:4px;color:#333;">예식 일시</label>
+            <input type="date" style="width:100%;padding:8px 12px;border:1px solid #ddd;border-radius:6px;font-size:14px;box-sizing:border-box;" value="2026-05-15" />
+          </div>
+          <div style="margin-bottom:16px;">
+            <label style="display:block;font-size:12px;font-weight:600;margin-bottom:4px;color:#333;">인사말</label>
+            <textarea style="width:100%;padding:8px 12px;border:1px solid #ddd;border-radius:6px;font-size:13px;height:80px;box-sizing:border-box;resize:vertical;">서로 다른 길을 걸어온 두 사람이&#10;이제 하나의 길을 함께 걸어가려 합니다.</textarea>
+          </div>
+          <div style="margin-bottom:16px;">
+            <label style="display:block;font-size:12px;font-weight:600;margin-bottom:4px;color:#333;">대표 사진</label>
+            <div style="border:2px dashed #ddd;border-radius:8px;padding:24px;text-align:center;color:#aaa;font-size:13px;">
+              📷 클릭하여 업로드<br/><span style="font-size:11px;">JPG, PNG, WebP (최대 10MB)</span>
+            </div>
+          </div>
+
+          <div style="border-top:1px solid #eee;padding-top:16px;margin-top:16px;">
+            <label style="display:block;font-size:12px;font-weight:600;margin-bottom:8px;color:#333;">📦 섹션 순서 (드래그하여 변경)</label>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <div style="padding:8px 12px;background:#f8f8ff;border:1px solid #e0e0e0;border-radius:6px;font-size:13px;display:flex;align-items:center;gap:8px;cursor:grab;">☰ 메인 (히어로)</div>
+              <div style="padding:8px 12px;background:#f8f8ff;border:1px solid #e0e0e0;border-radius:6px;font-size:13px;display:flex;align-items:center;gap:8px;cursor:grab;">☰ 인사말</div>
+              <div style="padding:8px 12px;background:#f8f8ff;border:1px solid #e0e0e0;border-radius:6px;font-size:13px;display:flex;align-items:center;gap:8px;cursor:grab;">☰ 갤러리</div>
+              <div style="padding:8px 12px;background:#f8f8ff;border:1px solid #e0e0e0;border-radius:6px;font-size:13px;display:flex;align-items:center;gap:8px;cursor:grab;">☰ 예식 정보 & 지도</div>
+              <div style="padding:8px 12px;background:#f8f8ff;border:1px solid #e0e0e0;border-radius:6px;font-size:13px;display:flex;align-items:center;gap:8px;cursor:grab;">☰ 방명록 & RSVP</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 우측: 미리보기 -->
+        <div style="flex:1;background:#f0f0f5;display:flex;align-items:center;justify-content:center;padding:20px;">
+          <div style="width:375px;height:460px;background:#fff;border-radius:24px;box-shadow:0 8px 32px rgba(0,0,0,0.12);overflow:hidden;position:relative;">
+            <div style="height:8px;background:#1a1a2e;"></div>
+            <div style="height:100%;background:linear-gradient(180deg,#ffecd2 0%,#fcb69f 50%,#fff 100%);padding:32px 24px;text-align:center;">
+              <div style="font-size:11px;color:#888;letter-spacing:2px;margin-bottom:8px;">WEDDING INVITATION</div>
+              <div style="font-size:28px;font-weight:300;color:#333;margin-bottom:4px;">민수 ♥ 수진</div>
+              <div style="font-size:12px;color:#666;margin-top:12px;">2026년 5월 15일 토요일 오후 2시</div>
+              <div style="font-size:11px;color:#999;margin-top:4px;">서울 강남구 그랜드볼룸</div>
+              <div style="margin-top:24px;font-size:13px;color:#555;line-height:1.8;font-style:italic;">
+                "서로 다른 길을 걸어온 두 사람이<br/>이제 하나의 길을 함께 걸어가려 합니다."
+              </div>
+            </div>
+            <div style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);font-size:10px;color:#ccc;">↓ 스크롤하여 계속</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 하단: 빌드 바 -->
+      <div style="background:#fff;border-top:1px solid #e0e0e0;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;">
+        <div style="display:flex;align-items:center;gap:16px;">
+          <span style="font-size:13px;font-weight:600;color:#333;">빌드 모드:</span>
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;">
+            <input type="radio" name="mode" checked />
+            <span>🔧 Tweak (수정 가능)</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;">
+            <input type="radio" name="mode" />
+            <span>⚡ Optimized (배포용)</span>
+          </label>
+        </div>
+        <button style="padding:10px 32px;background:#6c5ce7;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;">
+          📥 청첩장 생성 (ZIP)
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

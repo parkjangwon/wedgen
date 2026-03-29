@@ -1,0 +1,95 @@
+<h2>wedgen 시스템 아키텍처</h2>
+<p class="subtitle">JSON Schema + HTML 템플릿 기반 모바일 청첩장 생성기</p>
+
+<div class="section">
+  <div class="mockup">
+    <div class="mockup-header">System Architecture</div>
+    <div class="mockup-body" style="font-family:monospace;font-size:13px;line-height:1.8;padding:24px;">
+<pre style="margin:0;white-space:pre;overflow-x:auto;">
+┌─────────────────────────────────────────────────────────────────┐
+│                    Next.js App (localhost:3000)                  │
+├─────────────────────┬───────────────────────────────────────────┤
+│                     │                                           │
+│   ┌─────────────┐   │   ┌──────────────────────────────────┐    │
+│   │  Console UI │   │   │         API Routes               │    │
+│   │  (App Router)│   │   │                                  │    │
+│   │             │   │   │  /api/templates  템플릿 목록 조회  │    │
+│   │  ● 템플릿선택 │   │   │  /api/generate   ZIP 빌드+다운로드│    │
+│   │  ● 동적 폼   │──▶│   │  /api/preview    미리보기 데이터  │    │
+│   │  ● 실시간    │   │   │  /api/validate   GAS URL 검증    │    │
+│   │    미리보기   │   │   │                                  │    │
+│   │  ● 빌드옵션  │   │   └──────────┬───────────────────────┘    │
+│   │  ● ZIP 다운  │   │              │                            │
+│   └─────────────┘   │              ▼                            │
+│                     │   ┌──────────────────────────────────┐    │
+│                     │   │      Build Pipeline              │    │
+│                     │   │                                  │    │
+│                     │   │  1. JSON config 주입              │    │
+│                     │   │  2. sharp → WebP 이미지 최적화    │    │
+│                     │   │  3. Tweak / Optimized 분기        │    │
+│                     │   │     ├─ Tweak: 원본 유지           │    │
+│                     │   │     └─ Optimized: terser +        │    │
+│                     │   │        html-minifier + clean-css  │    │
+│                     │   │  4. archiver → ZIP 스트리밍       │    │
+│                     │   └──────────────────────────────────┘    │
+│                     │                                           │
+├─────────────────────┴───────────────────────────────────────────┤
+│                                                                 │
+│   /templates/                                                   │
+│   ├── elegant-classic/     ← 각 템플릿 = 독립 디렉토리         │
+│   │   ├── schema.json      ← 커스터마이징 옵션 선언            │
+│   │   ├── index.html       ← window.__WEDGEN_CONFIG__ 바인딩   │
+│   │   ├── style.css                                             │
+│   │   ├── script.js                                             │
+│   │   ├── thumbnail.png    ← 콘솔 미리보기용                   │
+│   │   └── i18n/ko.json                                          │
+│   ├── modern-minimal/                                           │
+│   ├── romantic-floral/                                          │
+│   ├── magazine-style/                                           │
+│   └── cinematic-scroll/                                         │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+
+        ┌──────────────────────────────┐
+        │     생성된 ZIP (output)       │
+        │                              │
+        │  wedding-invitation.zip      │
+        │  ├── index.html              │
+        │  ├── style.css               │
+        │  ├── script.js               │
+        │  └── assets/                 │
+        │      ├── hero.webp           │
+        │      ├── gallery-1.webp      │
+        │      └── ...                 │
+        │                              │
+        │  → GitHub Pages / Netlify    │
+        │    에 그대로 업로드           │
+        └──────────────────────────────┘
+</pre>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:24px;">
+  <h3>핵심 데이터 흐름</h3>
+  <div class="mockup">
+    <div class="mockup-body" style="font-family:monospace;font-size:13px;line-height:1.8;padding:24px;">
+<pre style="margin:0;white-space:pre;">
+사용자 폼 입력
+      │
+      ▼
+  schema.json 기반 동적 폼 ──▶ JSON config 생성
+      │                              │
+      │  ┌───────────────────────────┘
+      │  │
+      ▼  ▼
+  iframe 실시간 미리보기          /api/generate
+  (window.__WEDGEN_CONFIG__        │
+   주입으로 즉시 반영)             ├─ 이미지 → sharp → WebP
+                                   ├─ config → index.html 주입
+                                   ├─ Tweak/Optimized 분기
+                                   └─ archiver → ZIP 다운로드
+</pre>
+    </div>
+  </div>
+</div>
