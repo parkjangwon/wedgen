@@ -21,9 +21,11 @@ interface EditorDraft {
 
 interface EditorState {
   draft: EditorDraft;
+  draftVersion: number;
+  savedVersion: number;
+  isDirty: boolean;
   storageSlot: 1 | 2 | 3;
   slotNames: Record<1 | 2 | 3, string>;
-  isDirty: boolean;
   isSaving: boolean;
   lastSavedAt: number | null;
   pendingTemplateId: string | null;
@@ -63,7 +65,7 @@ function editorReducer(state: EditorState, action: EditorAction): EditorState {
           ...state.draft,
           data: { ...state.draft.data, [action.field]: action.value },
         },
-        isDirty: true,
+        draftVersion: state.draftVersion + 1,
       };
 
     case "UPDATE_STYLE":
@@ -73,7 +75,7 @@ function editorReducer(state: EditorState, action: EditorAction): EditorState {
           ...state.draft,
           style: { ...state.draft.style, [action.field]: action.value },
         },
-        isDirty: true,
+        draftVersion: state.draftVersion + 1,
       };
 
     case "UPDATE_ASSETS":
@@ -83,7 +85,7 @@ function editorReducer(state: EditorState, action: EditorAction): EditorState {
           ...state.draft,
           assets: { ...state.draft.assets, [action.field]: action.value },
         },
-        isDirty: true,
+        draftVersion: state.draftVersion + 1,
       };
 
     case "UPDATE_FILES":
@@ -93,14 +95,14 @@ function editorReducer(state: EditorState, action: EditorAction): EditorState {
           ...state.draft,
           files: { ...state.draft.files, [action.field]: action.value },
         },
-        isDirty: true,
+        draftVersion: state.draftVersion + 1,
       };
 
     case "UPDATE_SECTION_ORDER":
       return {
         ...state,
         draft: { ...state.draft, sectionOrder: action.order },
-        isDirty: true,
+        draftVersion: state.draftVersion + 1,
       };
 
     case "SET_STORAGE_SLOT":
@@ -116,16 +118,16 @@ function editorReducer(state: EditorState, action: EditorAction): EditorState {
       return { ...state, pendingTemplateId: action.templateId };
 
     case "MARK_SAVED":
-      return { ...state, isDirty: false, isSaving: false, lastSavedAt: action.timestamp };
+      return { ...state, savedVersion: state.draftVersion, isSaving: false, lastSavedAt: action.timestamp };
 
     case "RESTORE_DRAFT":
-      return { ...state, draft: action.draft, isDirty: false };
+      return { ...state, draft: action.draft, draftVersion: state.draftVersion + 1, savedVersion: state.draftVersion + 1 };
 
     case "RESET_DRAFT":
-      return { ...state, draft: action.draft, isDirty: false };
+      return { ...state, draft: action.draft, draftVersion: state.draftVersion + 1, savedVersion: state.draftVersion + 1 };
 
     case "SET_DIRTY":
-      return { ...state, isDirty: action.isDirty };
+      return { ...state, draftVersion: state.savedVersion + (action.isDirty ? 1 : 0) };
 
     default:
       return state;
@@ -171,9 +173,11 @@ export function EditorProvider({
 }: EditorProviderProps) {
   const [state, dispatch] = useReducer(editorReducer, null, () => ({
     draft: { ...createInitialDraft(templateId), ...initialDraft },
+    draftVersion: 0,
+    savedVersion: 0,
+    isDirty: false,
     storageSlot: 1 as const,
     slotNames: { 1: "예식 초안 A", 2: "예식 초안 B", 3: "예식 초안 C" },
-    isDirty: false,
     isSaving: false,
     lastSavedAt: null,
     pendingTemplateId: null,
@@ -225,7 +229,10 @@ export function EditorProvider({
 
   const value = useMemo(
     () => ({
-      state,
+      state: {
+        ...state,
+        isDirty: state.draftVersion !== state.savedVersion,
+      },
       dispatch,
       updateData,
       updateStyle,
