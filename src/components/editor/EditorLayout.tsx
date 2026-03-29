@@ -262,8 +262,8 @@ export function EditorLayout({
   }
 
   return (
-    <main className="mx-auto flex w-full max-w-[1720px] flex-1 flex-col gap-5 px-4 py-4 lg:px-6 xl:px-8">
-      <div className="flex items-start justify-between gap-4">
+    <main className="mx-auto flex w-full max-w-[1780px] flex-1 flex-col gap-5 px-4 py-4 lg:px-6 xl:px-8">
+      <div className="flex flex-col gap-3 rounded-[1.7rem] border border-black/5 bg-white/76 px-5 py-4 shadow-[0_18px_44px_rgba(88,47,33,0.06)] lg:flex-row lg:items-end lg:justify-between">
         <div className="space-y-2">
           <Link
             href="/"
@@ -282,10 +282,21 @@ export function EditorLayout({
             </p>
           </div>
         </div>
+        <div className="flex flex-wrap gap-2 text-[12px] text-muted-foreground">
+          <span className="rounded-full border border-black/5 bg-[#fffaf5] px-3 py-2">
+            라이브 프리뷰
+          </span>
+          <span className="rounded-full border border-black/5 bg-[#fffaf5] px-3 py-2">
+            수동 제작 지원
+          </span>
+          <span className="rounded-full border border-black/5 bg-[#fffaf5] px-3 py-2">
+            ZIP 배포 가능
+          </span>
+        </div>
       </div>
 
-      <section className="grid gap-4 xl:grid-cols-[560px_minmax(0,1fr)]">
-        <aside className="rounded-[1.8rem] border border-black/5 bg-white/72 p-4 shadow-[0_28px_80px_rgba(92,55,38,0.1)] backdrop-blur">
+      <section className="grid gap-4 xl:grid-cols-[620px_minmax(0,1fr)]">
+        <aside className="rounded-[1.9rem] border border-black/5 bg-[#fbfaf8] p-4 shadow-[0_28px_80px_rgba(92,55,38,0.1)] backdrop-blur">
           <div className="grid gap-4">
             <ConfigPanel
               schema={schema}
@@ -429,7 +440,7 @@ export function EditorLayout({
           </div>
         </aside>
 
-        <section className="grid content-start gap-4">
+        <section className="grid content-start gap-4 xl:sticky xl:top-4 xl:self-start">
           <BuildBar
             buildMode={buildMode}
             onBuildModeChange={setBuildMode}
@@ -437,7 +448,7 @@ export function EditorLayout({
             pending={buildPending}
             message={buildMessage}
           />
-          <div className="rounded-[1.9rem] border border-black/5 bg-white/58 p-4 shadow-[0_28px_80px_rgba(92,55,38,0.08)] backdrop-blur lg:p-6">
+          <div className="rounded-[1.9rem] border border-black/5 bg-white/64 p-4 shadow-[0_28px_80px_rgba(92,55,38,0.08)] backdrop-blur lg:p-6">
             <PreviewFrame
               html={previewHtml}
               loading={previewLoading}

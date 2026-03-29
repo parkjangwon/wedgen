@@ -19,23 +19,57 @@ export function BuildBar({
   message: string | null;
 }) {
   return (
-    <div className="flex flex-col gap-4 rounded-[1.5rem] border border-black/5 bg-white/92 p-4 shadow-[0_16px_40px_rgba(92,55,38,0.08)] xl:flex-row xl:items-center xl:justify-between">
-      <div className="space-y-2">
-        <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/70">
-          빌드 모드
-        </p>
+    <div className="grid gap-4 rounded-[1.6rem] border border-black/5 bg-[#161516] p-4 text-white shadow-[0_22px_60px_rgba(15,12,10,0.25)] xl:grid-cols-[minmax(0,1fr)_auto] xl:items-center">
+      <div className="grid gap-3">
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-white/44">
+              Publish
+            </p>
+            <h3 className="mt-1 text-lg font-semibold tracking-[-0.03em] text-white">
+              생성 설정
+            </h3>
+          </div>
+          <span className="rounded-full border border-white/10 bg-white/6 px-3 py-1 text-[11px] text-white/68">
+            정적 ZIP 출력
+          </span>
+        </div>
         <RadioGroup
           value={buildMode}
           onValueChange={(value) => onBuildModeChange(value as BuildMode)}
-          className="flex flex-wrap gap-2"
+          className="grid gap-2 sm:grid-cols-2"
         >
-          <Label className="flex items-center gap-2 rounded-full border border-black/5 bg-[#fffaf5] px-3 py-2 text-sm">
-            <RadioGroupItem value="tweak" />
-            수정용
+          <Label
+            className={[
+              "grid cursor-pointer gap-1 rounded-[1.1rem] border px-4 py-3 text-sm transition",
+              buildMode === "tweak"
+                ? "border-white/20 bg-white/10"
+                : "border-white/8 bg-white/[0.04]",
+            ].join(" ")}
+          >
+            <div className="flex items-center gap-2">
+              <RadioGroupItem value="tweak" />
+              <span className="font-medium text-white">수정용</span>
+            </div>
+            <span className="pl-6 text-[12px] leading-5 text-white/64">
+              HTML/CSS/JS가 읽기 쉬운 상태로 유지됩니다.
+            </span>
           </Label>
-          <Label className="flex items-center gap-2 rounded-full border border-black/5 bg-[#fffaf5] px-3 py-2 text-sm">
-            <RadioGroupItem value="optimized" />
-            배포용
+          <Label
+            className={[
+              "grid cursor-pointer gap-1 rounded-[1.1rem] border px-4 py-3 text-sm transition",
+              buildMode === "optimized"
+                ? "border-white/20 bg-white/10"
+                : "border-white/8 bg-white/[0.04]",
+            ].join(" ")}
+          >
+            <div className="flex items-center gap-2">
+              <RadioGroupItem value="optimized" />
+              <span className="font-medium text-white">배포용</span>
+            </div>
+            <span className="pl-6 text-[12px] leading-5 text-white/64">
+              압축된 산출물로 바로 업로드할 수 있습니다.
+            </span>
           </Label>
         </RadioGroup>
       </div>
@@ -43,13 +77,13 @@ export function BuildBar({
         <Button
           type="button"
           size="lg"
-          className="rounded-full px-6 shadow-[0_16px_40px_rgba(157,94,67,0.22)]"
+          className="h-12 rounded-full bg-white px-6 text-[#181312] shadow-[0_20px_50px_rgba(0,0,0,0.28)] hover:bg-white/92"
           disabled={pending}
           onClick={onGenerate}
         >
           {pending ? "ZIP 생성 중..." : "ZIP 생성"}
         </Button>
-        {message ? <p className="text-[13px] text-muted-foreground">{message}</p> : null}
+        {message ? <p className="text-[12px] text-white/60">{message}</p> : null}
       </div>
     </div>
   );

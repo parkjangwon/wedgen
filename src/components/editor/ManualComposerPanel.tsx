@@ -45,15 +45,22 @@ export function ManualComposerPanel({
   onChange: (key: string, value: string) => void;
 }) {
   return (
-    <details className="rounded-[1.5rem] border border-black/5 bg-white/88 p-4" open>
+    <details className="rounded-[1.5rem] border border-black/5 bg-white/92 p-4">
       <summary className="cursor-pointer list-none">
         <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/70">
           수동 제작
         </p>
-        <h3 className="mt-1 text-lg tracking-[-0.03em]">섹션 문구를 직접 다듬기</h3>
-        <p className="mt-2 max-w-xl text-[13px] leading-6 text-muted-foreground">
-          템플릿 기본 구조는 유지하면서, 실제 서비스 수준으로 제목과 안내 문구를 세밀하게 바꿀 수 있습니다.
-        </p>
+        <div className="mt-2 flex items-start justify-between gap-4">
+          <div>
+            <h3 className="text-lg tracking-[-0.03em]">섹션 문구를 직접 다듬기</h3>
+            <p className="mt-1 max-w-xl text-[13px] leading-6 text-muted-foreground">
+              템플릿 기본 구조는 유지하면서, 제목과 설명을 더 정교하게 만질 수 있습니다.
+            </p>
+          </div>
+          <span className="rounded-full bg-[#fff3e8] px-3 py-1 text-[11px] text-primary">
+            고급 편집
+          </span>
+        </div>
       </summary>
 
       <div className="mt-4 grid gap-3 xl:grid-cols-2">

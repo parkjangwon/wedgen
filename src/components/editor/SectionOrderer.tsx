@@ -27,13 +27,13 @@ export function SectionOrderer({
   onChange: (order: string[]) => void;
 }) {
   return (
-    <div className="space-y-3 rounded-[1.5rem] border border-black/5 bg-white/80 p-4">
+    <div className="space-y-3 rounded-[1.5rem] border border-black/5 bg-white/92 p-4 shadow-[0_16px_40px_rgba(88,47,33,0.05)]">
       <div className="flex items-center justify-between">
         <div>
-          <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-primary/70">
+          <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-primary/70">
             섹션 구성
           </p>
-          <h3 className="mt-1 text-xl tracking-[-0.03em]">섹션 순서</h3>
+          <h3 className="mt-1 text-lg tracking-[-0.03em]">섹션 순서</h3>
         </div>
       </div>
       <div className="grid gap-2">
@@ -58,7 +58,7 @@ export function SectionOrderer({
               current.splice(to, 0, dragged);
               onChange(current);
             }}
-            className="flex items-center justify-between rounded-2xl border border-black/5 bg-[#fffaf5] px-3 py-3 text-sm"
+            className="flex items-center justify-between rounded-[1rem] border border-black/5 bg-[#fffaf5] px-3 py-3 text-[13px]"
           >
             <div className="flex items-center gap-3">
               <GripVertical className="h-4 w-4 text-muted-foreground" />
