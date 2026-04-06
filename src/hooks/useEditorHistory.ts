@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { UndoRedoManager } from "@/lib/undo-redo";
 
 interface UseEditorHistoryOptions<T> {
@@ -12,23 +12,22 @@ export function useEditorHistory<T>(
   initialState: T,
   options: UseEditorHistoryOptions<T> = {}
 ) {
-  const { maxHistory = 50, debounceMs = 500 } = options;
+  const { maxHistory = 50 } = options;
 
-  const [manager] = useState(() => new UndoRedoManager<T>(maxHistory));
+  const [manager] = useState(() => {
+    const instance = new UndoRedoManager<T>(maxHistory);
+    instance.execute(initialState);
+    return instance;
+  });
   const [state, setState] = useState<T>(initialState);
-  const [canUndo, setCanUndo] = useState(false);
-  const [canRedo, setCanRedo] = useState(false);
+  const [canUndo, setCanUndo] = useState(() => manager.canUndo());
+  const [canRedo, setCanRedo] = useState(() => manager.canRedo());
   const [lastAction, setLastAction] = useState<string | null>(null);
 
   const updateCapabilities = useCallback(() => {
     setCanUndo(manager.canUndo());
     setCanRedo(manager.canRedo());
   }, [manager]);
-
-  useEffect(() => {
-    manager.execute(initialState);
-    updateCapabilities();
-  }, []);
 
   const execute = useCallback(
     (newState: T, actionName?: string) => {

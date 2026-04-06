@@ -20,13 +20,18 @@ export function PageTransition({
   const [isRendered, setIsRendered] = useState(isVisible);
 
   useEffect(() => {
-    if (isVisible) {
-      setIsRendered(true);
-    } else {
+    if (!isVisible) {
       const timer = setTimeout(() => setIsRendered(false), duration);
       return () => clearTimeout(timer);
     }
   }, [isVisible, duration]);
+
+  useEffect(() => {
+    if (isVisible && !isRendered) {
+      const frame = requestAnimationFrame(() => setIsRendered(true));
+      return () => cancelAnimationFrame(frame);
+    }
+  }, [isVisible, isRendered]);
 
   if (!isRendered) return null;
 

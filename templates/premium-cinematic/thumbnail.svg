@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" fill="none">
+  <rect width="800" height="1000" fill="#0C0C0C"/>
+  <rect x="78" y="86" width="644" height="828" rx="32" fill="#121212" stroke="#8C724A"/>
+  <rect x="134" y="144" width="532" height="410" rx="24" fill="#232323"/>
+  <path d="M230 644h340" stroke="#D4A574" stroke-width="3" stroke-linecap="round"/>
+  <path d="M274 694h252" stroke="#F0E1C7" stroke-width="3" stroke-linecap="round"/>
+  <path d="M316 744h168" stroke="#8E8E8E" stroke-width="3" stroke-linecap="round"/>
+  <text x="400" y="622" text-anchor="middle" fill="#D4A574" font-family="Georgia, serif" font-size="54">Cinematic</text>
+  <text x="400" y="802" text-anchor="middle" fill="#F6ECD9" font-family="Georgia, serif" font-size="26" letter-spacing="12">THE WEDDING FILM</text>
+</svg>

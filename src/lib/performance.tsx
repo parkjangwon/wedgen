@@ -210,14 +210,11 @@ export function measurePerformance<T extends (...args: unknown[]) => unknown>(
  * React 컴포넌트 렌더링 시간 측정 훅
  */
 export function useRenderCount(componentName: string): number {
-  const countRef = React.useRef(0);
-
   React.useEffect(() => {
-    countRef.current += 1;
-    console.log(`[Render] ${componentName} rendered ${countRef.current} times`);
-  });
+    console.log(`[Render] ${componentName} rendered`);
+  }, [componentName]);
 
-  return countRef.current;
+  return 0;
 }
 
 // ============================================================================

@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { FieldRenderer } from "@/components/editor/fields/FieldRenderer";
 import { SectionOrderer } from "@/components/editor/SectionOrderer";
-import type { ResolvedFontPreset, TemplateSchema } from "@/types";
+import type { TemplateSchema, WedgenConfigStyle } from "@/types";
 
 const tabMeta: Record<
   string,
@@ -50,7 +50,7 @@ function isFieldVisible(
   field: TemplateSchema["fields"][string][string],
   values: {
     data: Record<string, unknown>;
-    style: Record<string, string | ResolvedFontPreset | undefined>;
+    style: WedgenConfigStyle;
   },
 ) {
   if (!field.visibleWhen) {
@@ -71,7 +71,7 @@ function isFieldFilled(
   field: TemplateSchema["fields"][string][string],
   values: {
     data: Record<string, unknown>;
-    style: Record<string, string | ResolvedFontPreset | undefined>;
+    style: WedgenConfigStyle;
   },
   assets: Record<string, string | string[] | undefined>,
 ) {
@@ -115,7 +115,7 @@ export function ConfigPanel({
   schema: TemplateSchema;
   values: {
     data: Record<string, unknown>;
-    style: Record<string, string | ResolvedFontPreset | undefined>;
+    style: WedgenConfigStyle;
     sectionOrder: string[];
   };
   assets: Record<string, string | string[] | undefined>;

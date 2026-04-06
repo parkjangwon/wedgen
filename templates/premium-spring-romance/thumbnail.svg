@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" fill="none">
+  <rect width="800" height="1000" fill="#FFF5F7"/>
+  <rect x="84" y="90" width="632" height="820" rx="36" fill="#FFFDFE" stroke="#F0C8D0"/>
+  <circle cx="180" cy="176" r="30" fill="#F2B7C4"/>
+  <circle cx="620" cy="194" r="24" fill="#E7A8B6"/>
+  <circle cx="150" cy="844" r="26" fill="#F7D3DB"/>
+  <rect x="164" y="188" width="472" height="338" rx="28" fill="#FBE2E7"/>
+  <path d="M234 628h332" stroke="#E8A5B0" stroke-width="4" stroke-linecap="round"/>
+  <path d="M252 692h296" stroke="#B77A8A" stroke-width="3" stroke-linecap="round"/>
+  <path d="M286 742h228" stroke="#B77A8A" stroke-width="3" stroke-linecap="round"/>
+  <text x="400" y="614" text-anchor="middle" fill="#B76D7B" font-family="Georgia, serif" font-size="52">Spring Romance</text>
+</svg>

@@ -9,6 +9,7 @@ import { loadTemplateBundle } from "@/lib/schema-parser";
 import { mergeSectionOrder } from "@/lib/sections";
 import type {
   FontOption,
+  ResolvedColorScheme,
   ResolvedFontPreset,
   WedgenConfig,
   WedgenDraftInput,
@@ -129,6 +130,16 @@ function resolveFontPreset(
   };
 }
 
+function resolveColorScheme(
+  availableSchemes: Array<ResolvedColorScheme>,
+  requestedValue: string,
+): ResolvedColorScheme | undefined {
+  return (
+    availableSchemes.find((scheme) => scheme.value === requestedValue) ??
+    availableSchemes[0]
+  );
+}
+
 async function createZipBuffer(files: Map<string, string | Buffer>): Promise<Buffer> {
   const archive = archiver("zip", { zlib: { level: 9 } });
   const stream = new PassThrough();
@@ -195,6 +206,10 @@ export async function buildPreviewDocument(
         bundle.schema.style.headingFonts,
         bundle.schema.style.bodyFonts,
       ),
+      resolvedColorScheme: resolveColorScheme(
+        bundle.schema.style.colorSchemes,
+        config.style.colorScheme,
+      ),
       animation:
         config.style.animation || bundle.schema.style.animations[0]?.value || "fade",
     },
@@ -246,6 +261,10 @@ export async function buildInvitationArchive(
         bundle.schema.style.headingFonts,
         bundle.schema.style.bodyFonts,
       ),
+      resolvedColorScheme: resolveColorScheme(
+        bundle.schema.style.colorSchemes,
+        options.config.style.colorScheme,
+      ),
       animation:
         options.config.style.animation ||
         bundle.schema.style.animations[0]?.value ||
@@ -276,7 +295,10 @@ export async function buildInvitationArchive(
     "i18n",
     `${defaultLocale}.json`,
   );
-  files.set(`i18n/${defaultLocale}.json`, await fs.readFile(localePath, "utf-8"));
+  files.set(
+    `i18n/${defaultLocale}.json`,
+    await fs.readFile(localePath, "utf-8").catch(() => "{}"),
+  );
 
   for (const [assetPath, content] of processedAssets.outputFiles) {
     files.set(assetPath, content);

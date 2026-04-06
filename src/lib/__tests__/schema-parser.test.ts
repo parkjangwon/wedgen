@@ -6,16 +6,16 @@ describe("parseSchema", () => {
   it("parses a valid schema.json file", async () => {
     const schemaPath = path.resolve(
       process.cwd(),
-      "templates/elegant-classic/schema.json",
+      "templates/premium-elegant-minimal/schema.json",
     );
 
     const schema = await parseSchema(schemaPath);
 
-    expect(schema.id).toBe("elegant-classic");
+    expect(schema.id).toBe("premium-elegant-minimal");
     expect(schema.fields["기본 정보"].groomName.type).toBe("text");
     expect(schema.sections.available).toContain("hero");
     expect(schema.style.headingFonts[0]).toMatchObject({
-      value: "gowun-batang",
+      value: "cormorant",
       provider: "google",
     });
   });
@@ -29,19 +29,19 @@ describe("resolveFieldOptions", () => {
   it("hydrates optionsFrom references from the style config", async () => {
     const schemaPath = path.resolve(
       process.cwd(),
-      "templates/elegant-classic/schema.json",
+      "templates/premium-elegant-minimal/schema.json",
     );
 
     const schema = await parseSchema(schemaPath);
     const resolved = resolveFieldOptions(schema);
 
     expect(resolved.fields["스타일"].colorScheme.options?.[0]).toMatchObject({
-      value: "warm-blush",
-      label: "웜 블러시",
+      value: "gold-cream",
+      label: "골드/크림",
     });
     expect(resolved.fields["스타일"].headingFont.options?.[0]).toMatchObject({
-      value: "gowun-batang",
-      label: "고운바탕",
+      value: "cormorant",
+      label: "Cormorant Garamond",
     });
   });
 });

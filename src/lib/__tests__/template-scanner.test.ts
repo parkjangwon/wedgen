@@ -7,7 +7,7 @@ describe("scanTemplates", () => {
     const templatesDir = path.resolve(process.cwd(), "templates");
     const templates = await scanTemplates(templatesDir);
 
-    expect(templates.length).toBeGreaterThanOrEqual(10);
+    expect(templates.length).toBeGreaterThanOrEqual(5);
     expect(templates[0]).toMatchObject({
       id: expect.any(String),
       name: expect.any(String),

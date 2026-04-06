@@ -30,6 +30,13 @@ export interface ResolvedFontPreset {
   bodyValue?: string;
 }
 
+export interface ResolvedColorScheme {
+  value: string;
+  label: string;
+  primary: string;
+  bg: string;
+}
+
 export interface WedgenConfigStyle {
   colorScheme: string;
   fontSourceMode: string;
@@ -40,7 +47,8 @@ export interface WedgenConfigStyle {
   customBodyFamily?: string;
   animation: string;
   fontPreset?: ResolvedFontPreset;
-  [key: string]: string | ResolvedFontPreset | undefined;
+  resolvedColorScheme?: ResolvedColorScheme;
+  [key: string]: string | ResolvedFontPreset | ResolvedColorScheme | undefined;
 }
 
 export interface WedgenConfigAssets {

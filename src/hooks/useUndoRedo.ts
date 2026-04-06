@@ -4,15 +4,14 @@ import { useCallback, useEffect, useState } from "react";
 import { UndoRedoManager } from "@/lib/undo-redo";
 
 export function useUndoRedo<T>(initialState: T, maxHistory: number = 50) {
-  const [manager] = useState(() => new UndoRedoManager<T>(maxHistory));
+  const [manager] = useState(() => {
+    const instance = new UndoRedoManager<T>(maxHistory);
+    instance.execute(initialState);
+    return instance;
+  });
   const [state, setState] = useState<T>(initialState);
-  const [canUndo, setCanUndo] = useState(false);
-  const [canRedo, setCanRedo] = useState(false);
-
-  useEffect(() => {
-    manager.execute(initialState);
-    updateCapabilities();
-  }, []);
+  const [canUndo, setCanUndo] = useState(() => manager.canUndo());
+  const [canRedo, setCanRedo] = useState(() => manager.canRedo());
 
   const updateCapabilities = useCallback(() => {
     setCanUndo(manager.canUndo());

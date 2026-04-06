@@ -119,11 +119,13 @@ export async function loadTemplateBundle(
   templatesDir = path.resolve(process.cwd(), "templates"),
 ): Promise<TemplateBundle> {
   const baseDir = path.join(templatesDir, templateId);
-  const [schema, html, css, script] = await Promise.all([
+  const sharedRuntimePath = path.join(templatesDir, "_shared", "template-runtime.js");
+  const [schema, html, css, script, sharedRuntime] = await Promise.all([
     parseSchema(path.join(baseDir, "schema.json")),
     fs.readFile(path.join(baseDir, "index.html"), "utf-8"),
     fs.readFile(path.join(baseDir, "style.css"), "utf-8"),
     fs.readFile(path.join(baseDir, "script.js"), "utf-8"),
+    fs.readFile(sharedRuntimePath, "utf-8").catch(() => ""),
   ]);
 
   return {
@@ -137,6 +139,6 @@ export async function loadTemplateBundle(
     schema: resolveFieldOptions(schema),
     html,
     css,
-    script,
+    script: `${sharedRuntime}\n${script}`,
   };
 }
