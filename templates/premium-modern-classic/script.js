@@ -125,7 +125,7 @@ function initCopyButtons() {
         window.setTimeout(() => {
           button.textContent = "COPY";
         }, 2000);
-      } catch (_error) {
+      } catch {
         button.textContent = "FAILED";
       }
     });

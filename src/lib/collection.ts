@@ -278,7 +278,7 @@ export function isEmpty(obj: Record<string, unknown> | unknown[]): boolean {
 // Export
 // ============================================================================
 
-export default {
+const collection = {
   chunk,
   unique,
   groupBy,
@@ -297,3 +297,5 @@ export default {
   compact,
   isEmpty,
 };
+
+export default collection;

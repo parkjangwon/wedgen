@@ -324,11 +324,6 @@ export function meetsWCAGAAA(contrastRatio: number, isLargeText = false): boolea
 // ============================================================================
 
 /**
- * 키보드 탐색 핸들러 타입
- */
-type KeyboardHandler = (e: KeyboardEvent) => void;
-
-/**
  * 방향키 탐색 헬퍼
  * @param items 탐색할 아이템들
  * @param currentIndex 현재 인덱스
@@ -397,7 +392,7 @@ export function registerShortcut(key: string, handler: () => void): () => void {
 // Export
 // ============================================================================
 
-export default {
+const accessibility = {
   announce,
   getFocusableElements,
   focusFirst,
@@ -412,3 +407,5 @@ export default {
   getNextIndex,
   registerShortcut,
 };
+
+export default accessibility;

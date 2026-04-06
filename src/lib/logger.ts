@@ -319,7 +319,7 @@ export function createRemoteHandler(endpoint: string): LogHandler {
 // Export
 // ============================================================================
 
-export default {
+const logger = {
   configureLogger,
   addLogHandler,
   debug,
@@ -334,3 +334,5 @@ export default {
   table,
   createRemoteHandler,
 };
+
+export default logger;

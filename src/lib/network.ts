@@ -284,7 +284,7 @@ export function clearCache(pattern?: string): void {
 // Export
 // ============================================================================
 
-export default {
+const network = {
   fetch: fetchWithConfig,
   get,
   post,
@@ -296,3 +296,5 @@ export default {
   clearCache,
   HttpRequestError,
 };
+
+export default network;

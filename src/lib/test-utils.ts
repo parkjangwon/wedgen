@@ -1,5 +1,3 @@
-import type { ReactElement } from "react";
-
 /**
  * 테스트 유틸리티 - 테스트 헬퍼 함수와 모의 객체 생성
  */
@@ -317,7 +315,7 @@ export function type(element: HTMLInputElement | HTMLTextAreaElement, value: str
 // Export
 // ============================================================================
 
-export default {
+const testUtils = {
   generateRandomString,
   generateRandomEmail,
   generateRandomDate,
@@ -339,3 +337,5 @@ export default {
   click,
   type,
 };
+
+export default testUtils;

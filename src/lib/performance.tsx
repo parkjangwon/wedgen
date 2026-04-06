@@ -339,7 +339,7 @@ export function prefetchResource(href: string): void {
 // Export
 // ============================================================================
 
-export default {
+const performanceUtils = {
   useLazyLoad,
   LRUCache,
   memoize,
@@ -351,3 +351,5 @@ export default {
   preloadResource,
   prefetchResource,
 };
+
+export default performanceUtils;

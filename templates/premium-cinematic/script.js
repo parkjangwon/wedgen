@@ -4,7 +4,7 @@ const assets = runtime.assets;
 
 document.addEventListener("DOMContentLoaded", () => {
   const root = runtime.query("main.invitation");
-  hydrateTemplate(root);
+  hydrateTemplate();
   runtime.mountCommonEnhancements(root);
   renderAccountSection(root);
   runtime.applySectionOrder(root);
@@ -37,7 +37,7 @@ function getTitleLines(value) {
   return [words.slice(0, midpoint).join(" "), words.slice(midpoint).join(" ")];
 }
 
-function hydrateTemplate(root) {
+function hydrateTemplate() {
   const wedding = runtime.formatWeddingDate(data.weddingDate);
   const photos = runtime.toArray(assets.photos);
   const title = runtime.query(".title");
@@ -156,7 +156,7 @@ function renderAccountSection(root) {
       try {
         await navigator.clipboard.writeText(button.dataset.account || "");
         button.textContent = "COPIED";
-      } catch (_error) {
+      } catch {
         button.textContent = "FAILED";
       }
     });

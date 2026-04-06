@@ -337,7 +337,7 @@ export function trackForms(selector: string, eventName?: string): () => void {
 // Export
 // ============================================================================
 
-export default {
+const analytics = {
   configureAnalytics,
   addEventHandler,
   track,
@@ -350,3 +350,5 @@ export default {
   trackClicks,
   trackForms,
 };
+
+export default analytics;

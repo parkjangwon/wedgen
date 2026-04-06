@@ -457,7 +457,7 @@
 
     try {
       parsed = JSON.parse(data.timelineEvents);
-    } catch (_error) {
+    } catch {
       return null;
     }
 

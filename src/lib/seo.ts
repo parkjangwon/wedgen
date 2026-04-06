@@ -374,18 +374,20 @@ export function createPageTitle(pageTitle: string, siteName: string): string {
 // Export
 // ============================================================================
 
-export default {
- createMetadata,
- defaultViewport,
- createOrganizationSchema,
- createProductSchema,
- createEventSchema,
- createFAQSchema,
- createBreadcrumbSchema,
- renderStructuredData,
- createCanonicalUrl,
- createOGImageUrl,
- optimizeDescription,
- calculateKeywordDensity,
- createPageTitle,
+const seo = {
+  createMetadata,
+  defaultViewport,
+  createOrganizationSchema,
+  createProductSchema,
+  createEventSchema,
+  createFAQSchema,
+  createBreadcrumbSchema,
+  renderStructuredData,
+  createCanonicalUrl,
+  createOGImageUrl,
+  optimizeDescription,
+  calculateKeywordDensity,
+  createPageTitle,
 };
+
+export default seo;

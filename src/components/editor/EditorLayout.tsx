@@ -1,7 +1,6 @@
 "use client";
 
 import { startTransition, useDeferredValue, useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LayoutTemplate, PenSquare, SlidersHorizontal } from "lucide-react";
 import { BuildBar } from "@/components/editor/BuildBar";

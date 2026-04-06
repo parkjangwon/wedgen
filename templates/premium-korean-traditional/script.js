@@ -133,7 +133,7 @@ function initCopyButtons() {
         window.setTimeout(() => {
           button.textContent = "복사";
         }, 2000);
-      } catch (_error) {
+      } catch {
         button.textContent = "실패";
       }
     });

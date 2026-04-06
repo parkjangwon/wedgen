@@ -202,6 +202,7 @@ export function getLocaleDisplayName(locale: Locale): string {
  * @param locale 로케일
  */
 export function getLocaleDirection(locale: Locale): "ltr" | "rtl" {
+  void locale;
   // 모든 지원 로케일은 LTR
   return "ltr";
 }
@@ -271,7 +272,7 @@ export function addJosa(word: string, josa: "은는" | "이가" | "을를" | "�
 // Export
 // ============================================================================
 
-export default {
+const i18n = {
   configureI18n,
   registerTranslations,
   setLocale,
@@ -286,3 +287,5 @@ export default {
   getLocaleCurrencyFormat,
   addJosa,
 };
+
+export default i18n;

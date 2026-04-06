@@ -321,7 +321,7 @@ export function reportError(error: Error, context?: Record<string, unknown>): vo
 // Export
 // ============================================================================
 
-export default {
+const errorHandling = {
   AppError,
   ValidationError,
   AuthError,
@@ -341,3 +341,5 @@ export default {
   setErrorReporter,
   reportError,
 };
+
+export default errorHandling;

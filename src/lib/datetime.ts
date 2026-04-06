@@ -98,11 +98,6 @@ export function parseTime(input: string): { hours: number; minutes: number } | n
 // Formatting
 // ============================================================================
 
-const MONTH_NAMES = [
-  "1월", "2월", "3월", "4월", "5월", "6월",
-  "7월", "8월", "9월", "10월", "11월", "12월",
-];
-
 const WEEKDAY_NAMES = ["일", "월", "화", "수", "목", "금", "토"];
 
 /**
@@ -353,7 +348,7 @@ export function isPast(input: DateInput): boolean {
 // Export
 // ============================================================================
 
-export default {
+const datetime = {
   toDate,
   isValidDate,
   toISODate,
@@ -379,3 +374,5 @@ export default {
   isFuture,
   isPast,
 };
+
+export default datetime;

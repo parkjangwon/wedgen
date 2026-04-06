@@ -271,7 +271,7 @@ export function generateUUID(): string {
 // Export
 // ============================================================================
 
-export default {
+const stringUtils = {
   capitalize,
   titleCase,
   camelCase,
@@ -297,3 +297,5 @@ export default {
   generateId,
   generateUUID,
 };
+
+export default stringUtils;

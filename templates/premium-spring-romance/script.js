@@ -148,7 +148,7 @@ function initCopyButtons() {
           button.textContent = "복사하기";
           button.classList.remove("copied");
         }, 2000);
-      } catch (_error) {
+      } catch {
         button.textContent = "실패";
       }
     });
