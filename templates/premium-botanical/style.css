@@ -1,0 +1,424 @@
+/* Botanical */
+:root {
+  --bg: #f8f6f3;
+  --bg-soft: #f0ece6;
+  --card: #fff;
+  --sage: #7a9e7e;
+  --sage-light: #a8c5a8;
+  --text: #3d3d3d;
+  --text-med: #5a5a5a;
+  --text-light: #888;
+  
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Noto Serif KR', serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; }
+
+body {
+  font-family: var(--font-body);
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+  color: var(--text);
+  line-height: 1.8;
+}
+
+/* Leaf decorations */
+.leaf-deco {
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  border: 2px solid var(--sage);
+  border-radius: 50%;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.l1 { top: 5%; left: -50px; }
+.l2 { bottom: 10%; right: -50px; }
+
+/* Hero */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1.5rem;
+  position: relative;
+}
+
+.vine-left, .vine-right {
+  position: absolute;
+  width: 2px;
+  height: 120px;
+  background: linear-gradient(180deg, transparent, var(--sage), transparent);
+  opacity: 0.4;
+}
+
+.vine-left { left: 15%; top: 8%; }
+.vine-right { right: 15%; bottom: 8%; }
+
+.hero-content {
+  text-align: center;
+  max-width: 320px;
+}
+
+.floral-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.floral-line span:not(.center) {
+  flex: 1;
+  height: 1px;
+  max-width: 60px;
+  background: linear-gradient(90deg, transparent, var(--sage), transparent);
+}
+
+.floral-line .center {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  color: var(--sage);
+  text-transform: uppercase;
+}
+
+.names {
+  margin-bottom: 2rem;
+}
+
+.names .name {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 7vw, 3.2rem);
+  display: block;
+}
+
+.names .amp {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.4rem;
+  color: var(--sage);
+  display: block;
+  margin: 0.2rem 0;
+}
+
+.date-badge {
+  width: 120px;
+  height: 120px;
+  border: 2px solid var(--sage);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  background: rgba(255,255,255,0.7);
+}
+
+.date-badge .m {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  color: var(--sage);
+  letter-spacing: 0.15em;
+}
+
+.date-badge .d {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.date-badge .y {
+  font-size: 0.7rem;
+  color: var(--text-light);
+}
+
+.venue {
+  font-size: 0.85rem;
+  color: var(--text-med);
+}
+
+/* Sections */
+section { padding: 4rem 1.5rem; }
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.section-header .leaf {
+  color: var(--sage);
+  font-size: 1.2rem;
+  opacity: 0.6;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 5vw, 2rem);
+}
+
+/* Greeting */
+.wood-card {
+  max-width: 360px;
+  margin: 0 auto;
+  padding: 8px;
+  background: linear-gradient(135deg, #9b8b75, #b5a58f);
+  border-radius: 4px;
+}
+
+.wood-card .content {
+  background: var(--card);
+  padding: 2rem;
+  border-radius: 2px;
+}
+
+.wood-card .section-title {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.divider {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--sage);
+  opacity: 0.5;
+}
+
+.message {
+  text-align: center;
+  font-size: 0.95rem;
+  line-height: 2;
+  color: var(--text-med);
+  margin-bottom: 2rem;
+}
+
+.family {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.family .row {
+  text-align: center;
+}
+
+.family .p { font-size: 0.85rem; color: var(--text-med); }
+.family .r { font-size: 0.75rem; color: var(--text-light); margin: 0 0.3rem; }
+.family .c { font-family: var(--font-display); font-size: 1.15rem; margin-left: 0.3rem; }
+
+/* Schedule */
+.schedule-list {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.schedule-list .item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255,255,255,0.7);
+  border-radius: 12px;
+}
+
+.schedule-list .dot {
+  width: 12px;
+  height: 12px;
+  background: var(--sage);
+  border-radius: 50%;
+}
+
+.schedule-list .info {
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule-list .label {
+  font-size: 0.7rem;
+  color: var(--sage);
+  letter-spacing: 0.1em;
+}
+
+.schedule-list .val {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+}
+
+.connector {
+  width: 2px;
+  height: 20px;
+  background: linear-gradient(180deg, var(--sage), transparent);
+  margin-left: 23px;
+}
+
+/* Gallery */
+.gallery-wrap {
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+.gallery-wrap .main {
+  margin-bottom: 0.5rem;
+}
+
+.gallery-wrap .main .placeholder {
+  aspect-ratio: 16/10;
+  background: linear-gradient(135deg, #e8e4de, #ddd8d0);
+  border-radius: 12px;
+}
+
+.gallery-wrap .grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.gallery-wrap .grid .placeholder {
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, #e8e4de, #ddd8d0);
+  border-radius: 10px;
+}
+
+/* Location */
+.location-card {
+  max-width: 360px;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.9);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.map-wrap { padding: 0.5rem; }
+
+.map-placeholder {
+  aspect-ratio: 16/9;
+  background: linear-gradient(135deg, #e0dcd6, #d5d0c8);
+  border-radius: 12px;
+}
+
+.location-card .info {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.location-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  margin-bottom: 0.3rem;
+}
+
+.location-card .addr {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+.location-card .details p {
+  font-size: 0.85rem;
+  color: var(--text-med);
+  margin-bottom: 0.3rem;
+}
+
+/* Account */
+.account-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.account-cards .card {
+  background: rgba(255,255,255,0.95);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+}
+
+.account-cards .top {
+  text-align: center;
+  font-size: 2rem;
+  color: var(--sage);
+  padding: 0.8rem;
+  background: linear-gradient(180deg, rgba(122,158,126,0.1), transparent);
+}
+
+.account-cards .body {
+  padding: 1.2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.account-cards .who {
+  font-family: var(--font-display);
+  color: var(--sage);
+  font-size: 1.1rem;
+}
+
+.account-cards .bank {
+  font-size: 0.8rem;
+  color: var(--text-light);
+}
+
+.account-cards .num {
+  font-family: monospace;
+  font-size: 1.05rem;
+}
+
+/* Footer */
+.ending {
+  padding: 4rem 1.5rem;
+  text-align: center;
+}
+
+.ending-content {
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+.ring {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-bottom: 1.2rem;
+}
+
+.ring span {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  color: var(--sage);
+}
+
+.ring .a { font-style: italic; font-size: 1.2rem; color: var(--text-light); }
+
+.phrase {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-med);
+  margin-bottom: 1rem;
+}
+
+.ending .date {
+  font-size: 0.85rem;
+  color: var(--sage);
+  letter-spacing: 0.15em;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+
+.reveal.active { opacity: 1; transform: translateY(0); }
+section[data-enabled="false"] { display: none !important; }

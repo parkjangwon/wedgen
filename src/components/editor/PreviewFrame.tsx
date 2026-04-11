@@ -163,7 +163,7 @@ export function PreviewFrame({
               title={`${templateName} 미리보기`}
               srcDoc={bridgedHtml}
               sandbox="allow-scripts allow-forms"
-              className="h-[calc(100%-36px)] w-full bg-white"
+              className="h-[calc(100%-36px)] w-full bg-transparent"
             />
           </div>
         </div>

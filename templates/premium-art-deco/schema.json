@@ -1,0 +1,110 @@
+{
+  "id": "premium-art-deco",
+  "name": "프리미엄 아트 데코",
+  "description": "1920년대 아트 데코 스타일의 화려한 기하학적 패턴과 골드 악센트. Cormorant Garamond 서체와 섬세한 타이포그래피로 5만원 이상의 프리미엄 청첩장 느낌을 구현했습니다.",
+  "version": "1.0.0",
+  "thumbnail": "thumbnail.svg",
+  "interaction": "scroll",
+  "sections": {
+    "available": ["hero", "greeting", "family", "timeline", "gallery", "schedule", "location", "account", "guestbook", "ending"],
+    "defaultOrder": ["hero", "greeting", "family", "gallery", "schedule", "location", "account", "ending"],
+    "required": ["hero"]
+  },
+  "fields": {
+    "기본 정보": {
+      "groomName": { "type": "text", "label": "신랑 이름", "required": true, "placeholder": "김민수" },
+      "brideName": { "type": "text", "label": "신부 이름", "required": true, "placeholder": "이수진" },
+      "weddingDate": { "type": "datetime", "label": "예식 일시", "required": true }
+    },
+    "첫 화면": {
+      "heroEyebrow": { "type": "text", "label": "상단 문구", "placeholder": "Wedding day" },
+      "heroTagline": { "type": "textarea", "label": "태그라인", "placeholder": "서로의 계절이 된 두 사람이 평생의 약속을 나눕니다." }
+    },
+    "인사말": {
+      "greetingTitle": { "type": "text", "label": "제목", "placeholder": "소중한 분들을 초대합니다" },
+      "greeting": { "type": "textarea", "label": "인사말", "placeholder": "서로 다른 시간과 취향으로 살아온 두 사람이..." }
+    },
+    "혼주": {
+      "groomFather": { "type": "text", "label": "신랑 아버지", "placeholder": "김건호" },
+      "groomMother": { "type": "text", "label": "신랑 어머니", "placeholder": "이미자" },
+      "brideFather": { "type": "text", "label": "신부 아버지", "placeholder": "이주명" },
+      "brideMother": { "type": "text", "label": "신부 어머니", "placeholder": "유수지" },
+      "familyNote": { "type": "textarea", "label": "추가 문구", "placeholder": "양가 부모님과 함께 감사한 마음으로..." }
+    },
+    "타임라인": {
+      "timelineTitle": { "type": "text", "label": "제목", "placeholder": "우리의 이야기" },
+      "timelineLead": { "type": "textarea", "label": "안내 문구", "placeholder": "서로에게 참 소중하고 감사한 존재가 되어가는 이야기입니다." },
+      "timelineEvents": { "type": "text", "label": "타임라인 (JSON)", "description": "JSON 형식: [{\"date\":\"2022-03\", \"title\":\"첫 만남\", \"description\":\"설명\"}]" }
+    },
+    "갤러리": {
+      "galleryTitle": { "type": "text", "label": "제목", "placeholder": "갤러리" },
+      "photos": { "type": "image[]", "label": "사진", "maxSize": "5MB" }
+    },
+    "일정/장소": {
+      "venue": { "type": "text", "label": "예식장", "placeholder": "그랜드볼룸" },
+      "hallDetail": { "type": "text", "label": "홀 정보", "placeholder": "3층 그랜드홀" },
+      "address": { "type": "text", "label": "주소", "placeholder": "서울 강남구 테헤란로 1" },
+      "venuePhone": { "type": "text", "label": "연락처", "placeholder": "02-1234-5678" },
+      "transport": { "type": "textarea", "label": "교통편", "placeholder": "2호선 역삼역 4번 출구 도보 5분" },
+      "parking": { "type": "text", "label": "주차", "placeholder": "지하주차장 2시간 무류" },
+      "mapType": { "type": "select", "label": "지도", "options": [{ "value": "kakao", "label": "카카오맵" }, { "value": "naver", "label": "네이버지도" }, { "value": "google", "label": "구글맵" }] },
+      "mapCoords": { "type": "latlng", "label": "좌표" }
+    },
+    "계좌": {
+      "accountTitle": { "type": "text", "label": "제목", "placeholder": "마음 전하실 곳" },
+      "accountIntro": { "type": "textarea", "label": "안내 문구", "placeholder": "참석이 어려우신 분들을 위해..." },
+      "groomAccount": { "type": "text", "label": "신랑 계좌" },
+      "groomFamilyAccount": { "type": "text", "label": "신랑측 부모 계좌" },
+      "brideAccount": { "type": "text", "label": "신부 계좌" },
+      "brideFamilyAccount": { "type": "text", "label": "신부측 부모 계좌" }
+    },
+    "방명록": {
+      "guestbookTitle": { "type": "text", "label": "제목", "placeholder": "축복의 한마디" },
+      "guestbookLead": { "type": "textarea", "label": "안내 문구", "placeholder": "멀리서 전해주시는 축하도..." },
+      "guestbookUrl": { "type": "url", "label": "방명록 URL", "validate": "ping" },
+      "rsvpUrl": { "type": "url", "label": "RSVP URL", "validate": "ping" }
+    },
+    "마무리": {
+      "endingTitle": { "type": "text", "label": "제목", "placeholder": "저희의 첫 장면을 함께해 주세요" },
+      "endingQuote": { "type": "textarea", "label": "문구", "placeholder": "서로의 오늘을 가장 다정한 내일로..." }
+    },
+    "BGM": {
+      "bgmEnabled": { "type": "select", "label": "BGM 사용", "options": [{ "value": "true", "label": "사용" }, { "value": "false", "label": "사용 안함" }] },
+      "bgmTrack": { "type": "select", "label": "BGM 선택", "options": [
+        { "value": "wedding-march", "label": "웨딩 마치 (묵)" },
+        { "value": "canon", "label": "캐논 변주곡 (묵)" },
+        { "value": "air-on-g", "label": "G선상의 아리아 (묵)" },
+        { "value": "ave-maria", "label": "아베 마리아 (묵)" },
+        { "value": "clair-de-lune", "label": "월광 (묵)" }
+      ]}
+    },
+    "스타일": {
+      "colorScheme": { "type": "select", "label": "컬러", "options": [{ "value": "gold-cream", "label": "골드/크림" }, { "value": "silver-white", "label": "실버/화이트" }, { "value": "rose-gold", "label": "로즈골드" }] },
+      "headingFont": { "type": "select", "label": "제목 폰트", "options": [{ "value": "cormorant", "label": "Cormorant Garamond" }, { "value": "playfair", "label": "Playfair Display" }, { "value": "noto-serif", "label": "Noto Serif KR" }] },
+      "bodyFont": { "type": "select", "label": "본문 폰트", "options": [{ "value": "noto-sans", "label": "Noto Sans KR" }, { "value": "pretendard", "label": "Pretendard" }] },
+      "animation": { "type": "select", "label": "애니메이션", "options": [{ "value": "fade", "label": "페이드 인" }, { "value": "slide", "label": "슬라이드 업" }, { "value": "scale", "label": "스케일" }] }
+    }
+  },
+  "style": {
+    "colorSchemes": [
+      { "value": "gold-cream", "label": "골드/크림", "primary": "#d4a574", "bg": "#faf8f5" },
+      { "value": "silver-white", "label": "실버/화이트", "primary": "#9ca3af", "bg": "#ffffff" },
+      { "value": "rose-gold", "label": "로즈골드", "primary": "#d4a5a5", "bg": "#fdf8f8" }
+    ],
+    "headingFonts": [
+      { "value": "cormorant", "label": "Cormorant Garamond", "provider": "google", "importUrl": "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap", "family": "Cormorant Garamond, serif" },
+      { "value": "playfair", "label": "Playfair Display", "provider": "google", "importUrl": "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap", "family": "Playfair Display, serif" },
+      { "value": "noto-serif", "label": "Noto Serif KR", "provider": "google", "importUrl": "https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600&display=swap", "family": "Noto Serif KR, serif" }
+    ],
+    "bodyFonts": [
+      { "value": "noto-sans", "label": "Noto Sans KR", "provider": "google", "importUrl": "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&display=swap", "family": "Noto Sans KR, sans-serif" },
+      { "value": "pretendard", "label": "Pretendard", "provider": "google", "importUrl": "https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css", "family": "Pretendard, -apple-system, sans-serif" }
+    ],
+    "animations": [
+      { "value": "fade", "label": "페이드 인" },
+      { "value": "slide", "label": "슬라이드 업" },
+      { "value": "scale", "label": "스케일" }
+    ]
+  },
+  "i18n": { "defaultLocale": "ko", "supported": ["ko"] }
+}

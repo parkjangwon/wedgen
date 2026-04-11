@@ -1,0 +1,492 @@
+/* Premium Monogram - Classic Elegance */
+
+:root {
+  --bg: #faf9f7;
+  --bg-2: #f5f3ef;
+  --text: #2c2c2c;
+  --text-light: #666;
+  --accent: #8b7355;
+  --border: #d4c8b8;
+  --border-light: #e8e2d9;
+  --white: #ffffff;
+  --frame: #c9b8a0;
+  
+  --font-display: "Playfair Display", serif;
+  --font-serif: "Cormorant Garamond", serif;
+  --font-kr: "Noto Serif KR", serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-kr);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+.invitation {
+  max-width: 480px;
+  margin: 0 auto;
+  position: relative;
+  background: var(--bg);
+  overflow-x: hidden;
+}
+
+.frame-out {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  border: 1px solid var(--frame);
+  pointer-events: none;
+  z-index: 100;
+}
+
+.frame-in {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  right: 18px;
+  bottom: 18px;
+  border: 1px solid var(--border);
+  pointer-events: none;
+  z-index: 100;
+}
+
+section {
+  padding: 60px 32px;
+}
+
+section[data-enabled="false"] {
+  display: none;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.section-header .sub {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.section-header .section-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--text);
+  letter-spacing: 2px;
+}
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 32px;
+}
+
+.hero-content {
+  width: 100%;
+}
+
+.mono-mark {
+  margin-bottom: 32px;
+}
+
+.mono-mark .char {
+  font-family: var(--font-display);
+  font-size: 64px;
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1;
+}
+
+.mono-mark .and {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  color: var(--accent);
+  margin: 0 8px;
+  font-style: italic;
+}
+
+.subtitle {
+  font-family: var(--font-serif);
+  font-size: 10px;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 16px;
+}
+
+.names {
+  font-family: var(--font-kr);
+  font-size: 28px;
+  font-weight: 300;
+  letter-spacing: 4px;
+  margin-bottom: 24px;
+}
+
+.names span {
+  display: inline-block;
+}
+
+.names .divider {
+  margin: 0 16px;
+  color: var(--accent);
+  font-weight: 300;
+}
+
+.date-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.date-bar .line {
+  width: 40px;
+  height: 1px;
+  background: var(--border);
+}
+
+.date-bar .date {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  letter-spacing: 3px;
+  color: var(--text-light);
+}
+
+.venue {
+  font-family: var(--font-kr);
+  font-size: 12px;
+  color: var(--text-light);
+  letter-spacing: 1px;
+}
+
+.greeting {
+  background: var(--bg-2);
+}
+
+.box-bordered {
+  border: 1px solid var(--border);
+  padding: 40px 28px;
+  position: relative;
+  background: var(--white);
+}
+
+.corner {
+  position: absolute;
+  font-size: 8px;
+  color: var(--accent);
+  opacity: 0.5;
+}
+
+.corner.tl { top: 12px; left: 12px; }
+.corner.tr { top: 12px; right: 12px; }
+.corner.bl { bottom: 12px; left: 12px; }
+.corner.br { bottom: 12px; right: 12px; }
+
+.greeting .section-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 28px;
+  letter-spacing: 2px;
+}
+
+.greeting .message {
+  font-family: var(--font-kr);
+  font-size: 15px;
+  line-height: 2.2;
+  text-align: center;
+  color: var(--text);
+  margin-bottom: 32px;
+  font-weight: 300;
+}
+
+.family {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.family .col {
+  text-align: center;
+  flex: 1;
+}
+
+.family .label {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.family .c {
+  font-family: var(--font-kr);
+  font-size: 17px;
+  font-weight: 400;
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+
+.family .p {
+  font-family: var(--font-kr);
+  font-size: 12px;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+.family .p span {
+  font-size: 11px;
+  color: var(--text-light);
+}
+
+.family .vline {
+  width: 1px;
+  height: 50px;
+  background: var(--border);
+}
+
+.schedule {
+  background: var(--bg);
+}
+
+.info-box {
+  border: 1px solid var(--border-light);
+  padding: 28px;
+  background: var(--white);
+}
+
+.info-box .row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 0;
+}
+
+.info-box .row:first-child { padding-top: 0; }
+.info-box .row:last-child { padding-bottom: 0; }
+
+.info-box .lab {
+  font-family: var(--font-serif);
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--accent);
+}
+
+.info-box .val {
+  font-family: var(--font-kr);
+  font-size: 15px;
+  color: var(--text);
+  font-weight: 400;
+}
+
+.info-box .s {
+  font-family: var(--font-kr);
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+.hline {
+  height: 1px;
+  background: var(--border-light);
+  margin: 0;
+}
+
+.gallery {
+  background: var(--bg-2);
+}
+
+.gallery-classic {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.gallery-classic .main {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: var(--border-light);
+  overflow: hidden;
+}
+
+.gallery-classic .placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--border-light) 0%, var(--border) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-classic .thumbs {
+  display: flex;
+  gap: 12px;
+}
+
+.gallery-classic .t {
+  flex: 1;
+  aspect-ratio: 1;
+  background: var(--border-light);
+  overflow: hidden;
+}
+
+.location {
+  background: var(--bg);
+}
+
+.loc-card {
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+  background: var(--white);
+}
+
+.loc-card .map {
+  width: 100%;
+  height: 180px;
+  background: var(--bg-2);
+}
+
+.loc-card .map .placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--border-light) 0%, var(--border) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loc-card .info {
+  padding: 24px;
+}
+
+.loc-card h3 {
+  font-family: var(--font-kr);
+  font-size: 17px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.loc-card .addr {
+  font-family: var(--font-kr);
+  font-size: 14px;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.loc-card .detail {
+  font-family: var(--font-kr);
+  font-size: 12px;
+  color: var(--text-light);
+  line-height: 1.8;
+}
+
+.account {
+  background: var(--bg-2);
+}
+
+.account-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.account-rows .r {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 24px;
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  font-family: var(--font-kr);
+  font-size: 14px;
+}
+
+.account-rows .w {
+  font-weight: 400;
+  color: var(--text);
+  min-width: 48px;
+}
+
+.account-rows .sep {
+  color: var(--border);
+}
+
+.account-rows .b {
+  color: var(--text-light);
+}
+
+.account-rows .n {
+  color: var(--accent);
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.ending {
+  background: var(--bg);
+  padding: 80px 32px;
+}
+
+.end-box {
+  text-align: center;
+}
+
+.mono-end {
+  margin-bottom: 24px;
+}
+
+.mono-end span {
+  font-family: var(--font-display);
+  font-size: 48px;
+  color: var(--text);
+}
+
+.mono-end .a {
+  font-size: 24px;
+  color: var(--accent);
+  margin: 0 8px;
+  font-style: italic;
+  font-family: var(--font-serif);
+}
+
+.quote {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  font-style: italic;
+  color: var(--accent);
+  margin-bottom: 12px;
+  letter-spacing: 2px;
+}
+
+.end-box .date {
+  font-family: var(--font-serif);
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: var(--text-light);
+}

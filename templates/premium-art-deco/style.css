@@ -1,0 +1,503 @@
+/* Art Deco - Premium Wedding Invitation */
+:root {
+  --bg: #0a0a0a;
+  --bg-elevated: #141414;
+  --text: #f5f0e8;
+  --text-secondary: #c9b896;
+  --text-muted: #8a7f6b;
+  --gold: #d4af37;
+  --gold-light: #f4e5c2;
+  --border: rgba(212, 175, 55, 0.3);
+  
+  --font-display: 'Playfair Display', serif;
+  --font-elegant: 'Cormorant Garamond', serif;
+  --font-body: 'Noto Serif KR', serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html {
+  font-size: 16px;
+  background: var(--bg);
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+  min-height: 100vh;
+}
+
+/* Hero */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.sunburst {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: repeating-conic-gradient(from 0deg, transparent 0deg 10deg, rgba(212,175,55,0.03) 10deg 20deg);
+  border-radius: 50%;
+  animation: rotate 120s linear infinite;
+}
+
+@keyframes rotate { to { transform: rotate(360deg); } }
+
+.hero-content {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.eyebrow-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.eyebrow-line .line {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.eyebrow-line .text {
+  font-family: var(--font-elegant);
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+}
+
+.names {
+  margin-bottom: 2.5rem;
+}
+
+.names .groom,
+.names .bride {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  display: block;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+.names .ampersand {
+  font-family: var(--font-elegant);
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--gold);
+  display: block;
+  margin: 0.5rem 0;
+  opacity: 0.8;
+}
+
+.date-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.date-ornament .diamond {
+  color: var(--gold);
+  font-size: 0.6rem;
+  opacity: 0.6;
+}
+
+.date-ornament .date {
+  font-family: var(--font-elegant);
+  font-size: 1rem;
+  letter-spacing: 0.3em;
+  color: var(--text-secondary);
+}
+
+.venue {
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* Sections Common */
+section {
+  padding: 5rem 1.5rem;
+}
+
+.divider-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.divider-ornament .line {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+
+.divider-ornament .symbol {
+  color: var(--gold);
+  font-size: 0.7rem;
+  opacity: 0.8;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 4vw, 1.8rem);
+  text-align: center;
+  letter-spacing: 0.1em;
+  margin-bottom: 2.5rem;
+  text-transform: uppercase;
+}
+
+/* Greeting */
+.greeting {
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-elevated) 100%);
+}
+
+.greeting-card {
+  max-width: 360px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.greeting-card .message {
+  font-size: 0.95rem;
+  line-height: 2.2;
+  color: var(--text-secondary);
+  margin-bottom: 2.5rem;
+}
+
+.family {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 1.5rem;
+}
+
+.family .side {
+  flex: 1;
+  text-align: center;
+}
+
+.family .label {
+  font-family: var(--font-elegant);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.family .child {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  margin-bottom: 0.3rem;
+}
+
+.family .parents {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.family .parents .deco {
+  color: var(--gold);
+  opacity: 0.5;
+  margin-right: 0.3rem;
+}
+
+.family .parents .suffix {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-left: 0.3rem;
+}
+
+.family .separator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.family .v-line {
+  width: 1px;
+  flex: 1;
+  background: linear-gradient(180deg, transparent, var(--border), transparent);
+  min-height: 40px;
+}
+
+/* Schedule */
+.schedule {
+  background: var(--bg-elevated);
+}
+
+.deco-card {
+  max-width: 340px;
+  margin: 0 auto;
+  background: rgba(26, 26, 26, 0.8);
+  border: 1px solid var(--border);
+  padding: 2rem;
+  position: relative;
+}
+
+.deco-card .corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 1px solid var(--gold);
+}
+
+.deco-card .corner.tl { top: 8px; left: 8px; border-right: none; border-bottom: none; }
+.deco-card .corner.tr { top: 8px; right: 8px; border-left: none; border-bottom: none; }
+.deco-card .corner.bl { bottom: 8px; left: 8px; border-right: none; border-top: none; }
+.deco-card .corner.br { bottom: 8px; right: 8px; border-left: none; border-top: none; }
+
+.deco-card .content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.deco-card .row {
+  text-align: center;
+}
+
+.deco-card .label {
+  display: block;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  margin-bottom: 0.3rem;
+}
+
+.deco-card .value {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  margin-bottom: 0.2rem;
+}
+
+.deco-card .sub {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.deco-card .h-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+
+/* Gallery */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+.gallery-grid .item.main {
+  grid-column: span 2;
+}
+
+.gallery-grid .item.main .image-placeholder {
+  aspect-ratio: 16/10;
+}
+
+.image-placeholder {
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+  border: 1px solid var(--border);
+}
+
+/* Location */
+.location-box {
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+.map-frame {
+  border: 1px solid var(--border);
+  padding: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.map-inner {
+  aspect-ratio: 16/9;
+  background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%);
+}
+
+.location-box .info {
+  text-align: center;
+}
+
+.location-box h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+}
+
+.location-box .address {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.location-box .details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.location-box .detail {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.location-box .detail .dot {
+  color: var(--gold);
+  margin-right: 0.5rem;
+}
+
+/* Account */
+.account {
+  background: linear-gradient(180deg, var(--bg-elevated) 0%, var(--bg) 100%);
+}
+
+.account .intro {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+.accounts {
+  max-width: 320px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.account-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: rgba(20, 20, 20, 0.8);
+  border: 1px solid var(--border);
+}
+
+.account-item .who {
+  font-family: var(--font-elegant);
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  min-width: 40px;
+}
+
+.account-item .info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.account-item .bank {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.account-item .number {
+  font-family: monospace;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+}
+
+/* Footer */
+.ending {
+  padding: 5rem 1.5rem;
+  text-align: center;
+}
+
+.ending-content {
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+.monogram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.monogram .letter {
+  width: 45px;
+  height: 45px;
+  border: 1px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--gold);
+}
+
+.monogram .amp {
+  font-family: var(--font-elegant);
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+.ending .phrase {
+  font-family: var(--font-elegant);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.ending .date {
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+}
+
+/* Utilities */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+section[data-enabled="false"] { display: none !important; }
